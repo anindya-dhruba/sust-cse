@@ -19,15 +19,10 @@
     </head>
 	
 	<body>
-		@include('includes.topNav')
-		<div class="container">
+        @include('includes.topNav')
+        <div class="container">
             <div class="row">
-                @include('includes.sideNav')
-                <div class="col-md-9">
-                	<div class="row">
-                    	@yield('content')
-                    </div>
-                </div>
+                @yield('content')
             </div>
             @include('includes.footer')
         </div>

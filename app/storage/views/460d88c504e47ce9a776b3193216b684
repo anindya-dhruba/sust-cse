@@ -19,14 +19,15 @@
     </head>
 	
 	<body>
-		<?php echo $__env->make('includes.topNav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<div class="navbar-wrapper">
+			<?php echo $__env->make('includes.topNav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		</div>
+			<?php echo $__env->make('includes.slider', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<div class="container">
             <div class="row">
                 <?php echo $__env->make('includes.sideNav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 <div class="col-md-9">
-                	<div class="row">
-                    	<?php echo $__env->yieldContent('content'); ?>
-                    </div>
+                    <?php echo $__env->yieldContent('content'); ?>
                 </div>
             </div>
             <?php echo $__env->make('includes.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

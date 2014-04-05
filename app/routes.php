@@ -12,3 +12,4 @@
 */
 
 Route::get('/', array('as' => 'home', 'uses' => 'pageController@home'));
+Route::get('/page/{pageName}', array('as' => 'home', 'uses' => 'pageController@show'));
