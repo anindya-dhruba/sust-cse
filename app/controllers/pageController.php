@@ -1,16 +1,22 @@
 <?php
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class PageController extends BaseController {
 
-	public function home()
+	public function show($pageName = 'home')
 	{
-		return View::make('pages.home')
-						->with('title', 'Home');
-	}
+		try
+		{
+		    $page = Page::where('url', '=', $pageName)->firstOrFail();
 
-	public function show($pageName)
-	{
-		return View::make('pages.'.$pageName)
-						->with('title', 'Home');
+		    return View::make('pages.show')
+						->with('title', 'Home')
+						->with('page', $page);
+		}
+		catch(ModelNotFoundException $e)
+		{
+		   return "Page not found.";
+		}
 	}
 }

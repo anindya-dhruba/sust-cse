@@ -1,13 +1,13 @@
-@if($success = Session::get('success'))
+<?php if($success = Session::get('success')): ?>
     <div class="alert alert-success alert-dismissable fade in">
 	  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	  	{{ $success }}
+	  	<?php echo $success; ?>
 	</div>
-@endif
+<?php endif; ?>
 
-@if($error = Session::get('error'))
+<?php if($error = Session::get('error')): ?>
     <div class="alert alert-danger alert-dismissable fade in">
 	  	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	  	{{ $error }}
+	  	<?php echo $error; ?>
 	</div>
-@endif
+<?php endif; ?>

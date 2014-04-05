@@ -57,8 +57,34 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Auth::check()) return Redirect::to('home');
 });
+
+Route::filter('student', function()
+{
+	if (Auth::user()->role_id != 5) return Redirect::to('home');
+});
+
+Route::filter('stuff', function()
+{
+	if (Auth::user()->role_id != 4) return Redirect::to('home');
+});
+
+Route::filter('faculty', function()
+{
+	if (Auth::user()->role_id != 3) return Redirect::to('home');
+});
+
+Route::filter('head', function()
+{
+	if (Auth::user()->role_id != 2) return Redirect::to('home');
+});
+
+Route::filter('admin', function()
+{
+	if (Auth::user()->role_id != 1) return Redirect::to('home');
+});
+
 
 /*
 |--------------------------------------------------------------------------
