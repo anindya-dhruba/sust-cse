@@ -8,13 +8,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{ Config::get('myConfig.siteName') }}</a>
+            <a class="navbar-brand" href="{{ URL::route('home') }}">{{ Config::get('myConfig.siteName') }}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Login</a></li>
+                @if(!Auth::check())
+                    <li><a href="{{ URL::route('login') }}">Login</a></li>
+                @else
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="{{ URL::route('logout') }}">Logout</a></li>
+                @endif
             </ul>
         </div>
     </div>
