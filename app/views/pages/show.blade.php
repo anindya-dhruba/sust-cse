@@ -1,10 +1,28 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('pages') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Pages
+				</a>
+			</h3>
+		</div>
+		<hr/>
+		@include('includes.alert')
+		<h4>Page Title:</h4>
+		{{ $page->title }}
+		<hr/>
+		<h4>Page Url:</h4>
+		{{ URL::route('home') }}/{{$page->url }}
+		<hr/>
+		<h4>Content:</h4>
+		<div class="well">{{ $page->content }}</div>
+		<hr/>
+		<a href="{{ URL::route('pages.edit', array('pageUrl' => $page->url)) }}" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
+				<span class="glyphicon glyphicon-edit"></span> Edit this Page
+			</a>
+	</div>
 @stop

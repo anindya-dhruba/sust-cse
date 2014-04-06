@@ -21,7 +21,7 @@
 	          	{{ Form::error($errors, 'password') }}
 	        </div>
         	
-        	{{ Form::submit('Login',array('class' => 'btn btn-primary btn-lg')) }}
+        	{{ Form::submit('Login',array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Logging in...')) }}
       	
       	{{ Form::close() }}
 
