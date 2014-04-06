@@ -34,3 +34,17 @@ a
 {
 	padding: 10px;
 }
+.page-header
+{
+	margin: 5px 0 10px;
+	border-bottom: 0px;
+}
+.page-header h3
+{
+	font-size: 30px;
+	margin-top: 0px;
+}
+.table th, .table td
+{
+	text-align: center;
+}

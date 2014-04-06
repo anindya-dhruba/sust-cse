@@ -20,7 +20,7 @@
 	          	<?php echo Form::error($errors, 'password'); ?>
 	        </div>
         	
-        	<?php echo Form::submit('Login',array('class' => 'btn btn-primary btn-lg')); ?>
+        	<?php echo Form::submit('Login',array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Logging in...')); ?>
       	
       	<?php echo Form::close(); ?>
 
