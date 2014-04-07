@@ -8,9 +8,15 @@
 			</h3>
 		</div>
 
-		<div class="alert alert-success" id="msg">
-			Drag and reposition the menu items below
-		</div>
+		@if(count($pages) == 0)
+			<div class="alert alert-danger" id="msg">
+				No Page found. Try adding one first and make it publicly visible.
+			</div>
+		@else
+			<div class="alert alert-success" id="msg">
+				Drag and reposition the menu items below
+			</div>
+		@endif
 
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">

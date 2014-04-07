@@ -40,6 +40,7 @@ Route::group(array('before' => 'auth|head'), function()
 // for admin
 Route::group(array('before' => 'auth|admin'), function()
 {
+	// pages
 	Route::get('pages', array('as' => 'pages', 'uses' => 'PageController@index'));
 	Route::get('pages/add', array('as' => 'pages.add', 'uses' => 'PageController@add'));
 	Route::post('pages/add', array('uses' => 'PageController@doAdd'));
@@ -47,11 +48,20 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('pages/{pageUrl}/edit', array('as' => 'pages.edit', 'uses' => 'PageController@edit'));
 	Route::put('pages/{pageUrl}/edit', array('uses' => 'PageController@doEdit'));
 	Route::delete('pages/{pageUrl}', array('as' => 'pages.delete', 'uses' => 'PageController@delete'));
-	
+	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
+
+	// build menu
 	Route::get('build-menu', array('as' => 'pages.buildMenu', 'uses' => 'PageController@buildMenu'));
 	Route::post('build-menu', array('uses' => 'PageController@doBuildMenu'));
 
-	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
+	// batch
+	Route::get('batches', array('as' => 'batches', 'uses' => 'BatchController@index'));
+	Route::get('batches/add', array('as' => 'batches.add', 'uses' => 'BatchController@add'));
+	Route::post('batches/add', array('uses' => 'BatchController@doAdd'));
+	Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'BatchController@show'));
+	Route::get('batches/{year}/edit', array('as' => 'batches.edit', 'uses' => 'BatchController@edit'));
+	Route::put('batches/{year}/edit', array('uses' => 'BatchController@doEdit'));
+	Route::delete('batches/{year}', array('as' => 'batches.delete', 'uses' => 'BatchController@delete'));
 });
 
 

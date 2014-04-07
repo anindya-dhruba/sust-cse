@@ -24,7 +24,7 @@
 	        	{{ Form::label('visible', 'Visibility *') }}
 		        <div class="checkbox">
 				    <label>
-						{{ Form::checkbox('visible', '1', true) }} This Page is visible publically and show to public menu
+						{{ Form::checkbox('visible', '1', true) }} This Page is visible publicly and show to public menu
 				    </label>
 			  	</div>
 			</div>
