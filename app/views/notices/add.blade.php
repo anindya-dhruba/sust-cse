@@ -5,13 +5,13 @@
 		<div class="page-header">
 			<h3>
 				{{ $title }}
-				<a href="{{ URL::route('pages') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-chevron-left"></span> View All Pages
+				<a href="{{ URL::route('notices') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Notices
 				</a>
 			</h3>
 		</div>
 
-		{{ Form::open(array('route' => 'pages.add')) }}
+		{{ Form::open(array('route' => 'notices.add')) }}
 
 			@include('includes.alert')
 	        <div class="form-group">
@@ -20,31 +20,24 @@
 	          	{{ Form::error($errors, 'title') }}
 	        </div>
 
-	        <div class="form-group">
-	        	{{ Form::label('visible', 'Visibility *') }}
-		        <div class="checkbox">
-				    <label>
-						{{ Form::checkbox('visible', '1', true) }} This Page is visible publically and show to public menu
-				    </label>
-			  	</div>
-			</div>
+	        
 	        
 	        <div class="form-group">
 	        	{{ Form::label('url', 'Url *') }}
 	        	<div class="input-group">
-			      	<span class="input-group-addon"> {{ Url::route('pages') }}/</span>
+			      	<span class="input-group-addon"> {{ Url::route('notices') }}/</span>
 			      	{{ Form::text('url', '', array('class' => 'form-control url')) }}
 			    </div>
 			    {{ Form::error($errors, 'url') }}
 	        </div>
 
 	        <div class="form-group">
-	          	{{ Form::label('content', 'Content *') }}
-	          	{{ Form::textarea('content', '', array('class' => 'form-control editor')) }}
-	          	{{ Form::error($errors, 'content') }}
+	          	{{ Form::label('notice', 'Notice *') }}
+	          	{{ Form::textarea('notice', '', array('class' => 'form-control editor')) }}
+	          	{{ Form::error($errors, 'notice') }}
 	        </div>
         	
-        	{{ Form::submit('Add Page', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
+        	{{ Form::submit('Add Notice', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
 
 		{{ Form::close() }}
 	</div>

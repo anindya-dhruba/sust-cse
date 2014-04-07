@@ -52,6 +52,12 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::post('build-menu', array('uses' => 'PageController@doBuildMenu'));
 
 	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
+
+	//Notice Route Add
+	Route::get('notices', array('as' => 'notices', 'uses' => 'NoticeController@index'));
+	Route::get('notices/add', array('as' => 'notices.add', 'uses' => 'NoticeController@add'));
+	Route::post('notices/add', array('uses' => 'NoticeController@doAdd'));
+	Route::get('notices/{pageUrl}', array('as' => 'notices.show', 'uses' => 'NoticeController@show'));
 });
 
 
