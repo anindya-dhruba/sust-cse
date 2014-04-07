@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.default')
 
 @section('content')
 	<div class="col-md-12">
@@ -14,6 +14,7 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
+					<th>Visible</th>
 					<th>Title</th>
 					<th>Url</th>
 					<th>Content</th>
@@ -23,6 +24,13 @@
 			<tbody>
 				@foreach($pages as $page)
 					<tr>
+						<td>
+							@if($page->is_visible)
+								<span class="glyphicon glyphicon-ok text-success"></span>
+							@else
+								<span class="glyphicon glyphicon-remove text-danger"></span>
+							@endif
+						</td>
 						<td>{{ $page->title }}</td>
 						<td>{{ $page->url }}</td>
 						<td>{{ Str::limit(strip_tags($page->content), 80, '...') }}</td>

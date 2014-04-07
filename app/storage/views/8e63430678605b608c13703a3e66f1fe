@@ -1,0 +1,58 @@
+
+<?php $__env->startSection('content'); ?>
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				<?php echo $title; ?>
+			</h3>
+		</div>
+
+		<div class="alert alert-success" id="msg">
+			Drag and reposition the menu items below
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<ul class="list-group" id="all_menus">
+					<?php foreach ($pages as $key => $page): ?>
+					  	<li class="list-group-item" id="orders_<?php echo $page->id; ?>"><span class="glyphicon glyphicon-move"></span> <?php echo $page->title; ?></li>
+					<?php endforeach; ?>
+				</ul>	
+			</div>
+		</div>
+		
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() { 
+			$("#all_menus").sortable(
+				{
+					opacity: .7,
+					cursor: 'move',
+					update: function() {
+						var order = $(this).sortable("serialize");
+
+						$.post("<?php echo URL::route('pages.buildMenu'); ?>", order, function(response) {
+							$("#msg").html(response);
+
+							window.setTimeout(function () {
+							    $("#msg").html('Drag and reposition the menu items below');
+							}, 3000);
+
+						});
+				}		  
+			});
+		});
+	</script>
+
+
+	<style type="text/css">
+	#all_menus
+	{
+		cursor: move;
+	}
+	</style>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

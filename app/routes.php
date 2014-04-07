@@ -47,6 +47,9 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('pages/{pageUrl}/edit', array('as' => 'pages.edit', 'uses' => 'PageController@edit'));
 	Route::put('pages/{pageUrl}/edit', array('uses' => 'PageController@doEdit'));
 	Route::delete('pages/{pageUrl}', array('as' => 'pages.delete', 'uses' => 'PageController@delete'));
+	
+	Route::get('build-menu', array('as' => 'pages.buildMenu', 'uses' => 'PageController@buildMenu'));
+	Route::post('build-menu', array('uses' => 'PageController@doBuildMenu'));
 
 	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
 });
@@ -55,6 +58,6 @@ Route::group(array('before' => 'auth|admin'), function()
 
 // public pages [ keep them at last]
 Route::get('/', array('as' => 'home', 'uses' => 'PublicController@show'));
-// Route::get('{pageName}', array('uses' => 'PageController@show'));
+Route::get('{pageName}', array('uses' => 'PublicController@show'));
 
 
