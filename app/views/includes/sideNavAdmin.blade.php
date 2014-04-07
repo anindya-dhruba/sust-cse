@@ -1,6 +1,0 @@
-<div class="col-md-3">
-	<div class="list-group">
-		<a href="#" class="list-group-item active">Dashboard</a>
-  		<a href="{{ URL::route('pages') }}" class="list-group-item">Pages</a>
-	</div>
-</div>

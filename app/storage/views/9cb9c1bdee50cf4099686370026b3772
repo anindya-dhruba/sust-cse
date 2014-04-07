@@ -17,6 +17,8 @@
                 <?php if(!Auth::check()): ?>
                     <li><a href="<?php echo URL::route('login'); ?>">Login</a></li>
                 <?php else: ?>
+                    <li><a href="<?php echo URL::route('pages.buildMenu'); ?>">Build Menu</a></li>
+                    <li><a href="<?php echo URL::route('pages'); ?>">Pages</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="<?php echo URL::route('logout'); ?>">Logout</a></li>
                 <?php endif; ?>

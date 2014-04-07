@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.default')
 
 @section('content')
 	<div class="col-md-12">
@@ -16,11 +16,21 @@
 			@include('includes.alert')
 
 			{{ Form::hidden('pageId', $page->id) }}
+	        
 	        <div class="form-group">
 	          	{{ Form::label('title', 'Title *') }}
 	          	{{ Form::text('title', $page->title, array('class' => 'form-control title')) }}
 	          	{{ Form::error($errors, 'title') }}
 	        </div>
+
+	        <div class="form-group">
+	        	{{ Form::label('visible', 'Visibility *') }}
+		        <div class="checkbox">
+				    <label>
+						{{ Form::checkbox('visible', '1', $page->is_visible) }} This Page is visible publically and show to public menu
+				    </label>
+			  	</div>
+			</div>
 	        
 	        <div class="form-group">
 	        	{{ Form::label('url', 'Url *') }}

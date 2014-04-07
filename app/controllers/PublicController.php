@@ -15,8 +15,8 @@ class PublicController extends BaseController {
 		{
 		    $page = Page::where('url', '=', $pageUrl)->firstOrFail();
 
-		    return View::make('pages.show')
-						->with('title', "View $page->title Page")
+		    return View::make('public.pages.show')
+						->with('title', "$page->title")
 						->with('page', $page);
 		}
 		catch(ModelNotFoundException $e)

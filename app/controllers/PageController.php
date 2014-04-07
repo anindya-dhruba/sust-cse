@@ -48,9 +48,10 @@ class PageController extends BaseController {
 		else
 		{
 			$page = new Page;
-			$page->title   = Input::get('title');
-			$page->url     = Input::get('url');
-			$page->content = Input::get('content');
+			$page->title      = Input::get('title');
+			$page->is_visible = Input::get('visible', 0);
+			$page->url        = Input::get('url');
+			$page->content    = Input::get('content');
 
 			if($page->save())
 			    return Redirect::route('pages.show', array('pageUrl' => $page->url))
@@ -138,9 +139,11 @@ class PageController extends BaseController {
 		else
 		{
 			$page = Page::where('url', '=', $pageUrl)->first();
-			$page->title   = Input::get('title');
-			$page->url     = Input::get('url');
-			$page->content = Input::get('content');
+			$page->title      = Input::get('title');
+			$page->is_visible = Input::get('visible', 0);
+			$page->url        = Input::get('url');
+			$page->content    = Input::get('content');
+			if($page->is_visible == 0) $page->order = null;
 
 			if($page->save())
 			    return Redirect::route('pages.show', array('pageUrl' => $page->url))
@@ -166,5 +169,36 @@ class PageController extends BaseController {
 		else
 			return Redirect::route('pages')
 								->with('errors', 'Some error occured. Try again.');
+	}
+
+	/**
+	 * show build menu page
+	 * @return void
+	 */
+	public function buildMenu()
+	{
+		$pages = Menu::getPublicPages();
+
+		return View::make('pages.buildMenu')
+						->with('title', 'Menus')
+						->with('pages', $pages);
+	}
+
+	/**
+	 * Do build menu
+	 * @return string
+	 */
+	public function doBuildMenu()
+	{
+		$orders = Input::get('orders');
+
+		foreach ($orders as $key => $order)
+		{
+			$page = Page::find($order);
+			$page->order = $key+1;
+			$page->save();
+		}
+
+		return 'Menus has been updated. Refresh the sidebar to see.';
 	}
 }
