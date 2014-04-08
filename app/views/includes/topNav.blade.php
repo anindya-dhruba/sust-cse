@@ -23,6 +23,7 @@
                         <li><a href="{{ URL::route('pages') }}">Pages</a></li>
                         <li><a href="{{ URL::route('pages.buildMenu') }}">Menus</a></li>
                         <li><a href="{{ URL::route('batches') }}">Batches</a></li>
+                        <li><a href="{{ URL::route('faq') }}">FAQ's</a></li>
                     @endif
 
                     <li><a href="#">Profile</a></li>
