@@ -32,7 +32,7 @@
 							</a>
 						</td>
 						<td>
-	        				<a href="{{ URL::route('pages.edit', array('pageUrl' => $notice->url)) }}" class='btn btn-warning btn-sm'>
+	        				<a href="{{ URL::route('notices.edit', array('pageUrl' => $notice->url)) }}" class='btn btn-warning btn-sm'>
 	        					<span class="glyphicon glyphicon-edit"></span>
 	        				</a>
 	        			</td>
@@ -58,10 +58,10 @@
 		        	<h4 class="modal-title" id="myModalLabel">Confirmation</h4>
 		      	</div>
 		      	<div class="modal-body">
-					Are you sure to delete this page?
+					Are you sure to delete this notice?
 		      	</div>
 		      	<div class="modal-footer">
-		        	{{ Form::open(array('route' => array('pages.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
+		        	{{ Form::open(array('route' => array('notices.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
 		        		<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 		        		{{ Form::submit('Yes, Delete', array('class' => 'btn btn-success')) }}
 		        	{{ Form::close() }}
@@ -76,7 +76,7 @@
 		// delete a page
 		$('.deleteBtn').click(function() {
 			var deletePageUrl = $(this).attr('deletePageUrl');
-			var url = "<?php echo URL::route('pages'); ?>";
+			var url = "<?php echo URL::route('notices'); ?>";
 			$(".deleteForm").attr("action", url+'/'+deletePageUrl);
 		});
 

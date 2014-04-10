@@ -21,7 +21,7 @@
 		<h4>Content:</h4>
 		<div class="well">{{ $notice->notice }}</div>
 		<hr/>
-		<a href="{{ URL::route('pages.edit', array('pageUrl' => $notice->url)) }}" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
+		<a href="{{ URL::route('notices.edit', array('pageUrl' => $notice->url)) }}" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
 				<span class="glyphicon glyphicon-edit"></span> Edit this Notice
 			</a>
 	</div>

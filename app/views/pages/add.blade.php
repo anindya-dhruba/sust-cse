@@ -32,7 +32,7 @@
 	        <div class="form-group">
 	        	{{ Form::label('url', 'Url *') }}
 	        	<div class="input-group">
-			      	<span class="input-group-addon"> {{ Url::route('pages') }}/</span>
+			      	<span class="input-group-addon"> {{ Url::route('home') }}/</span>
 			      	{{ Form::text('url', '', array('class' => 'form-control url')) }}
 			    </div>
 			    {{ Form::error($errors, 'url') }}

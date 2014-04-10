@@ -58,6 +58,11 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('notices/add', array('as' => 'notices.add', 'uses' => 'NoticeController@add'));
 	Route::post('notices/add', array('uses' => 'NoticeController@doAdd'));
 	Route::get('notices/{pageUrl}', array('as' => 'notices.show', 'uses' => 'NoticeController@show'));
+	Route::get('notices/{pageUrl}/edit', array('as' => 'notices.edit', 'uses' => 'NoticeController@edit'));
+	Route::put('notices/{pageUrl}/edit', array('uses' => 'NoticeController@doEdit'));
+	Route::delete('notices/{pageUrl}', array('as' => 'notices.delete', 'uses' => 'NoticeController@delete'));
+
+	Route::post('notices/slug', array('as' => 'notices.slug', 'uses' => 'NoticeController@slug'));
 });
 
 

@@ -11,42 +11,43 @@
 			</h3>
 		</div>
 
-		{{ Form::open(array('route' => 'notices.add')) }}
+		{{ Form::open(array('route' => array('notices.edit',  $notice->url), 'method' => 'put')) }}
 
 			@include('includes.alert')
+
+			{{ Form::hidden('noticeId', $notice->id) }}
+	        
 	        <div class="form-group">
 	          	{{ Form::label('title', 'Title *') }}
-	          	{{ Form::text('title', '', array('class' => 'form-control title')) }}
+	          	{{ Form::text('title', $notice->title, array('class' => 'form-control title')) }}
 	          	{{ Form::error($errors, 'title') }}
 	        </div>
 
-	        
+	  
 	        
 	        <div class="form-group">
 	        	{{ Form::label('url', 'Url *') }}
 	        	<div class="input-group">
 			      	<span class="input-group-addon"> {{ Url::route('notices') }}/</span>
-			      	{{ Form::text('url', '', array('class' => 'form-control url')) }}
+			      	{{ Form::text('url', $notice->url, array('class' => 'form-control url')) }}
 			    </div>
 			    {{ Form::error($errors, 'url') }}
 	        </div>
 
 	        <div class="form-group">
 	          	{{ Form::label('notice', 'Notice *') }}
-	          	{{ Form::textarea('notice', '', array('class' => 'form-control editor')) }}
-	          	{{ Form::error($errors, 'notice') }}
+	          	{{ Form::textarea('notice', $notice->notice, array('class' => 'form-control editor')) }}
+	          	{{ Form::error($errors, 'content') }}
 	        </div>
         	
-        	{{ Form::submit('Add Notice', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
+        	{{ Form::submit('Update Notice', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
 
 		{{ Form::close() }}
 	</div>
 
-
-	
-
 	<script type="text/javascript">
 		$(document).ready(function() {
+
 			// gets slug/url
 			$('.title').on('input', function() {
 				$.post("{{ URL::route('notices.slug')}}", { title: $(this).val() })
