@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class NoticeController extends BaseController {
+	
 	/**
 	 * View all notices
 	 * @return void
