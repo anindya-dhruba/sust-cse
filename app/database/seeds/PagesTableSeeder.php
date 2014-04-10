@@ -6,9 +6,11 @@ class PagesTableSeeder extends Seeder {
 	{
 		$pages = array(
 			array(
-				'title'      =>		'Admission',
-				'url'        =>		'admission',
-				'content'    =>		'Admission Details',
+				'title'      =>		'Home',
+				'url'        =>		'home',
+				'content'    =>		'Home Details Details',
+				'is_visible' => 	1,
+				'order'		 =>		1,
 				'created_at' => 	date('Y-m-d H-i-s'),
 				'updated_at' => 	date('Y-m-d H-i-s')
 			)
