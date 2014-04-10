@@ -17,20 +17,14 @@
                 @if(!Auth::check())
                     <li><a href="{{ URL::route('login') }}">Login</a></li>
                 @else
-<<<<<<< HEAD
-                    <li><a href="{{ URL::route('pages.buildMenu') }}">Build Menu</a></li>
-                    <li><a href="{{ URL::route('pages') }}">Pages</a></li>
-                    <li><a href="{{ URL::route('notices') }}">Notices</a></li>
-=======
-
                     <!-- admin -->
                     @if(Session::get('role') == 1)
+                        <li><a href="{{ URL::route('notices') }}">Notices</a></li>
                         <li><a href="{{ URL::route('pages') }}">Pages</a></li>
                         <li><a href="{{ URL::route('pages.buildMenu') }}">Menus</a></li>
                         <li><a href="{{ URL::route('batches') }}">Batches</a></li>
                     @endif
 
->>>>>>> master
                     <li><a href="#">Profile</a></li>
                     <li><a href="{{ URL::route('logout') }}">Logout</a></li>
                 @endif

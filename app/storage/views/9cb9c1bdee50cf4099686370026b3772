@@ -17,6 +17,11 @@
                 <?php if(!Auth::check()): ?>
                     <li><a href="<?php echo URL::route('login'); ?>">Login</a></li>
                 <?php else: ?>
+<<<<<<< HEAD
+                    <li><a href="<?php echo URL::route('pages.buildMenu'); ?>">Build Menu</a></li>
+                    <li><a href="<?php echo URL::route('pages'); ?>">Pages</a></li>
+                    <li><a href="<?php echo URL::route('notices'); ?>">Notices</a></li>
+=======
 
                     <!-- admin -->
                     <?php if(Session::get('role') == 1): ?>
@@ -25,6 +30,7 @@
                         <li><a href="<?php echo URL::route('batches'); ?>">Batches</a></li>
                     <?php endif; ?>
 
+>>>>>>> master
                     <li><a href="#">Profile</a></li>
                     <li><a href="<?php echo URL::route('logout'); ?>">Logout</a></li>
                 <?php endif; ?>

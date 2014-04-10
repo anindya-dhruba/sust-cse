@@ -21,5 +21,8 @@
 		<a href="#" class="list-group-item">
 		    Students
 		</a>
+		<a href="#" class="list-group-item">
+		    Notices
+		</a>
 	</div>
 </div>
