@@ -54,6 +54,29 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('build-menu', array('as' => 'pages.buildMenu', 'uses' => 'PageController@buildMenu'));
 	Route::post('build-menu', array('uses' => 'PageController@doBuildMenu'));
 
+	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
+
+	//Notice Route Add
+	Route::get('notices', array('as' => 'notices', 'uses' => 'NoticeController@index'));
+	Route::get('notices/add', array('as' => 'notices.add', 'uses' => 'NoticeController@add'));
+	Route::post('notices/add', array('uses' => 'NoticeController@doAdd'));
+	Route::get('notices/{pageUrl}', array('as' => 'notices.show', 'uses' => 'NoticeController@show'));
+	Route::get('notices/{pageUrl}/edit', array('as' => 'notices.edit', 'uses' => 'NoticeController@edit'));
+	Route::put('notices/{pageUrl}/edit', array('uses' => 'NoticeController@doEdit'));
+	Route::delete('notices/{pageUrl}', array('as' => 'notices.delete', 'uses' => 'NoticeController@delete'));
+
+	Route::post('notices/slug', array('as' => 'notices.slug', 'uses' => 'NoticeController@slug'));
+
+	// faq
+	Route::get('faq', array('as' => 'faq', 'uses' => 'FaqController@index'));
+	Route::get('faq/add', array('as' => 'faq.add', 'uses' => 'FaqController@add'));
+	Route::post('faq/add', array('uses' => 'FaqController@doAdd'));
+	Route::get('faq/{pageUrl}', array('as' => 'faq.show', 'uses' => 'FaqController@show'));
+	Route::get('faq/{pageUrl}/edit', array('as' => 'faq.edit', 'uses' => 'FaqController@edit'));
+	Route::put('faq/{pageUrl}/edit', array('uses' => 'FaqController@doEdit'));
+	Route::delete('faq/{pageUrl}', array('as' => 'faq.delete', 'uses' => 'FaqController@delete'));
+	Route::post('faq/slug', array('as' => 'faq.slug', 'uses' => 'FaqController@slug'));
+
 	// batch
 	Route::get('batches', array('as' => 'batches', 'uses' => 'BatchController@index'));
 	Route::get('batches/add', array('as' => 'batches.add', 'uses' => 'BatchController@add'));

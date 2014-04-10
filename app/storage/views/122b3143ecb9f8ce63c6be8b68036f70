@@ -1,0 +1,33 @@
+
+<?php $__env->startSection('content'); ?>
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				<?php echo $title; ?>
+				<a href="<?php echo URL::route('faq'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> View All FAQ's
+				</a>
+			</h3>
+		</div>
+		<hr/>
+		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+		<h4>FAQ Url:</h4>
+		<?php echo URL::route('faq'); ?>/<?php echo $faq->url; ?>
+		<hr/>
+
+
+		<h4>Question :</h4>
+		<?php echo $faq->question; ?>
+		<hr/>
+
+		
+		<h4>Answer :</h4>
+		<?php echo $faq->answer; ?>
+		<hr/>
+		<a href="<?php echo URL::route('faq.edit', array('pageUrl' => $faq->url)); ?>" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
+				<span class="glyphicon glyphicon-edit"></span> Edit this FAQ
+			</a>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

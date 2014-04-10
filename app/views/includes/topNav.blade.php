@@ -17,12 +17,13 @@
                 @if(!Auth::check())
                     <li><a href="{{ URL::route('login') }}">Login</a></li>
                 @else
-
                     <!-- admin -->
                     @if(Session::get('role') == 1)
+                    	<li><a href="{{ URL::route('notices') }}">Notices</a></li>
                         <li><a href="{{ URL::route('pages') }}">Pages</a></li>
                         <li><a href="{{ URL::route('pages.buildMenu') }}">Menus</a></li>
                         <li><a href="{{ URL::route('batches') }}">Batches</a></li>
+                        <li><a href="{{ URL::route('faq') }}">FAQ's</a></li>
                     @endif
 
                     <li><a href="#">Profile</a></li>
