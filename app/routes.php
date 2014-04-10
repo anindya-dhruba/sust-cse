@@ -54,7 +54,6 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('build-menu', array('as' => 'pages.buildMenu', 'uses' => 'PageController@buildMenu'));
 	Route::post('build-menu', array('uses' => 'PageController@doBuildMenu'));
 
-<<<<<<< HEAD
 	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
 
 	//Notice Route Add
@@ -67,7 +66,7 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::delete('notices/{pageUrl}', array('as' => 'notices.delete', 'uses' => 'NoticeController@delete'));
 
 	Route::post('notices/slug', array('as' => 'notices.slug', 'uses' => 'NoticeController@slug'));
-=======
+
 	// batch
 	Route::get('batches', array('as' => 'batches', 'uses' => 'BatchController@index'));
 	Route::get('batches/add', array('as' => 'batches.add', 'uses' => 'BatchController@add'));
@@ -76,7 +75,6 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('batches/{year}/edit', array('as' => 'batches.edit', 'uses' => 'BatchController@edit'));
 	Route::put('batches/{year}/edit', array('uses' => 'BatchController@doEdit'));
 	Route::delete('batches/{year}', array('as' => 'batches.delete', 'uses' => 'BatchController@delete'));
->>>>>>> master
 });
 
 

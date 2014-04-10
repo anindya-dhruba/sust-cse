@@ -12050,3 +12050,7 @@ Stack trace:
 #13 {main} [] []
 =======
 >>>>>>> master
+[2014-04-10 16:01:52] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '<<' (T_SL)' in /Users/anindya/laravel/sust-cse/app/routes.php:57
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
