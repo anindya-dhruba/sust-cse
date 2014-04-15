@@ -6,8 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddPicIdColumnAtUsersTable' => $baseDir . '/app/database/migrations/2014_04_15_065252_add_pic_id_column_at_users_table.php',
     'AlbumsTableSeeder' => $baseDir . '/app/database/seeds/AlbumsTableSeeder.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
+    'Batch' => $baseDir . '/app/models/Batch.php',
+    'BatchController' => $baseDir . '/app/controllers/BatchController.php',
     'BatchesTableSeeder' => $baseDir . '/app/database/seeds/BatchesTableSeeder.php',
     'CoursesTableSeeder' => $baseDir . '/app/database/seeds/CoursesTableSeeder.php',
     'CreateAlbumsTable' => $baseDir . '/app/database/migrations/2014_04_05_105452_create_albums_table.php',
@@ -28,8 +31,12 @@ return array(
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'DownloadsTableSeeder' => $baseDir . '/app/database/seeds/DownloadsTableSeeder.php',
     'FacultyTableSeeder' => $baseDir . '/app/database/seeds/FacultyTableSeeder.php',
+    'Faq' => $baseDir . '/app/models/Faq.php',
+    'FaqController' => $baseDir . '/app/controllers/FaqController.php',
     'FaqTableSeeder' => $baseDir . '/app/database/seeds/FaqTableSeeder.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+    'Notice' => $baseDir . '/app/models/Notice.php',
+    'NoticeController' => $baseDir . '/app/controllers/NoticeController.php',
     'NoticesTableSeeder' => $baseDir . '/app/database/seeds/NoticesTableSeeder.php',
     'Page' => $baseDir . '/app/models/Page.php',
     'PageController' => $baseDir . '/app/controllers/PageController.php',
@@ -38,6 +45,8 @@ return array(
     'PublicController' => $baseDir . '/app/controllers/PublicController.php',
     'RolesTableSeeder' => $baseDir . '/app/database/seeds/RolesTableSeeder.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
+    'Student' => $baseDir . '/app/models/Student.php',
+    'StudentController' => $baseDir . '/app/controllers/StudentController.php',
     'StudentsTableSeeder' => $baseDir . '/app/database/seeds/StudentsTableSeeder.php',
     'StuffTableSeeder' => $baseDir . '/app/database/seeds/StuffTableSeeder.php',
     'TestCase' => $baseDir . '/app/tests/TestCase.php',

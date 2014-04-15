@@ -56,7 +56,7 @@ Route::group(array('before' => 'auth|admin'), function()
 
 	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
 
-	//Notice Route Add
+	// Notice Route Add
 	Route::get('notices', array('as' => 'notices', 'uses' => 'NoticeController@index'));
 	Route::get('notices/add', array('as' => 'notices.add', 'uses' => 'NoticeController@add'));
 	Route::post('notices/add', array('uses' => 'NoticeController@doAdd'));
@@ -85,6 +85,15 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('batches/{year}/edit', array('as' => 'batches.edit', 'uses' => 'BatchController@edit'));
 	Route::put('batches/{year}/edit', array('uses' => 'BatchController@doEdit'));
 	Route::delete('batches/{year}', array('as' => 'batches.delete', 'uses' => 'BatchController@delete'));
+
+	// students
+	Route::get('students', array('as' => 'students', 'uses' => 'StudentController@index'));
+	Route::get('students/add', array('as' => 'students.add', 'uses' => 'StudentController@add'));
+	Route::post('students/add', array('uses' => 'StudentController@doAdd'));
+	Route::get('students/{reg}', array('as' => 'students.show', 'uses' => 'StudentController@show'));
+	Route::get('students/{reg}/edit', array('as' => 'students.edit', 'uses' => 'StudentController@edit'));
+	Route::put('students/{reg}/edit', array('uses' => 'StudentController@doEdit'));
+	Route::delete('students/{user_id}', array('as' => 'students.delete', 'uses' => 'StudentController@delete'));
 });
 
 

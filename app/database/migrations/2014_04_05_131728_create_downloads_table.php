@@ -17,7 +17,7 @@ class CreateDownloadsTable extends Migration {
 			$table->increments('id');
 			$table->string('caption');
 			$table->string('url');
-			$table->enum('type', array('Syllabus', 'Student List', 'Teacher List', 'Stuff List', 'Other'));
+			$table->enum('type', array('Syllabus', 'Student List', 'Teacher List', 'Stuff List', 'Profile Picture', 'Other'));
 			$table->longtext('details');
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();

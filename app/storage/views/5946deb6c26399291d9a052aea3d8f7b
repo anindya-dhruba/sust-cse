@@ -11,6 +11,8 @@
 
 		<?php echo HTML::style("css/bootstrap.css"); ?>
 		<?php echo HTML::style('css/bootstrap3-wysiwyg5.css'); ?>
+		<?php echo HTML::style('css/datepicker.css'); ?>
+		<?php echo HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'); ?>
 		<?php echo HTML::style("css/custom.css"); ?>
 
 		<?php echo HTML::script('js/jquery.min.js'); ?>

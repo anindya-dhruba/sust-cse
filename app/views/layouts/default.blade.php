@@ -11,6 +11,8 @@
 
 		{{ HTML::style("css/bootstrap.css") }}
 		{{ HTML::style('css/bootstrap3-wysiwyg5.css') }}
+		{{ HTML::style('css/datepicker.css') }}
+		{{ HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css') }}
 		{{ HTML::style("css/custom.css") }}
 
 		{{ HTML::script('js/jquery.min.js') }}

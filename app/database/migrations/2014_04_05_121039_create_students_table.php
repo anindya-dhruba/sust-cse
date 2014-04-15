@@ -19,14 +19,14 @@ class CreateStudentsTable extends Migration {
 			$table->string('fathers_name', 40);
 			$table->string('mothers_name', 40);
 			$table->integer('batch_id')->unsigned();
-			$table->enum('gender', array('Male', 'Female'))->nullable();
+			$table->enum('gender', array('Male', 'Female'));
 			$table->string('religion', 20);
-			$table->string('nationality', 30)->default('Bangladeshi');
+			$table->string('nationality', 30);
 			$table->date('date_of_birth')->nullable();
 			$table->string('place_of_birth');
 			$table->enum('marital_status', array('Single', 'Married', 'Divorced'))->default('Single');
-			$table->enum('blood_group', array('A', 'B', 'O'))->nullable();
-			$table->enum('blood_type', array('+ve', '-ve'))->nullable();
+			$table->enum('blood_group', array('A', 'B', 'O'));
+			$table->enum('blood_type', array('+ve', '-ve'));
 			$table->text('home_address');
 			$table->longtext('bio');
 			$table->timestamps();

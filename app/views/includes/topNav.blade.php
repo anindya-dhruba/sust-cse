@@ -21,6 +21,12 @@
                     @if(Session::get('role') == 1)
                     	<li><a href="{{ URL::route('notices') }}">Notices</a></li>
                         <li><a href="{{ URL::route('pages') }}">Pages</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ URL::route('students') }}">Students</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{ URL::route('pages.buildMenu') }}">Menus</a></li>
                         <li><a href="{{ URL::route('batches') }}">Batches</a></li>
                         <li><a href="{{ URL::route('faq') }}">FAQ's</a></li>
