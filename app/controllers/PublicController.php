@@ -29,6 +29,10 @@ class PublicController extends BaseController {
 		}
 	}
 
+	/**
+	 * show all faqs
+	 * @return void
+	 */
 	public function faqs()
 	{
 	    $faqs = Faq::get();
@@ -38,6 +42,10 @@ class PublicController extends BaseController {
 					->with('faqs', $faqs);
 	}
 
+	/**
+	 * show all notices 
+	 * @return void
+	 */
 	public function notices()
 	{
 	    $notices = Notice::where('is_public', '=', 1)
@@ -49,6 +57,11 @@ class PublicController extends BaseController {
 					->with('notices', $notices);
 	}
 
+	/**
+	 * show one notice
+	 * @param  string $url
+	 * @return void
+	 */
 	public function noticesShow($url)
 	{
 		try
@@ -63,5 +76,23 @@ class PublicController extends BaseController {
 		{
 		   return "Page not found.";
 		}
+	}
+
+	public function batches()
+	{
+		$batches = Batch::orderBy('year', 'desc')->get();
+
+	    return View::make('public.batches.index')
+					->with('title', "All Batches")
+					->with('batches', $batches);
+	}
+
+	public function batchesShow($year)
+	{
+		$batch = Batch::where('year', '=', $year)->first();
+
+	    return View::make('public.batches.show')
+					->with('title', "$batch->name Batch")
+					->with('batch', $batch);
 	}
 }

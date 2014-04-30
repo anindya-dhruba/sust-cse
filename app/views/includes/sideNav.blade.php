@@ -13,7 +13,7 @@
 				    </div>
 				</a>
             @else
-            	<a class="{{ (Request::segment(1) ==  Str::lower($publicPage->page_name)) ? 'active' : '' }}" href="{{ URL::to(Str::lower($publicPage->page_name)) }}">
+            	<a class="{{ (Request::segment(1) ==  $publicPage->page_url) ? 'active' : '' }}" href="{{ URL::to($publicPage->page_url) }}">
 					<div class="col-md-6">
 					<span class="icon {{ $publicPage->page_icon }}"></span><br/>
         			{{ $publicPage->page_name }}

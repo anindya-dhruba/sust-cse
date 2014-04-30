@@ -18,6 +18,7 @@ class CreateMenusTable extends Migration {
 			$table->enum('page_type', array('dynamic', 'custom'));
 			$table->integer('page_id')->unsigned()->nullable();
 			$table->string('page_name');
+			$table->string('page_url')->nullable();
 			$table->string('page_icon')->default('glyphicon glyphicon-th-large');
 			$table->integer('order');
 

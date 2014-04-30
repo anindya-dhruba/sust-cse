@@ -108,9 +108,8 @@ Route::get('faculty', function() {
 Route::get('stuff', function() {
 	return "Under Construction";
 });
-Route::get('students', function() {
-	return "Under Construction";
-});
+Route::get('batches', array('as' => 'batches', 'uses' => 'PublicController@batches'));
+Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'PublicController@batchesShow'));
 
 Route::get('{pageUrl}', array('uses' => 'PublicController@pages'));
 

@@ -9,6 +9,7 @@ class MenuTableSeeder extends Seeder {
 				'page_type'     =>	'custom',
 				'page_id'  		=>	1,
 				'page_name'  	=>	'',
+				'page_url'  	=>	null,
 				'page_icon'		=>	'glyphicon glyphicon-th-large',
 				'order'       	=>	1
 			),
@@ -16,6 +17,7 @@ class MenuTableSeeder extends Seeder {
 				'page_type'     =>	'dynamic',
 				'page_id'  		=>	null,
 				'page_name'  	=>	'Faculty',
+				'page_url'  	=>	'faculty',
 				'page_icon'		=>	'glyphicon glyphicon-th-large',
 				'order'       	=>	2
 			),
@@ -23,6 +25,7 @@ class MenuTableSeeder extends Seeder {
 				'page_type'     =>	'dynamic',
 				'page_id'  		=>	null,
 				'page_name'  	=>	'Stuff',
+				'page_url'  	=>	'stuff',
 				'page_icon'		=>	'glyphicon glyphicon-th-large',
 				'order'       	=>	3
 			),
@@ -30,13 +33,15 @@ class MenuTableSeeder extends Seeder {
 				'page_type'     =>	'dynamic',
 				'page_id'  		=>	null,
 				'page_name'  	=>	'Students',
+				'page_url'  	=>	'batches',
 				'page_icon'		=>	'glyphicon glyphicon-th-large',
 				'order'       	=>	4
 			),
 			array(
 				'page_type'     =>	'dynamic',
 				'page_id'  		=>	null,
-				'page_name'  	=>	'FAQs',
+				'page_name'  	=>	'FAQ',
+				'page_url'  	=>	'faqs',
 				'page_icon'		=>	'glyphicon glyphicon-th-large',
 				'order'       	=>	5
 			),
@@ -44,6 +49,7 @@ class MenuTableSeeder extends Seeder {
 				'page_type'     =>	'dynamic',
 				'page_id'  		=>	null,
 				'page_name'  	=>	'Notices',
+				'page_url'  	=>	'notices',
 				'page_icon'		=>	'glyphicon glyphicon-th-large',
 				'order'       	=>	6
 			),

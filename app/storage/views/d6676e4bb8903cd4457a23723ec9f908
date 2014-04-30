@@ -13,7 +13,7 @@
 				    </div>
 				</a>
             <?php else: ?>
-            	<a class="<?php echo (Request::segment(1) ==  Str::lower($publicPage->page_name)) ? 'active' : ''; ?>" href="<?php echo URL::to(Str::lower($publicPage->page_name)); ?>">
+            	<a class="<?php echo (Request::segment(1) ==  $publicPage->page_url) ? 'active' : ''; ?>" href="<?php echo URL::to($publicPage->page_url); ?>">
 					<div class="col-md-6">
 					<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
         			<?php echo $publicPage->page_name; ?>
