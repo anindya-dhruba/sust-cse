@@ -9,8 +9,8 @@ class PicturesTableSeeder extends Seeder {
 				'album_id'      =>	1,
 				'caption'  		=>	'Picture 1',
 				'url'       	=>	'picture-1',
-				'is_cover' 		=> 	true,
 				'details'		=>	'picture details',
+				'user_id'       =>	5,
 				'created_at'   	=> 	date('Y-m-d H-i-s'),
 				'updated_at'   	=> 	date('Y-m-d H-i-s')
 			)

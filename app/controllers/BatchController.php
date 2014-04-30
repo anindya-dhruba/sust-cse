@@ -41,7 +41,7 @@ class BatchController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('batches.add')
+			return Redirect::route('admin.batches.add')
 								->withInput()
 								->withErrors($validation);
 		else
@@ -51,10 +51,10 @@ class BatchController extends BaseController {
 			$batch->year = Input::get('year');
 
 			if($batch->save())
-			    return Redirect::route('batches.show', array('year' => $batch->year))
+			    return Redirect::route('admin.batches.show', array('year' => $batch->year))
 			    					->with('success', "batch '$batch->year' has added successfully.");
 			else
-				return Redirect::route('batches.add')
+				return Redirect::route('admin.batches.add')
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -118,7 +118,7 @@ class BatchController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('batches.edit', array('year' => $year))
+			return Redirect::route('admin.batches.edit', array('year' => $year))
 								->withInput()
 								->withErrors($validation);
 		else
@@ -128,10 +128,10 @@ class BatchController extends BaseController {
 			$batch->year = Input::get('year');
 
 			if($batch->save())
-			    return Redirect::route('batches.show', array('year' => $batch->year))
+			    return Redirect::route('admin.batches.show', array('year' => $batch->year))
 			    					->with('success', "batch '$batch->year' has updated successfully.");
 			else
-				return Redirect::route('batches.edit', array('year' => $year))
+				return Redirect::route('admin.batches.edit', array('year' => $year))
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -146,10 +146,10 @@ class BatchController extends BaseController {
 	{
 		$batch = Batch::where('year', '=', $year);
 		if($batch->delete())
-			return Redirect::route('batches')
+			return Redirect::route('admin.batches')
 								->with('success', "The batch has been deleted.");
 		else
-			return Redirect::route('batches')
+			return Redirect::route('admin.batches')
 								->with('errors', 'Some error occured. Try again.');
 	}
 }

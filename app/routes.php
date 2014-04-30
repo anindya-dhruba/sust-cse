@@ -40,66 +40,78 @@ Route::group(array('before' => 'auth|head'), function()
 // for admin
 Route::group(array('before' => 'auth|admin'), function()
 {
-	// pages
-	Route::get('pages', array('as' => 'pages', 'uses' => 'PageController@index'));
-	Route::get('pages/add', array('as' => 'pages.add', 'uses' => 'PageController@add'));
-	Route::post('pages/add', array('uses' => 'PageController@doAdd'));
-	Route::get('pages/{pageUrl}', array('as' => 'pages.show', 'uses' => 'PageController@show'));
-	Route::get('pages/{pageUrl}/edit', array('as' => 'pages.edit', 'uses' => 'PageController@edit'));
-	Route::put('pages/{pageUrl}/edit', array('uses' => 'PageController@doEdit'));
-	Route::delete('pages/{pageUrl}', array('as' => 'pages.delete', 'uses' => 'PageController@delete'));
-	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
+	// pages DONE
+	Route::get('admin/pages', array('as' => 'admin.pages', 'uses' => 'PageController@index'));
+	Route::get('admin/pages/add', array('as' => 'admin.pages.add', 'uses' => 'PageController@add'));
+	Route::post('admin/pages/add', array('uses' => 'PageController@doAdd'));
+	Route::get('admin/pages/{url}', array('as' => 'admin.pages.show', 'uses' => 'PageController@show'));
+	Route::get('admin/pages/{url}/edit', array('as' => 'admin.pages.edit', 'uses' => 'PageController@edit'));
+	Route::put('admin/pages/{url}/edit', array('uses' => 'PageController@doEdit'));
+	Route::delete('admin/pages/{url}', array('as' => 'admin.pages.delete', 'uses' => 'PageController@delete'));
+	Route::post('admin/pages/slug', array('as' => 'admin.pages.slug', 'uses' => 'PageController@slug'));
+	Route::post('admin/pages/generateUrl', array('as' => 'admin.pages.generateUrl', 'uses' => 'PageController@generateUrl'));
 
-	// build menu
-	Route::get('build-menu', array('as' => 'pages.buildMenu', 'uses' => 'PageController@buildMenu'));
-	Route::post('build-menu', array('uses' => 'PageController@doBuildMenu'));
+	// build menu DONE
+	Route::get('admin/build-menu', array('as' => 'admin.menu.build', 'uses' => 'MenuController@buildMenu'));
+	Route::post('admin/build-menu', array('uses' => 'MenuController@doBuildMenu'));
 
-	Route::post('pages/slug', array('as' => 'pages.slug', 'uses' => 'PageController@slug'));
+	// Notices DONE
+	Route::get('admin/notices', array('as' => 'admin.notices', 'uses' => 'NoticeController@index'));
+	Route::get('admin/notices/add', array('as' => 'admin.notices.add', 'uses' => 'NoticeController@add'));
+	Route::post('admin/notices/add', array('uses' => 'NoticeController@doAdd'));
+	Route::get('admin/notices/{url}', array('as' => 'admin.notices.show', 'uses' => 'NoticeController@show'));
+	Route::get('admin/notices/{url}/edit', array('as' => 'admin.notices.edit', 'uses' => 'NoticeController@edit'));
+	Route::put('admin/notices/{url}/edit', array('uses' => 'NoticeController@doEdit'));
+	Route::delete('admin/notices/{url}', array('as' => 'admin.notices.delete', 'uses' => 'NoticeController@delete'));
 
-	// Notice Route Add
-	Route::get('notices', array('as' => 'notices', 'uses' => 'NoticeController@index'));
-	Route::get('notices/add', array('as' => 'notices.add', 'uses' => 'NoticeController@add'));
-	Route::post('notices/add', array('uses' => 'NoticeController@doAdd'));
-	Route::get('notices/{pageUrl}', array('as' => 'notices.show', 'uses' => 'NoticeController@show'));
-	Route::get('notices/{pageUrl}/edit', array('as' => 'notices.edit', 'uses' => 'NoticeController@edit'));
-	Route::put('notices/{pageUrl}/edit', array('uses' => 'NoticeController@doEdit'));
-	Route::delete('notices/{pageUrl}', array('as' => 'notices.delete', 'uses' => 'NoticeController@delete'));
+	Route::post('admin/notices/generate-url', array('as' => 'admin.notices.generateUrl', 'uses' => 'NoticeController@generateUrl'));
 
-	Route::post('notices/slug', array('as' => 'notices.slug', 'uses' => 'NoticeController@slug'));
+	// faq DONE
+	Route::get('admin/faqs', array('as' => 'admin.faqs', 'uses' => 'FaqController@index'));
+	Route::get('admin/faqs/add', array('as' => 'admin.faqs.add', 'uses' => 'FaqController@add'));
+	Route::post('admin/faqs/add', array('uses' => 'FaqController@doAdd'));
+	Route::get('admin/faqs/{pageUrl}', array('as' => 'admin.faqs.show', 'uses' => 'FaqController@show'));
+	Route::get('admin/faqs/{pageUrl}/edit', array('as' => 'admin.faqs.edit', 'uses' => 'FaqController@edit'));
+	Route::put('admin/faqs/{pageUrl}/edit', array('uses' => 'FaqController@doEdit'));
+	Route::delete('admin/faqs/{pageUrl}', array('as' => 'admin.faqs.delete', 'uses' => 'FaqController@delete'));
+	Route::post('admin/faqs/slug', array('as' => 'admin.faqs.slug', 'uses' => 'FaqController@slug'));
 
-	// faq
-	Route::get('faq', array('as' => 'faq', 'uses' => 'FaqController@index'));
-	Route::get('faq/add', array('as' => 'faq.add', 'uses' => 'FaqController@add'));
-	Route::post('faq/add', array('uses' => 'FaqController@doAdd'));
-	Route::get('faq/{pageUrl}', array('as' => 'faq.show', 'uses' => 'FaqController@show'));
-	Route::get('faq/{pageUrl}/edit', array('as' => 'faq.edit', 'uses' => 'FaqController@edit'));
-	Route::put('faq/{pageUrl}/edit', array('uses' => 'FaqController@doEdit'));
-	Route::delete('faq/{pageUrl}', array('as' => 'faq.delete', 'uses' => 'FaqController@delete'));
-	Route::post('faq/slug', array('as' => 'faq.slug', 'uses' => 'FaqController@slug'));
+	// batch DONE
+	Route::get('admin/batches', array('as' => 'admin.batches', 'uses' => 'BatchController@index'));
+	Route::get('admin/batches/add', array('as' => 'admin.batches.add', 'uses' => 'BatchController@add'));
+	Route::post('admin/batches/add', array('uses' => 'BatchController@doAdd'));
+	Route::get('admin/batches/{year}', array('as' => 'admin.batches.show', 'uses' => 'BatchController@show'));
+	Route::get('admin/batches/{year}/edit', array('as' => 'admin.batches.edit', 'uses' => 'BatchController@edit'));
+	Route::put('admin/batches/{year}/edit', array('uses' => 'BatchController@doEdit'));
+	Route::delete('admin/batches/{year}', array('as' => 'admin.batches.delete', 'uses' => 'BatchController@delete'));
 
-	// batch
-	Route::get('batches', array('as' => 'batches', 'uses' => 'BatchController@index'));
-	Route::get('batches/add', array('as' => 'batches.add', 'uses' => 'BatchController@add'));
-	Route::post('batches/add', array('uses' => 'BatchController@doAdd'));
-	Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'BatchController@show'));
-	Route::get('batches/{year}/edit', array('as' => 'batches.edit', 'uses' => 'BatchController@edit'));
-	Route::put('batches/{year}/edit', array('uses' => 'BatchController@doEdit'));
-	Route::delete('batches/{year}', array('as' => 'batches.delete', 'uses' => 'BatchController@delete'));
-
-	// students
-	Route::get('students', array('as' => 'students', 'uses' => 'StudentController@index'));
-	Route::get('students/add', array('as' => 'students.add', 'uses' => 'StudentController@add'));
-	Route::post('students/add', array('uses' => 'StudentController@doAdd'));
-	Route::get('students/{reg}', array('as' => 'students.show', 'uses' => 'StudentController@show'));
-	Route::get('students/{reg}/edit', array('as' => 'students.edit', 'uses' => 'StudentController@edit'));
-	Route::put('students/{reg}/edit', array('uses' => 'StudentController@doEdit'));
-	Route::delete('students/{user_id}', array('as' => 'students.delete', 'uses' => 'StudentController@delete'));
+	// students DONE
+	Route::get('admin/students', array('as' => 'admin.students', 'uses' => 'StudentController@index'));
+	Route::get('admin/students/add', array('as' => 'admin.students.add', 'uses' => 'StudentController@add'));
+	Route::post('admin/students/add', array('uses' => 'StudentController@doAdd'));
+	Route::get('admin/students/{reg}', array('as' => 'admin.students.show', 'uses' => 'StudentController@show'));
+	Route::get('admin/students/{reg}/edit', array('as' => 'admin.students.edit', 'uses' => 'StudentController@edit'));
+	Route::put('admin/students/{reg}/edit', array('uses' => 'StudentController@doEdit'));
+	Route::delete('admin/students/{user_id}', array('as' => 'admin.students.delete', 'uses' => 'StudentController@delete'));
 });
 
 
 
 // public pages [ keep them at last]
-Route::get('/', array('as' => 'home', 'uses' => 'PublicController@show'));
-Route::get('{pageName}', array('uses' => 'PublicController@show'));
+Route::get('/', array('as' => 'home', 'uses' => 'PublicController@pages'));
+Route::get('faqs', array('as' => 'faqs', 'uses' => 'PublicController@faqs'));
+Route::get('notices', array('as' => 'notices', 'uses' => 'PublicController@notices'));
+Route::get('notices/{url}', array('as' => 'notices.show', 'uses' => 'PublicController@noticesShow'));
+Route::get('faculty', function() {
+	return "Under Construction";
+});
+Route::get('stuff', function() {
+	return "Under Construction";
+});
+Route::get('students', function() {
+	return "Under Construction";
+});
+
+Route::get('{pageUrl}', array('uses' => 'PublicController@pages'));
 
 

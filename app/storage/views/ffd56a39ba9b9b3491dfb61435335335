@@ -1,0 +1,68 @@
+
+<?php $__env->startSection('content'); ?>
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				<?php echo $title; ?>
+				<a href="<?php echo URL::route('admin.notices'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Notices
+				</a>
+			</h3>
+		</div>
+
+		<?php echo Form::open(array('route' => 'admin.notices.add')); ?>
+
+			<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	        <div class="form-group">
+	          	<?php echo Form::label('title', 'Title *'); ?>
+	          	<?php echo Form::text('title', '', array('class' => 'form-control title')); ?>
+	          	<?php echo Form::error($errors, 'title'); ?>
+	        </div>
+
+	        <div class="form-group">
+	        	<?php echo Form::label('url', 'Url *'); ?>
+	        	<div class="input-group">
+			      	<span class="input-group-addon"> <?php echo Url::route('home'); ?>/notices/</span>
+			      	<?php echo Form::text('url', '', array('class' => 'form-control url')); ?>
+			    </div>
+			    <?php echo Form::error($errors, 'url'); ?>
+	        </div>
+
+	        <div class="form-group">
+	          	<?php echo Form::label('notice', 'Notice *'); ?>
+	          	<?php echo Form::textarea('notice', '', array('class' => 'form-control editor')); ?>
+	          	<?php echo Form::error($errors, 'notice'); ?>
+	        </div>
+
+	        <div class="form-group">
+		        <div class="checkbox">
+				    <label>
+						<?php echo Form::checkbox('is_public', '1', true); ?> This Notice is visible publicly
+				    </label>
+			  	</div>
+			</div>
+        	
+        	<?php echo Form::submit('Add Notice', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')); ?>
+
+		<?php echo Form::close(); ?>
+	</div>
+
+
+	
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// gets url
+			$('.title').on('input', function() {
+				$.post("<?php echo URL::route('admin.notices.generateUrl'); ?>", { title: $(this).val() })
+				  	.done(function(url) {
+				    	$('.url').val(url);
+				});
+			});
+
+		});
+	</script>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

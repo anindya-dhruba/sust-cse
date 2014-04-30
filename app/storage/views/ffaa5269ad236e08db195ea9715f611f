@@ -4,13 +4,13 @@
 		<div class="page-header">
 			<h3>
 				<?php echo $title; ?>
-				<a href="<?php echo URL::route('pages'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="<?php echo URL::route('admin.pages'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-chevron-left"></span> View All Pages
 				</a>
 			</h3>
 		</div>
 
-		<?php echo Form::open(array('route' => array('pages.edit',  $page->url), 'method' => 'put')); ?>
+		<?php echo Form::open(array('route' => array('admin.pages.edit',  $page->url), 'method' => 'put')); ?>
 
 			<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
@@ -21,15 +21,6 @@
 	          	<?php echo Form::text('title', $page->title, array('class' => 'form-control title')); ?>
 	          	<?php echo Form::error($errors, 'title'); ?>
 	        </div>
-
-	        <div class="form-group">
-	        	<?php echo Form::label('visible', 'Visibility *'); ?>
-		        <div class="checkbox">
-				    <label>
-						<?php echo Form::checkbox('visible', '1', $page->is_visible); ?> This Page is visible publicly and show to public menu
-				    </label>
-			  	</div>
-			</div>
 	        
 	        <div class="form-group">
 	        	<?php echo Form::label('url', 'Url *'); ?>
@@ -45,6 +36,14 @@
 	          	<?php echo Form::textarea('content', $page->content, array('class' => 'form-control editor')); ?>
 	          	<?php echo Form::error($errors, 'content'); ?>
 	        </div>
+
+	        <div class="form-group">
+		        <div class="checkbox">
+				    <label>
+						<?php echo Form::checkbox('is_public', '1', $page->is_public); ?> This Page is visible publicly
+				    </label>
+			  	</div>
+			</div>
         	
         	<?php echo Form::submit('Update Page', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')); ?>
 
@@ -56,7 +55,7 @@
 
 			// gets slug/url
 			$('.title').on('input', function() {
-				$.post("<?php echo URL::route('pages.slug'); ?>", { title: $(this).val() })
+				$.post("<?php echo URL::route('admin.pages.generateUrl'); ?>", { title: $(this).val() })
 				  	.done(function(slug) {
 				    	$('.url').val(slug);
 				});

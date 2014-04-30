@@ -17,6 +17,7 @@ class CreateNoticesTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->string('url');
+			$table->boolean('is_public');
 			$table->longtext('notice');
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();

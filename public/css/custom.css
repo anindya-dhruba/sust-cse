@@ -4,22 +4,22 @@
 	border-color: #e7e7e7;
 }
 
-.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
+.navbar-nav>li>a:hover, .navbar-nav>li>a:focus
 {
 	color: #333;
 	background-color: transparent;
 }
-.navbar-default .navbar-nav>li>a
+.navbar-nav>li>a
 {
 	color: #777;
 }
-.navbar-default .navbar-brand
+.navbar-brand
 {
 	color: #777;
 }
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus
+.navbar-brand:hover, .navbar-brand:focus
 {
-	color: #5e5e5e;
+	color: #000;
 	background-color: transparent;
 }
 .btn-lg, .btn-group-lg > .btn
@@ -28,7 +28,11 @@
 }
 a
 {
-	color: #727272;
+	color: #202020;
+}
+a:hover
+{
+	color: #000;
 }
 .form-control
 {
@@ -36,7 +40,7 @@ a
 }
 .page-header
 {
-	margin: 5px 0 10px;
+	margin: 5px 0px;
 	border-bottom: 0px;
 }
 .page-header h3
@@ -62,5 +66,96 @@ a
 }
 .fa-avatar
 {
-	font-size: 250px;
+	font-size: 210px;
+}
+legend
+{
+	width: auto;
+	border-bottom: none;
+	padding: 4px 10px;
+}
+fieldset.scheduler-border
+{
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    background: #eee;
+}
+
+legend.scheduler-border
+{
+    font-size: 18px;
+    text-align: left !important;
+    background: #DDDDDD;
+}
+.sideNav > a > div
+{
+	background: rgb(2, 196, 103);
+	color: #fff;
+	padding: 20px 0px;
+	font-size: 18px;
+	border: 1px solid #fff;
+	text-align: center;
+}
+.sideNav > a > div:hover
+{
+	background: rgb(3, 151, 80);
+}
+
+.sideNav > .active > div
+{
+	background: rgb(3, 151, 80);
+}
+
+.sideNav .icon
+{
+	font-size: 30px;
+}
+.navbar-custom
+{
+	background: transparent;
+	border: none;
+	/*border-bottom: 1px solid #eee;*/
+}
+.navbar-brand
+{
+	font-size: 20px;
+	padding: 20px 0px;
+	line-height: 23px;
+}
+.navbar
+{
+	min-height: 85px;
+}
+.navbar-nav > li > a
+{
+	padding-top: 30px;
+	padding-bottom: 26px;
+}
+
+.navbar-nav > li > a:focus, .navbar-nav > li > a:hover
+{
+	background: #eee;
+	color: #000;
+}
+h1, .h1, h2, .h2, h3, .h3
+{
+	margin-top: 0px;
+}
+.bold
+{
+	font-weight: bold;
+}
+.date_helper
+{
+	background: #eee;
+	padding: 20px 0px;
+}
+.date_helper .big
+{
+	font-size: 30px;
+}
+
+.date_helper .small
+{
+	font-size: 20px;
 }

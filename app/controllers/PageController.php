@@ -42,22 +42,36 @@ class PageController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('pages.add')
+			return Redirect::route('admin.pages.add')
 								->withInput()
 								->withErrors($validation);
 		else
 		{
 			$page = new Page;
 			$page->title      = Input::get('title');
-			$page->is_visible = Input::get('visible', 0);
+			$page->is_public  = Input::get('is_public', 0);
 			$page->url        = Input::get('url');
 			$page->content    = Input::get('content');
 
 			if($page->save())
-			    return Redirect::route('pages.show', array('pageUrl' => $page->url))
+			{
+				// add page at menu
+				if($page->is_public == 1)
+				{
+					$lastMenuItem = Menu::orderBy('order','desc')->get()->first();
+
+					$menuItem = new Menu;
+					$menuItem->page_type = 'custom';
+					$menuItem->page_id = $page->id;
+					$menuItem->order = $lastMenuItem->order+1;
+
+					$menuItem->save();
+				}
+			    return Redirect::route('admin.pages.show', array('url' => $page->url))
 			    					->with('success', "Page '$page->title' has added successfully.");
+			}
 			else
-				return Redirect::route('pages.add')
+				return Redirect::route('admin.pages.add')
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -67,23 +81,23 @@ class PageController extends BaseController {
 	 * Generates slug/url for page
 	 * @return string
 	 */
-	public function slug()
+	public function generateUrl()
 	{
-		$slug = Str::slug(Input::get('title'));
-		$slugCount = count(Page::where('url', '=', $slug)->get());
-		return ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
+		$url = Str::slug(Input::get('title'));
+		$urlCount = count(Page::where('url', '=', $url)->get());
+		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
 	}
 
 	/**
 	 * Show a  page
-	 * @param  string $pageUrl
+	 * @param  string $url
 	 * @return void
 	 */
-	public function show($pageUrl)
+	public function show($url)
 	{
 		try
 		{
-		    $page = Page::where('url', '=', $pageUrl)->firstOrFail();
+		    $page = Page::where('url', '=', $url)->firstOrFail();
 
 		    return View::make('pages.show')
 						->with('title', "View $page->title Page")
@@ -97,7 +111,7 @@ class PageController extends BaseController {
 
 	/**
 	 * Edit a page
-	 * @param  string $pageUrl
+	 * @param  string $url
 	 * @return void
 	 */
 	public function edit($pageUrl)
@@ -121,7 +135,7 @@ class PageController extends BaseController {
 	 * @param  string $pageUrl
 	 * @return void
 	 */
-	public function doEdit($pageUrl)
+	public function doEdit($url)
 	{
 		$rules = array
 		(
@@ -133,23 +147,49 @@ class PageController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('pages.edit', array('pageUrl' => $pageUrl))
+			return Redirect::route('admin.pages.edit', array('url' => $url))
 								->withInput()
 								->withErrors($validation);
 		else
 		{
-			$page = Page::where('url', '=', $pageUrl)->first();
-			$page->title      = Input::get('title');
-			$page->is_visible = Input::get('visible', 0);
-			$page->url        = Input::get('url');
-			$page->content    = Input::get('content');
-			if($page->is_visible == 0) $page->order = null;
+			$page            = Page::where('url', '=', $url)->first();
+			$page->title     = Input::get('title');
+			$page->is_public = Input::get('is_public', 0);
+			$page->url       = Input::get('url');
+			$page->content   = Input::get('content');
+
+			// if home page
+			if($page->id == 1) $page->is_public = 1;
 
 			if($page->save())
-			    return Redirect::route('pages.show', array('pageUrl' => $page->url))
+			{
+				// add page at menu
+				if($page->is_public == 1)
+				{
+					// if already exists at menu, than skip
+					if(!Menu::where('page_id', '=', $page->id)->first())
+					{
+						$lastMenuItem = Menu::orderBy('order','desc')->get()->first();
+
+						$menuItem = new Menu;
+						$menuItem->page_type = 'custom';
+						$menuItem->page_id = $page->id;
+						$menuItem->order = $lastMenuItem->order+1;
+
+						$menuItem->save();
+					}
+				}
+				else
+				{
+					// delete from menu
+					Menu::where('page_id', '=', $page->id)->delete();
+				}
+
+			    return Redirect::route('admin.pages.show', array('url' => $page->url))
 			    					->with('success', "Page '$page->title' has updated successfully.");
+			}
 			else
-				return Redirect::route('pages.edit', array('pageUrl' => $pageUrl))
+				return Redirect::route('admin.pages.edit', array('url' => $url))
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -157,48 +197,22 @@ class PageController extends BaseController {
 
 	/**
 	 * Delete a page
-	 * @param  string $pageUrl
+	 * @param  string $url
 	 * @return void
 	 */
-	public function delete($pageUrl)
+	public function delete($url)
 	{
-		$page = Page::where('url', '=', $pageUrl);
+		$page = Page::where('url', '=', $url)->first();
+		if($page->id == 1)
+		{
+			return Redirect::route('admin.pages')
+								->with('error', 'You can not delete Home page');
+		}
 		if($page->delete())
-			return Redirect::route('pages')
+			return Redirect::route('admin.pages')
 								->with('success', "The page has been deleted.");
 		else
-			return Redirect::route('pages')
-								->with('errors', 'Some error occured. Try again.');
-	}
-
-	/**
-	 * show build menu page
-	 * @return void
-	 */
-	public function buildMenu()
-	{
-		$pages = Menu::getPublicPages();
-
-		return View::make('pages.buildMenu')
-						->with('title', 'Menus')
-						->with('pages', $pages);
-	}
-
-	/**
-	 * Do build menu
-	 * @return string
-	 */
-	public function doBuildMenu()
-	{
-		$orders = Input::get('orders');
-
-		foreach ($orders as $key => $order)
-		{
-			$page = Page::find($order);
-			$page->order = $key+1;
-			$page->save();
-		}
-
-		return 'Menus has been updated. Refresh the sidebar to see.';
+			return Redirect::route('admin.pages')
+								->with('error', 'Some error occured. Try again.');
 	}
 }

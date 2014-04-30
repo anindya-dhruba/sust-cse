@@ -5,7 +5,7 @@
 		<div class="page-header">
 			<h3>
 				{{ $title }}
-				<a href="{{ URL::route('notices.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="{{ URL::route('admin.notices.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-plus"></span> Add New Notice
 				</a>
 			</h3>
@@ -14,6 +14,7 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
+					<th>Public?</th>
 					<th>Title</th>
 					<th>Url</th>
 					<th>Content</th>
@@ -23,16 +24,25 @@
 			<tbody>
 				@foreach($notices as $notice)
 					<tr>
+						<td>
+							@if($notice->is_public)
+								<span class="glyphicon glyphicon-ok text-success"></span>
+							@else
+								<span class="glyphicon glyphicon-remove text-danger"></span>
+							@endif
+						</td>
 						<td>{{ $notice->title }}</td>
-						<td>{{ $notice->url }}</td>
+						<td>
+							<a href="{{ URL::route('notices.show', $notice->url) }}">{{ $notice->url }}</a>
+						</td>
 						<td>{{ Str::limit(strip_tags($notice->notice), 80, '...') }}</td>
 						<td>
-							<a href="{{ URL::route('notices.show', array('pageUrl' => $notice->url)); }}" class='btn btn-success btn-sm'>
+							<a href="{{ URL::route('admin.notices.show', array('url' => $notice->url)); }}" class='btn btn-success btn-sm'>
 					        	<span class="glyphicon glyphicon-zoom-in"></span>
 							</a>
 						</td>
 						<td>
-	        				<a href="{{ URL::route('notices.edit', array('pageUrl' => $notice->url)) }}" class='btn btn-warning btn-sm'>
+	        				<a href="{{ URL::route('admin.notices.edit', array('url' => $notice->url)) }}" class='btn btn-warning btn-sm'>
 	        					<span class="glyphicon glyphicon-edit"></span>
 	        				</a>
 	        			</td>
@@ -61,7 +71,7 @@
 					Are you sure to delete this notice?
 		      	</div>
 		      	<div class="modal-footer">
-		        	{{ Form::open(array('route' => array('notices.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
+		        	{{ Form::open(array('route' => array('admin.notices.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
 		        		<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 		        		{{ Form::submit('Yes, Delete', array('class' => 'btn btn-success')) }}
 		        	{{ Form::close() }}
@@ -76,7 +86,7 @@
 		// delete a page
 		$('.deleteBtn').click(function() {
 			var deletePageUrl = $(this).attr('deletePageUrl');
-			var url = "<?php echo URL::route('notices'); ?>";
+			var url = "<?php echo URL::route('admin.notices'); ?>";
 			$(".deleteForm").attr("action", url+'/'+deletePageUrl);
 		});
 

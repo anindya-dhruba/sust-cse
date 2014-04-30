@@ -6,21 +6,20 @@ class FacultyTableSeeder extends Seeder {
 	{
 		$faculty = array(
 			array(
-				'user_id'        =>		3,
-				'designation'    =>		'Lecturer',
-				'contact_email'  =>		'con_email@sust.edu',
-				'contact_mobile' =>		'123456',
-				'contact_room'   =>		'Room no : 107',
-				'education'      =>		'Education',
-				'prof_exp'       =>		'Prof Experience',
-				'honors'         =>		'Honors',
-				'research'       =>		'Research',
-				'interests'      =>		'Interests',
-				'bio'            =>		'Room no : 107',
-				'home_address'   => 	'home address',
-				'status'         => 	'Current',
-				'created_at'     => 	date('Y-m-d H-i-s'),
-				'updated_at'     => 	date('Y-m-d H-i-s')
+				'user_id'             =>		3,
+				'designation'         =>		'Lecturer',
+				'alt_email'           =>		'con_email@sust.edu',
+				'mobile'              =>		'123456',
+				'contact_room'        =>		'Room no : 107',
+				'academic_background' =>		'Education',
+				'prof_exp'            =>		'Prof Experience',
+				'awards_and_honors'              =>		'Honors',
+				'interests'           =>		'Interests',
+				'about'               =>		'bio',
+				'present_address'     => 		'present address',
+				'status'              => 		'Current',
+				'created_at'          => 		date('Y-m-d H-i-s'),
+				'updated_at'          => 		date('Y-m-d H-i-s')
 			)
 		);
 

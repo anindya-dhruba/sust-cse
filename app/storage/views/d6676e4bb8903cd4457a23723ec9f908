@@ -1,0 +1,25 @@
+<?php 
+    $publicPages = Helper::getPublicPages();
+?>
+
+<div class="col-md-3">
+	<div class="row-fluid sideNav">
+		<?php foreach ($publicPages as $key => $publicPage): ?>
+        	<?php if($publicPage->page_type == 'custom'): ?>
+        		<a class="<?php echo (Request::segment(1) ==  $publicPage->page->url) ? 'active' : ''; ?>" href="<?php echo URL::to($publicPage->page->url); ?>">
+					<div class="col-md-6">
+					<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
+        			<?php echo $publicPage->page->title; ?>
+				    </div>
+				</a>
+            <?php else: ?>
+            	<a class="<?php echo (Request::segment(1) ==  Str::lower($publicPage->page_name)) ? 'active' : ''; ?>" href="<?php echo URL::to(Str::lower($publicPage->page_name)); ?>">
+					<div class="col-md-6">
+					<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
+        			<?php echo $publicPage->page_name; ?>
+				    </div>
+				</a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+	</div>
+</div>

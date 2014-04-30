@@ -1,25 +1,25 @@
 <?php 
-    $publicPages = Menu::getPublicPages();
+    $publicPages = Helper::getPublicPages();
 ?>
 
 <div class="col-md-3">
-	<div class="list-group">
-        @foreach ($publicPages as $key => $publicPage)
-            <a href="{{ URL::to($publicPage->url) }}" class="list-group-item">
-                {{ $publicPage->title }}
-            </a>
+	<div class="row-fluid sideNav">
+		@foreach ($publicPages as $key => $publicPage)
+        	@if($publicPage->page_type == 'custom')
+        		<a class="{{ (Request::segment(1) ==  $publicPage->page->url) ? 'active' : '' }}" href="{{ URL::to($publicPage->page->url) }}">
+					<div class="col-md-6">
+					<span class="icon {{ $publicPage->page_icon }}"></span><br/>
+        			{{ $publicPage->page->title }}
+				    </div>
+				</a>
+            @else
+            	<a class="{{ (Request::segment(1) ==  Str::lower($publicPage->page_name)) ? 'active' : '' }}" href="{{ URL::to(Str::lower($publicPage->page_name)) }}">
+					<div class="col-md-6">
+					<span class="icon {{ $publicPage->page_icon }}"></span><br/>
+        			{{ $publicPage->page_name }}
+				    </div>
+				</a>
+            @endif
         @endforeach
-	</div>
-
-	<div class="list-group">
-		<a href="#" class="list-group-item">
-		    Faculty
-		</a>
-		<a href="#" class="list-group-item">
-		    Stuff
-		</a>
-		<a href="#" class="list-group-item">
-		    Students
-		</a>
 	</div>
 </div>

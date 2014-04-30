@@ -18,15 +18,25 @@
 			</div>
 		@endif
 
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<ul class="list-group" id="all_menus">
-					@foreach ($pages as $key => $page)
-					  	<li class="list-group-item" id="orders_{{ $page->id }}"><span class="glyphicon glyphicon-move"></span> {{ $page->title }}</li>
-					@endforeach
-				</ul>	
+	<div class="row"></div>
+		<div class="col-md-4 col-md-offset-4">
+			<div class="row sideNav" id="all_menus">
+				@foreach ($pages as $key => $publicPage)
+		        	@if($publicPage->page_type == 'custom')
+						<div class="col-md-6" id="orders_{{ $publicPage->id }}">
+							<span class="icon {{ $publicPage->page_icon }}"></span><br/>
+		    				{{ $publicPage->page->title }}
+					    </div>
+		            @else
+						<div class="col-md-6" id="orders_{{ $publicPage->id }}">
+							<span class="icon {{ $publicPage->page_icon }}"></span><br/>
+		    				{{ $publicPage->page_name }}
+					    </div>
+		            @endif
+		        @endforeach
 			</div>
 		</div>
+	</div>
 		
 	</div>
 
@@ -39,8 +49,9 @@
 					cursor: 'move',
 					update: function() {
 						var order = $(this).sortable("serialize");
+						console.log(order);
 
-						$.post("{{ URL::route('pages.buildMenu') }}", order, function(response) {
+						$.post("{{ URL::route('admin.menu.build') }}", order, function(response) {
 							$("#msg").html(response);
 
 							window.setTimeout(function () {
@@ -58,6 +69,13 @@
 	#all_menus
 	{
 		cursor: move;
+	}
+	#all_menus div
+	{
+		background: #eee;
+		padding: 10px 0px;
+		text-align: center;
+		border: 1px solid #fff;
 	}
 	</style>
 

@@ -35,18 +35,22 @@ class StudentController extends BaseController {
 	{
 		$rules = array
 		(
-			'reg'           => 	'required|unique:students,reg',
-			'full_name'     =>	'required',
-			'email'         =>	'email|unique:users,email',
-			'batch'         =>	'required',
-			'picture'		=>	'image|mimes:jpeg,bmp,png',
-			'date_of_birth' =>	'date'
+			'reg'             => 	'required|numeric|unique:students,reg',
+			'full_name'       =>	'required',
+			'email'           =>	'email|unique:users,email',
+			'alternate_email' =>	'email|unique:students,alt_email',
+			'batch'           =>	'required',
+			'picture'         =>	'image|mimes:jpeg,bmp,png',
+			'date_of_birth'   =>	'date',
+			'website'		  =>	'url',
+			'college_passing_year' => 'digits:4',
+			'school_passing_year' => 'digits:4',
 		);
 
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('students.add')
+			return Redirect::route('admin.students.add')
 								->withInput()
 								->withErrors($validation);
 		else
@@ -59,21 +63,41 @@ class StudentController extends BaseController {
 
 			if($user->save())
 			{
-				$student                 = new Student();
-				$student->reg            = Input::get('reg');
-				$student->fathers_name   = Input::get('fathers_name');
-				$student->mothers_name   = Input::get('mothers_name');
-				$student->batch_id       = Input::get('batch');
-				$student->gender         = Input::get('gender');
-				$student->religion       = Input::get('religion');
-				$student->nationality    = Input::get('nationality');
-				$student->date_of_birth  = (Input::has('date_of_birth')) ? Input::get('date_of_birth') : null;
-				$student->place_of_birth = Input::get('place_of_birth');
-				$student->marital_status = Input::get('marital_status');
-				$student->blood_group    = Input::get('blood_group');
-				$student->blood_type     = Input::has('blood_type');
-				$student->home_address   = Input::get('home_address');
-				$student->bio            = Input::get('bio');
+				$student                       = new Student();
+				$student->reg                  = Input::get('reg');
+				$student->fathers_name         = Input::get('fathers_name');
+				$student->mothers_name         = Input::get('mothers_name');
+				$student->alt_email            = Input::get('alternate_email');
+				$student->phone                = Input::get('phone');
+				$student->mobile               = Input::get('mobile');
+				$student->website              = Input::get('website');
+				$student->thesis               = Input::get('thesis');
+				$student->current_employment   = Input::get('current_employment');
+				$student->employment_history   = Input::get('employment_history');
+				$student->clg_name         = Input::get('college_name');
+				$student->clg_exam_name    = Input::get('college_exam_name');
+				$student->clg_passing_year = Input::get('college_passing_year');
+				$student->clg_board_name   = Input::get('college_board_name');
+				$student->clg_result       = Input::get('college_result');
+				$student->scl_name          = Input::get('school_name');
+				$student->scl_exam_name     = Input::get('school_exam_name');
+				$student->scl_passing_year  = Input::get('school_passing_year');
+				$student->scl_board_name    = Input::get('school_board_name');
+				$student->scl_result        = Input::get('school_result');
+				$student->batch_id             = Input::get('batch');
+				$student->gender               = Input::get('gender');
+				$student->religion             = Input::get('religion');
+				$student->nationality          = Input::get('nationality');
+				$student->date_of_birth        = (Input::has('date_of_birth')) ? Input::get('date_of_birth') : null;
+				$student->place_of_birth       = Input::get('place_of_birth');
+				$student->marital_status       = Input::get('marital_status');
+				$student->blood_group          = Input::get('blood_group');
+				$student->blood_type           = Input::has('blood_type');
+				$student->permanent_address    = Input::get('permanent_address');
+				$student->present_address      = Input::get('present_address');
+				$student->about                = Input::get('about');
+
+				$user->student()->save($student);
 
 				// if picture is uploaded...
 		       	if(Input::hasFile('picture'))
@@ -102,17 +126,15 @@ class StudentController extends BaseController {
 					$picture->caption = $user->full_name;
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
-					
+						
 					$student->user->pictures()->save($picture);
 			    }
 
-				$user->student()->save($student);
-
-			    return Redirect::route('students.show', array('reg' => Input::get('reg')))
+			    return Redirect::route('admin.students.show', array('reg' => Input::get('reg')))
 			    					->with('success', "Student '$user->full_name' has added successfully.");
 			}
 			else
-				return Redirect::route('students.add')
+				return Redirect::route('admin.students.add')
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -169,17 +191,22 @@ class StudentController extends BaseController {
 	{
 		$rules = array
 		(
-			'reg'           => 	'required|unique:students,reg,'.Input::get('studentId').',user_id',
-			'full_name'     =>	'required',
-			'email'         =>	'email|unique:users,email,'.Input::get('studentId'),
-			'batch'         =>	'required',
-			'date_of_birth' =>	'date'
+			'reg'                  => 	'required|numeric|unique:students,reg,'.Input::get('studentId').',user_id',
+			'full_name'            =>	'required',
+			'email'                =>	'email|unique:users,email,'.Input::get('studentId'),
+			'alternate_email'      =>	'email|unique:students,alt_email,'.Input::get('studentId').',user_id',
+			'batch'                =>	'required',
+			'picture'              =>	'image|mimes:jpeg,bmp,png',
+			'date_of_birth'        =>	'date',
+			'website'              =>	'url',
+			'college_passing_year' => 	'digits:4',
+			'school_passing_year'  => 	'digits:4'
 		);
 
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('students.edit', array('reg' => $reg))
+			return Redirect::route('admin.students.edit', array('reg' => $reg))
 								->withInput()
 								->withErrors($validation);
 		else
@@ -189,63 +216,82 @@ class StudentController extends BaseController {
 			$user = User::find($id);
 			$user->full_name = Input::get('full_name');
 			$user->nick_name = Input::get('nick_name');
-			$user->email = Input::get('email');
-			$user->save();
+			$user->email     = Input::get('email');
+			if($user->save())
+			{
+				$student = Student::where('user_id', '=', $id)->first();
+				$student->reg                  = Input::get('reg');
+				$student->fathers_name         = Input::get('fathers_name');
+				$student->mothers_name         = Input::get('mothers_name');
+				$student->alt_email            = Input::get('alternate_email');
+				$student->phone                = Input::get('phone');
+				$student->mobile               = Input::get('mobile');
+				$student->website              = Input::get('website');
+				$student->thesis               = Input::get('thesis');
+				$student->current_employment   = Input::get('current_employment');
+				$student->employment_history   = Input::get('employment_history');
+				$student->clg_name         = Input::get('college_name');
+				$student->clg_exam_name    = Input::get('college_exam_name');
+				$student->clg_passing_year = Input::get('college_passing_year');
+				$student->clg_board_name   = Input::get('college_board_name');
+				$student->clg_result       = Input::get('college_result');
+				$student->scl_name          = Input::get('school_name');
+				$student->scl_exam_name     = Input::get('school_exam_name');
+				$student->scl_passing_year  = Input::get('school_passing_year');
+				$student->scl_board_name    = Input::get('school_board_name');
+				$student->scl_result        = Input::get('school_result');
+				$student->batch_id             = Input::get('batch');
+				$student->gender               = Input::get('gender');
+				$student->religion             = Input::get('religion');
+				$student->nationality          = Input::get('nationality');
+				$student->date_of_birth        = (Input::has('date_of_birth')) ? Input::get('date_of_birth') : null;
+				$student->place_of_birth       = Input::get('place_of_birth');
+				$student->marital_status       = Input::get('marital_status');
+				$student->blood_group          = Input::get('blood_group');
+				$student->blood_type           = Input::has('blood_type');
+				$student->permanent_address    = Input::get('permanent_address');
+				$student->present_address      = Input::get('present_address');
+				$student->about                = Input::get('about');
 
-			$student = Student::where('user_id', '=', $id)->first();
-			$student->reg            = Input::get('reg');
-			$student->fathers_name   = Input::get('fathers_name');
-			$student->mothers_name   = Input::get('mothers_name');
-			$student->batch_id       = Input::get('batch');
-			$student->gender         = Input::get('gender');
-			$student->religion       = Input::get('religion');
-			$student->nationality    = Input::get('nationality');
-			$student->date_of_birth  = (Input::has('date_of_birth')) ? Input::get('date_of_birth') : null;
-			$student->place_of_birth = Input::get('place_of_birth');
-			$student->marital_status = Input::get('marital_status');
-			$student->blood_group    = Input::get('blood_group');
-			$student->blood_type     = Input::has('blood_type');
-			$student->home_address   = Input::get('home_address');
-			$student->bio            = Input::get('bio');
+				// if picture uploads...
+		       	if(Input::hasFile('picture'))
+			    {
+			    	$file = Input::file('picture');
 
-			// if picture uploads...
-	       	if(Input::hasFile('picture'))
-		    {
-		    	$file = Input::file('picture');
+			        $destinationPath = public_path('uploads/user_pictures');
+			        
+			        // generate random unique name [ randomStr + userId + extn ]
+			        $fileName = Str::random(4, 'alpha').$user->id.".".$file->getClientOriginalExtension();
 
-		        $destinationPath = public_path('uploads/user_pictures');
-		        
-		        // generate random unique name [ randomStr + userId + extn ]
-		        $fileName = Str::random(4, 'alpha').$user->id.".".$file->getClientOriginalExtension();
+			        // original file starts with original_
+			        $file->move($destinationPath, "original_".$fileName);
 
-		        // original file starts with original_
-		        $file->move($destinationPath, "original_".$fileName);
+			        // medium resolution starts with original_
+					Image::make($destinationPath."/original_".$fileName)
+					        		->resize(300, null, true)
+					        		->save($destinationPath."/medium_".$fileName);
 
-		        // medium resolution starts with original_
-				Image::make($destinationPath."/original_".$fileName)
-				        		->resize(300, null, true)
-				        		->save($destinationPath."/medium_".$fileName);
+					// low resolution starts with original_
+					Image::make($destinationPath."/original_".$fileName)
+					        		->resize(null, 35, true)
+					        		->save($destinationPath."/thumbnail_".$fileName);
 
-				// low resolution starts with original_
-				Image::make($destinationPath."/original_".$fileName)
-				        		->resize(null, 35, true)
-				        		->save($destinationPath."/thumbnail_".$fileName);
+					$picture = new Download();
+					$picture->caption = $user->full_name;
+					$picture->type = 'Profile Picture';
+					$picture->url = $fileName;
+					
+					$student->user->pictures()->save($picture);
+			    }
 
-				$picture = new Download();
-				$picture->caption = $user->full_name;
-				$picture->type = 'Profile Picture';
-				$picture->url = $fileName;
-				
-				$student->user->pictures()->save($picture);
-		    }
-
-			if($user->student()->save($student))
-		    	return Redirect::route('students.show', array('reg' => $student->reg))
-	    						->with('success', "Student '$user->full_name' has added successfully.");
-	    	else
-				return Redirect::route('students.edit', array('reg' => $student->reg))
-									->withInput()
-									->with('error', 'Some error occured. Try again.');
+				if($user->student()->save($student))
+			    	return Redirect::route('admin.students.show', array('reg' => $student->reg))
+		    						->with('success', "Student '$user->full_name' has added successfully.");
+		    	else
+					return Redirect::route('admin.students.edit', array('reg' => $student->reg))
+										->withInput()
+										->with('error', 'Some error occured. Try again.');
+			}
 		}
 	}
 
@@ -258,10 +304,10 @@ class StudentController extends BaseController {
 	{
 		$user = User::find($user_id);
 		if($user->delete())
-			return Redirect::route('students')
+			return Redirect::route('admin.students')
 								->with('success', 'The user has been deleted.');
 		else
-			return Redirect::route('students')
+			return Redirect::route('admin.students')
 								->with('errors', 'Some error occured. Try again.');
 	}
 }

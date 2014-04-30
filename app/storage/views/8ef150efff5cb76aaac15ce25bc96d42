@@ -1,25 +1,27 @@
 <?php 
-    $publicPages = Menu::getPublicPages();
+    $publicPages = Helper::getPublicPages();
 ?>
 
 <div class="col-md-3">
-	<div class="list-group">
-        <?php foreach ($publicPages as $key => $publicPage): ?>
-            <a href="<?php echo URL::to($publicPage->url); ?>" class="list-group-item">
-                <?php echo $publicPage->title; ?>
-            </a>
-        <?php endforeach; ?>
-	</div>
+	<div class="row-fluid sideNav">
+		<?php foreach ($publicPages as $key => $publicPage): ?>
+        	<?php if($publicPage->page_type == 'custom'): ?>
+        		<a href="<?php echo URL::route($publicPage->page->url); ?>">
+					<div class="col-md-6">
+					<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
+        			<?php echo $publicPage->page->title; ?>
+				    </div>
+				</a>
+            <?php else: ?>
+            	<a href="#">
+					<div class="col-md-6">
+					<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
+        			<?php echo $publicPage->page_name; ?>
+				    </div>
+				</a>
 
-	<div class="list-group">
-		<a href="#" class="list-group-item">
-		    Faculty
-		</a>
-		<a href="#" class="list-group-item">
-		    Stuff
-		</a>
-		<a href="#" class="list-group-item">
-		    Students
-		</a>
+				<!-- URL::route(Str::lower($publicPage->page_name)) -->
+            <?php endif; ?>
+        <?php endforeach; ?>
 	</div>
 </div>

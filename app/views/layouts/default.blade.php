@@ -7,7 +7,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>{{ $title }} | {{ Config::get('myConfig.siteName') }}</title>
+		<title>{{ $title }} | {{ Config::get('myConfig.siteName') }} - {{ Config::get('myConfig.tagName') }}</title>
 
 		{{ HTML::style("css/bootstrap.css") }}
 		{{ HTML::style('css/bootstrap3-wysiwyg5.css') }}
@@ -26,17 +26,17 @@
     </head>
 	
 	<body>
-		@include('includes.topNav')
 		<div class="container">
-            <div class="row">
-                @include('includes.sideNav')
-                <div class="col-md-9">
-                	<div class="row">
-                    	@yield('content')
-                    </div>
-                </div>
+			@include('includes.topNav')
+			<div class="row">
+				@include('includes.sideNav')
+	            <div class="col-md-9">
+	            	<div class="row">
+	                	@yield('content')
+	                </div>
+	            </div>
+            	@include('includes.footer')
             </div>
-            @include('includes.footer')
         </div>
     </body>
 </html>

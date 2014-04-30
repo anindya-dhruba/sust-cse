@@ -5,13 +5,13 @@
 		<div class="page-header">
 			<h3>
 				{{ $title }}
-				<a href="{{ URL::route('batches') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="{{ URL::route('admin.batches') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-chevron-left"></span> View All Batches
 				</a>
 			</h3>
 		</div>
 
-		{{ Form::open(array('route' => array('batches.add'))) }}
+		{{ Form::open(array('route' => array('admin.batches.add'))) }}
 
 			@include('includes.alert')
 	        

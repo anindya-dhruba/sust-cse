@@ -5,7 +5,7 @@
 		<div class="page-header">
 			<h3>
 				{{ $title }}
-				<a href="{{ URL::route('students.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="{{ URL::route('admin.students.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-plus"></span> Add New Student
 				</a>
 			</h3>
@@ -24,18 +24,18 @@
 			<tbody>
 				@foreach($students as $student)
 					<tr>
-						<td>{{ Picture::currentPicture($student, 'thumbnail') }}</td>
+						<td>{{ Helper::currentPicture($student, 'thumbnail') }}</td>
 						<td>{{ $student->reg }}</td>
 						<td>{{ $student->user->full_name}}</td>
 						<td>{{ $student->user->email }}</td>
 						
 						<td>
-							<a href="{{ URL::route('students.show', array('reg' => $student->reg)); }}" class='btn btn-success btn-sm'>
+							<a href="{{ URL::route('admin.students.show', array('reg' => $student->reg)); }}" class='btn btn-success btn-sm'>
 					        	<span class="glyphicon glyphicon-zoom-in"></span>
 							</a>
 						</td>
 						<td>
-	        				<a href="{{ URL::route('students.edit', array('reg' => $student->reg)) }}" class='btn btn-warning btn-sm'>
+	        				<a href="{{ URL::route('admin.students.edit', array('reg' => $student->reg)) }}" class='btn btn-warning btn-sm'>
 	        					<span class="glyphicon glyphicon-edit"></span>
 	        				</a>
 	        			</td>
@@ -64,7 +64,7 @@
 					Are you sure to delete this student?
 		      	</div>
 		      	<div class="modal-footer">
-		        	{{ Form::open(array('route' => array('students.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
+		        	{{ Form::open(array('route' => array('admin.students.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
 		        		<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 		        		{{ Form::submit('Yes, Delete', array('class' => 'btn btn-success')) }}
 		        	{{ Form::close() }}
@@ -79,7 +79,7 @@
 		// delete a student
 		$('.deleteBtn').click(function() {
 			var deleteUserId = $(this).attr('deleteUserId');
-			var url = "<?php echo URL::route('students'); ?>";
+			var url = "<?php echo URL::route('admin.students'); ?>";
 			$(".deleteForm").attr("action", url+'/'+deleteUserId);
 		});
 

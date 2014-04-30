@@ -42,7 +42,7 @@ class FaqController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('faq.add')
+			return Redirect::route('admin.faqs.add')
 								->withInput()
 								->withErrors($validation);
 		else
@@ -53,10 +53,10 @@ class FaqController extends BaseController {
 			$faq->answer    = Input::get('answer');
 
 			if($faq->save())
-			    return Redirect::route('faq.show', array('pageUrl' => $faq->url))
+			    return Redirect::route('admin.faqs.show', array('pageUrl' => $faq->url))
 			    					->with('success', "FAQ '$faq->title' has added successfully.");
 			else
-				return Redirect::route('faq.add')
+				return Redirect::route('admin.faqs.add')
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -85,7 +85,7 @@ class FaqController extends BaseController {
 		    $faq = Faq::where('url', '=', $pageUrl)->firstOrFail();
 
 		    return View::make('faq.show')
-						->with('title', "$faq->question added successfully")
+						->with('title', "$faq->question")
 						->with('faq', $faq);
 		}
 		catch(ModelNotFoundException $e)
@@ -132,7 +132,7 @@ class FaqController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('faq.edit', array('pageUrl' => $pageUrl))
+			return Redirect::route('admin.faqs.edit', array('pageUrl' => $pageUrl))
 								->withInput()
 								->withErrors($validation);
 		else
@@ -145,10 +145,10 @@ class FaqController extends BaseController {
 
 
 			if($faq->save())
-			    return Redirect::route('faq.show', array('pageUrl' => $faq->url))
+			    return Redirect::route('admin.faqs.show', array('pageUrl' => $faq->url))
 			    					->with('success', "Page '$faq->question' has updated successfully.");
 			else
-				return Redirect::route('faq.edit', array('pageUrl' => $pageUrl))
+				return Redirect::route('admin.faqs.edit', array('pageUrl' => $pageUrl))
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -163,10 +163,10 @@ class FaqController extends BaseController {
 	{
 		$faq = Faq::where('url', '=', $pageUrl);
 		if($faq->delete())
-			return Redirect::route('faq')
+			return Redirect::route('admin.faqs')
 								->with('success', "The FAQ has been deleted.");
 		else
-			return Redirect::route('faq')
+			return Redirect::route('admin.faqs')
 								->with('errors', 'Some error occured. Try again.');
 	}
 

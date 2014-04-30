@@ -1,0 +1,65 @@
+
+<?php $__env->startSection('content'); ?>
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				<?php echo $title; ?>
+				<a href="<?php echo URL::route('admin.faqs'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> View All FAQ's
+				</a>
+			</h3>
+		</div>
+
+		<?php echo Form::open(array('route' => 'admin.faqs.add')); ?>
+
+			<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	        <div class="form-group">
+	          	<?php echo Form::label('question', 'Question *'); ?>
+	          	<?php echo Form::text('question', '', array('class' => 'form-control title')); ?>
+	          	<?php echo Form::error($errors, 'question'); ?>
+	        </div>
+
+	        
+	        
+	        <div class="form-group">
+	        	<?php echo Form::label('url', 'Url *'); ?>
+	        	<div class="input-group">
+			      	<span class="input-group-addon"> <?php echo Url::route('faqs'); ?>/</span>
+			      	<?php echo Form::text('url', '', array('class' => 'form-control url')); ?>
+			    </div>
+			    <?php echo Form::error($errors, 'url'); ?>
+	        </div>
+
+        	
+        	<div class="form-group">
+	          	<?php echo Form::label('answer', 'Answer *'); ?>
+	          	<?php echo Form::textarea('answer', '', array('class' => 'form-control editor')); ?>
+	          	<?php echo Form::error($errors, 'answer'); ?>
+	        </div>
+
+
+
+        	<?php echo Form::submit('Add FAQ Page', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')); ?>
+
+		<?php echo Form::close(); ?>
+	</div>
+
+
+	
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// gets slug/url
+			$('.title').on('input', function() {
+				$.post("<?php echo URL::route('admin.faqs.slug'); ?>", { title: $(this).val() })
+				  	.done(function(slug) {
+				    	$('.url').val(slug);
+				});
+			});
+
+		});
+	</script>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

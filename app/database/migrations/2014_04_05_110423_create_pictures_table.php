@@ -17,13 +17,19 @@ class CreatePicturesTable extends Migration {
 			$table->increments('id');
 			$table->string('caption');
 			$table->string('url');
-			$table->boolean('is_cover');
+			$table->string('file_url');
+			$table->boolean('is_public');
 			$table->longtext('details');
 			$table->integer('album_id')->unsigned();
+			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 
 			$table->foreign('album_id')
 					->references('id')->on('albums')
+					->onUpdate('cascade')
+					->onDelete('cascade');
+			$table->foreign('user_id')
+					->references('id')->on('users')
 					->onUpdate('cascade')
 					->onDelete('cascade');
 		});

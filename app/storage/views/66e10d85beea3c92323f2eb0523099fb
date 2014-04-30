@@ -1,0 +1,27 @@
+
+<?php $__env->startSection('content'); ?>
+	<div class="col-md-12">
+  		<?php foreach ($notices as $notice): ?>
+			<div class="row">
+				<div class="col-md-2">
+					<div class="text-center date_helper">
+						<div class="big"><?php echo date('d', strtotime($notice->created_at)); ?></div>
+						<div class="small"><?php echo date('F', strtotime($notice->created_at)); ?></div>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<a href="<?php echo URL::route('notices.show', $notice->url); ?>">
+						<h4 class="bold"><?php echo $notice->title; ?></h4>
+					</a>
+
+					<p><?php echo $notice->notice; ?></p>
+					<a class="btn btn-success btn-sm" href="<?php echo URL::route('notices.show', $notice->url); ?>"> Read More</a>
+				</div>
+			</div>
+			<hr/>
+		<?php endforeach; ?>
+
+		<?php echo $notices->links(); ?>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

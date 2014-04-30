@@ -17,7 +17,8 @@ class CreateAlbumsTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('url');
-			$table->longtext('details')->nullable();
+			$table->boolean('is_public');
+			$table->longtext('details');
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 

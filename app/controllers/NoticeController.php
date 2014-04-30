@@ -17,16 +17,15 @@ class NoticeController extends BaseController {
 						->with('notices', $notices);
 	}
 
-
 	/**
-	 * Generates slug/url for page
+	 * Generates url for page
 	 * @return string
 	 */
-	public function slug()
+	public function generateUrl()
 	{
-		$slug = Str::slug(Input::get('title'));
-		$slugCount = count(Notice::where('url', '=', $slug)->get());
-		return ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
+		$url = Str::slug(Input::get('title'));
+		$urlCount = count(Notice::where('url', '=', $url)->get());
+		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
 	}
 
 	/**
@@ -56,23 +55,24 @@ class NoticeController extends BaseController {
 
 		
 		if($validation->fails())
-			return Redirect::route('notices.add')
+			return Redirect::route('admin.notices.add')
 								->withInput()
 								->withErrors($validation);
 
 		else
 		{
 			$notice = new Notice;
-			$notice->title      = Input::get('title');
-			$notice->url        = Input::get('url');
-			$notice->notice     = Input::get('notice');
-			$notice->user_id	= Auth::user()->id;
+			$notice->title     = Input::get('title');
+			$notice->url       = Input::get('url');
+			$notice->is_public = Input::get('is_public', 0);
+			$notice->notice    = Input::get('notice');
+			$notice->user_id   = Auth::user()->id;
 
 			if($notice->save())
-			    return Redirect::route('notices.show', array('pageUrl' => $notice->url))
+			    return Redirect::route('admin.notices.show', array('pageUrl' => $notice->url))
 			    					->with('success', "Notice '$notice->title' has added successfully.");
 			else
-				return Redirect::route('notices.add')
+				return Redirect::route('admin.notices.add')
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -81,14 +81,14 @@ class NoticeController extends BaseController {
 
 	/**
 	 * Show a  page
-	 * @param  string $pageUrl
+	 * @param  string $url
 	 * @return void
 	 */
-	public function show($pageUrl)
+	public function show($url)
 	{
 		try
 		{
-		    $notice = Notice::where('url', '=', $pageUrl)->firstOrFail();
+		    $notice = Notice::where('url', '=', $url)->firstOrFail();
 
 		    return View::make('notices.show')
 						->with('title', "View $notice->title Page")
@@ -102,14 +102,14 @@ class NoticeController extends BaseController {
 
 	/**
 	 * Edit a page
-	 * @param  string $pageUrl
+	 * @param  string $url
 	 * @return void
 	 */
-	public function edit($pageUrl)
+	public function edit($url)
 	{
 		try
 		{
-		    $notice = Notice::where('url', '=', $pageUrl)->firstOrFail();
+		    $notice = Notice::where('url', '=', $url)->firstOrFail();
 
 		    return View::make('notices.edit')
 						->with('title', "Edit $notice->title ")
@@ -123,10 +123,10 @@ class NoticeController extends BaseController {
 
 	/**
 	 * Do edit a page
-	 * @param  string $pageUrl
+	 * @param  string $url
 	 * @return void
 	 */
-	public function doEdit($pageUrl)
+	public function doEdit($url)
 	{
 		$rules = array
 		(
@@ -138,21 +138,22 @@ class NoticeController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('notices.edit', array('pageUrl' => $pageUrl))
+			return Redirect::route('admin.notices.edit', array('url' => $url))
 								->withInput()
 								->withErrors($validation);
 		else
 		{
-			$notice = Notice::where('url', '=', $pageUrl)->first();
-			$notice->title      = Input::get('title');
-			$notice->url        = Input::get('url');
+			$notice = Notice::where('url', '=', $url)->first();
+			$notice->title     = Input::get('title');
+			$notice->url       = Input::get('url');
+			$notice->is_public = Input::get('is_public', 0);
 			$notice->notice    = Input::get('notice');
 
 			if($notice->save())
-			    return Redirect::route('notices.show', array('pageUrl' => $notice->url))
+			    return Redirect::route('admin.notices.show', array('url' => $notice->url))
 			    					->with('success', "Notice '$notice->title' has updated successfully.");
 			else
-				return Redirect::route('notices.edit', array('pageUrl' => $pageUrl))
+				return Redirect::route('admin.notices.edit', array('url' => $url))
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -160,17 +161,17 @@ class NoticeController extends BaseController {
 
 	/**
 	 * Delete a page
-	 * @param  string $pageUrl
+	 * @param  string $url
 	 * @return void
 	 */
-	public function delete($pageUrl)
+	public function delete($url)
 	{
-		$notice = Notice::where('url', '=', $pageUrl);
+		$notice = Notice::where('url', '=', $url);
 		if($notice->delete())
-			return Redirect::route('notices')
+			return Redirect::route('admin.notices')
 								->with('success', "The notice has been deleted.");
 		else
-			return Redirect::route('notices')
+			return Redirect::route('admin.notices')
 								->with('errors', 'Some error occured. Try again.');
 	}
 

@@ -5,7 +5,7 @@
 		<div class="page-header">
 			<h3>
 				{{ $title }}
-				<a href="{{ URL::route('batches.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="{{ URL::route('admin.batches.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-plus"></span> Add New Batch
 				</a>
 			</h3>
@@ -22,15 +22,15 @@
 			<tbody>
 				@foreach($batches as $batch)
 					<tr>
-						<td>{{ $batch->name }} batch</td>
+						<td>{{ $batch->name }}</td>
 						<td>{{ $batch->year }}</td>
 						<td>
-							<a href="{{ URL::route('batches.show', array('year' => $batch->year)); }}" class='btn btn-success btn-sm'>
+							<a href="{{ URL::route('admin.batches.show', array('year' => $batch->year)); }}" class='btn btn-success btn-sm'>
 					        	<span class="glyphicon glyphicon-zoom-in"></span>
 							</a>
 						</td>
 						<td>
-	        				<a href="{{ URL::route('batches.edit', array('year' => $batch->year)) }}" class='btn btn-warning btn-sm'>
+	        				<a href="{{ URL::route('admin.batches.edit', array('year' => $batch->year)) }}" class='btn btn-warning btn-sm'>
 	        					<span class="glyphicon glyphicon-edit"></span>
 	        				</a>
 	        			</td>
@@ -59,7 +59,7 @@
 					Are you sure to delete this batch?
 		      	</div>
 		      	<div class="modal-footer">
-		        	{{ Form::open(array('route' => array('batches.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
+		        	{{ Form::open(array('route' => array('admin.batches.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
 		        		<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 		        		{{ Form::submit('Yes, Delete', array('class' => 'btn btn-success')) }}
 		        	{{ Form::close() }}
@@ -74,7 +74,7 @@
 		// delete a batch
 		$('.deleteBtn').click(function() {
 			var deleteBatchYear = $(this).attr('deleteBatchYear');
-			var url = "<?php echo URL::route('batches'); ?>";
+			var url = "<?php echo URL::route('admin.batches'); ?>";
 			$(".deleteForm").attr("action", url+'/'+deleteBatchYear);
 		});
 

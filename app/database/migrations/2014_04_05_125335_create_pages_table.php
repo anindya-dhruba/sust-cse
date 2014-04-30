@@ -17,6 +17,7 @@ class CreatePagesTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->string('url');
+			$table->boolean('is_public');
 			$table->longtext('content');
 			$table->timestamps();
 		});

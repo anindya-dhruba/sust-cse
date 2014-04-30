@@ -24,10 +24,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static $blood_groups = array
 	(
-		''  =>	'Not Specified',
-		'A' =>	'A',
-		'B' =>	'B', 
-		'O' =>	'O'
+		''   =>	'Not Specified',
+		'A'  =>	'A',
+		'B'  =>	'B',
+		'AB' => 'AB',
+		'O'  =>	'O'
 	);
 
 	public static $blood_types = array

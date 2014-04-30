@@ -1,0 +1,38 @@
+
+<?php $__env->startSection('content'); ?>
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				<?php echo $title; ?>
+				<a href="<?php echo URL::route('admin.batches'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Batches
+				</a>
+			</h3>
+		</div>
+
+		<?php echo Form::open(array('route' => array('admin.batches.edit',  $batch->year), 'method' => 'put')); ?>
+
+			<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+			<?php echo Form::hidden('batchId', $batch->id); ?>
+	        
+	        <div class="form-group">
+	          	<?php echo Form::label('name', 'Batch Name *'); ?>
+	          	<?php echo Form::text('name', $batch->name, array('class' => 'form-control')); ?>
+	          	<p class="help-block">Example: 21st Batch</p>
+	          	<?php echo Form::error($errors, 'name'); ?>
+	        </div>
+
+	        <div class="form-group">
+	          	<?php echo Form::label('year', 'Batch Year *'); ?>
+	          	<?php echo Form::text('year', $batch->year, array('class' => 'form-control')); ?>
+	          	<?php echo Form::error($errors, 'year'); ?>
+	        </div>
+        	
+        	<?php echo Form::submit('Update Batch', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')); ?>
+
+		<?php echo Form::close(); ?>
+	</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrderColumnInPagesTable extends Migration {
+class CreateResearchAreasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,11 @@ class CreateOrderColumnInPagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('pages', function($table)
+		Schema::create('research_areas', function($table)
 		{
-		    $table->integer('order')->nullable();
+			$table->increments('id');
+			$table->string('name');
+			$table->timestamps();
 		});
 	}
 
@@ -25,10 +27,7 @@ class CreateOrderColumnInPagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('pages', function($table)
-		{
-		    $table->dropColumn('order');
-		});
+		Schema::drop('research_areas');
 	}
 
 }

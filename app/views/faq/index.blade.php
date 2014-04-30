@@ -5,7 +5,7 @@
 		<div class="page-header">
 			<h3>
 				{{ $title }}
-				<a href="{{ URL::route('faq.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="{{ URL::route('admin.faqs.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-plus"></span> Add New FAQ's
 				</a>
 			</h3>
@@ -14,9 +14,8 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-
-					<th>Url</th>
 					<th>Question</th>
+					<th>Url</th>
 					<th>Answer</th>
 					<th colspan="3">Action</th>
 				</tr>
@@ -24,18 +23,18 @@
 			<tbody>
 				@foreach($faqs as $faq)
 					<tr>
-						
-						
-						<td>{{ $faq->url }}</td>
 						<td>{{ Str::limit(strip_tags($faq->question), 80, '...') }}</td>
 						<td>{{ Str::limit(strip_tags($faq->answer), 80, '...') }}</td>
 						<td>
-							<a href="{{ URL::route('faq.show', array('pageUrl' => $faq->url)); }}" class='btn btn-success btn-sm'>
+							<a href="{{ URL::route('faqs') }}#{{ $faq->url }}">{{ $faq->url }}</a>
+						</td>
+						<td>
+							<a href="{{ URL::route('admin.faqs.show', array('pageUrl' => $faq->url)); }}" class='btn btn-success btn-sm'>
 					        	<span class="glyphicon glyphicon-zoom-in"></span>
 							</a>
 						</td>
 						<td>
-	        				<a href="{{ URL::route('faq.edit', array('pageUrl' => $faq->url)) }}" class='btn btn-warning btn-sm'>
+	        				<a href="{{ URL::route('admin.faqs.edit', array('pageUrl' => $faq->url)) }}" class='btn btn-warning btn-sm'>
 	        					<span class="glyphicon glyphicon-edit"></span>
 	        				</a>
 	        			</td>
@@ -64,7 +63,7 @@
 					Are you sure to delete this FAQ?
 		      	</div>
 		      	<div class="modal-footer">
-		        	{{ Form::open(array('route' => array('faq.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
+		        	{{ Form::open(array('route' => array('admin.faqs.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
 		        		<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 		        		{{ Form::submit('Yes, Delete', array('class' => 'btn btn-success')) }}
 		        	{{ Form::close() }}
@@ -79,7 +78,7 @@
 		// delete a page
 		$('.deleteBtn').click(function() {
 			var deletePageUrl = $(this).attr('deletePageUrl');
-			var url = "<?php echo URL::route('faq'); ?>";
+			var url = "<?php echo URL::route('admin.faqs'); ?>";
 			$(".deleteForm").attr("action", url+'/'+deletePageUrl);
 		});
 

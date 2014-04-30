@@ -5,13 +5,13 @@
 		<div class="page-header">
 			<h3>
 				{{ $title }}
-				<a href="{{ URL::route('pages') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="{{ URL::route('admin.pages') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-chevron-left"></span> View All Pages
 				</a>
 			</h3>
 		</div>
 
-		{{ Form::open(array('route' => array('pages.edit',  $page->url), 'method' => 'put')) }}
+		{{ Form::open(array('route' => array('admin.pages.edit',  $page->url), 'method' => 'put')) }}
 
 			@include('includes.alert')
 
@@ -22,15 +22,6 @@
 	          	{{ Form::text('title', $page->title, array('class' => 'form-control title')) }}
 	          	{{ Form::error($errors, 'title') }}
 	        </div>
-
-	        <div class="form-group">
-	        	{{ Form::label('visible', 'Visibility *') }}
-		        <div class="checkbox">
-				    <label>
-						{{ Form::checkbox('visible', '1', $page->is_visible) }} This Page is visible publicly and show to public menu
-				    </label>
-			  	</div>
-			</div>
 	        
 	        <div class="form-group">
 	        	{{ Form::label('url', 'Url *') }}
@@ -46,6 +37,16 @@
 	          	{{ Form::textarea('content', $page->content, array('class' => 'form-control editor')) }}
 	          	{{ Form::error($errors, 'content') }}
 	        </div>
+
+	        @if($page->id != 1)
+		        <div class="form-group">
+			        <div class="checkbox">
+					    <label>
+							{{ Form::checkbox('is_public', '1', $page->is_public) }} This Page is visible publicly
+					    </label>
+				  	</div>
+				</div>
+			@endif
         	
         	{{ Form::submit('Update Page', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
 
@@ -57,7 +58,7 @@
 
 			// gets slug/url
 			$('.title').on('input', function() {
-				$.post("{{ URL::route('pages.slug')}}", { title: $(this).val() })
+				$.post("{{ URL::route('admin.pages.generateUrl')}}", { title: $(this).val() })
 				  	.done(function(slug) {
 				    	$('.url').val(slug);
 				});

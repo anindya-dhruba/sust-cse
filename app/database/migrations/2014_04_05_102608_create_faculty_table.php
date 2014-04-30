@@ -15,18 +15,20 @@ class CreateFacultyTable extends Migration {
 		Schema::create('faculty', function($table)
 		{
 			$table->integer('user_id')->unsigned();
-			$table->string('designation', 40);
-			$table->string('contact_email', 40);
-			$table->string('contact_mobile', 20);
+			$table->string('designation');
+			$table->string('alt_email');
+			$table->string('phone', 20);
+			$table->string('mobile', 20);
 			$table->string('contact_room', 50);
-			$table->longtext('education');
+			$table->longtext('academic_background');
 			$table->longtext('prof_exp');
-			$table->longtext('honors');
-			$table->longtext('research');
-			$table->longtext('interests');
-			$table->longtext('bio');
-			$table->string('cv')->nullable();
-			$table->text('home_address');
+			$table->longtext('awards_and_honors');
+			$table->text('interests');
+			$table->string('website', 20);
+			$table->text('present_address');
+			$table->text('permanent_address');
+			$table->longtext('about');
+			
 			$table->enum('status', array('Current', 'On Leave', 'Not Available'));
 			$table->timestamps();
 
