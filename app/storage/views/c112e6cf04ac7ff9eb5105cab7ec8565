@@ -11,9 +11,11 @@
 		</div>
 		<hr/>
 		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		
 		<h4>Page Title:</h4>
 		<?php echo $page->title; ?>
 		<hr/>
+		
 		<h4>Is public?</h4>
 			<?php if($page->is_public): ?>
 				<span class="glyphicon glyphicon-ok text-success"></span> Public
@@ -21,15 +23,26 @@
 				<span class="glyphicon glyphicon-remove text-danger"></span> Not Public
 			<?php endif; ?>
 		<hr/>
+		
 		<h4>Page Url:</h4>
 		<?php echo HTML::link($page->url, URL::to($page->url)); ?>
 		<hr/>
+		
 		<h4>Content:</h4>
 		<div class="well"><?php echo $page->content; ?></div>
 		<hr/>
-		<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
+		
+		
+		<?php if(!$page->can_update): ?>
+			<div class="alert alert-info">You can't update this page, This page will automatically fetch content!</div>
+		<?php endif; ?>
+
+
+		<?php if($page->can_update): ?>
+			<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
 				<span class="glyphicon glyphicon-edit"></span> Edit this Page
 			</a>
+		<?php endif; ?>
 	</div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,6 +1,11 @@
 
 <?php $__env->startSection('content'); ?>
 	<div class="col-md-12">
+		<?php if(count($notices) == 0): ?>
+			<div class="alert alert-success">
+				No Notice Found.
+			</div>
+		<?php endif; ?>
   		<?php foreach ($notices as $notice): ?>
 			<div class="row">
 				<div class="col-md-2">

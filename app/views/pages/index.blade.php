@@ -42,14 +42,18 @@
 							</a>
 						</td>
 						<td>
-	        				<a href="{{ URL::route('admin.pages.edit', array('url' => $page->url)) }}" class='btn btn-warning btn-sm'>
-	        					<span class="glyphicon glyphicon-edit"></span>
-	        				</a>
+							@if($page->can_update)
+		        				<a href="{{ URL::route('admin.pages.edit', array('url' => $page->url)) }}" class='btn btn-warning btn-sm'>
+		        					<span class="glyphicon glyphicon-edit"></span>
+		        				</a>
+		        			@endif
 	        			</td>
 	        			<td>
-	        				<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="{{ $page->url }}">
-	        					<span class="glyphicon glyphicon-trash"></span>
-	        				</a>
+	        				@if($page->can_delete)
+	        					<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="{{ $page->url }}">
+	        						<span class="glyphicon glyphicon-trash"></span>
+	        					</a>
+	        				@endif
 						</td>
 					</tr>
 				@endforeach
@@ -80,17 +84,18 @@
 		</div>
 	</div>
 
+@stop
+
+@section('script')
 	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		// delete a page
-		$('.deleteBtn').click(function() {
-			var deletePageUrl = $(this).attr('deletePageUrl');
-			var url = "<?php echo URL::route('admin.pages'); ?>";
-			$(".deleteForm").attr("action", url+'/'+deletePageUrl);
+		$(document).ready(function() {
+			// delete a page
+			$('.deleteBtn').click(function() {
+				var deletePageUrl = $(this).attr('deletePageUrl');
+				var url = "<?php echo URL::route('admin.pages'); ?>";
+				$(".deleteForm").attr("action", url+'/'+deletePageUrl);
+			});
+
 		});
-
-	});
 	</script>
-
 @stop

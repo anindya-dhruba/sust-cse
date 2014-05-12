@@ -78,6 +78,10 @@ class PublicController extends BaseController {
 		}
 	}
 
+	/**
+	 * show all batches
+	 * @return void
+	 */
 	public function batches()
 	{
 		$batches = Batch::orderBy('year', 'desc')->get();
@@ -87,6 +91,11 @@ class PublicController extends BaseController {
 					->with('batches', $batches);
 	}
 
+	/**
+	 * show a batch details
+	 * @param  digit $year
+	 * @return void
+	 */
 	public function batchesShow($year)
 	{
 		$batch = Batch::where('year', '=', $year)->first();
@@ -95,4 +104,21 @@ class PublicController extends BaseController {
 					->with('title', "$batch->name Batch")
 					->with('batch', $batch);
 	}
+
+	/**
+	 * shows a student details
+	 * @param  digit $year
+	 * @param  digit $reg
+	 * @return void
+	 */
+	public function studentsShow($year, $reg)
+	{
+		$student = Student::where('reg', '=', $reg)->first();
+
+	    return View::make('public.students.show')
+					->with('title', $student->user->full_name)
+					->with('student', $student);
+	}
+
+	
 }

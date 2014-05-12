@@ -6,51 +6,45 @@ class MenuTableSeeder extends Seeder {
 	{
 		$menus = array(
 			array(
-				'page_type'     =>	'custom',
 				'page_id'  		=>	1,
-				'page_name'  	=>	'',
-				'page_url'  	=>	null,
-				'page_icon'		=>	'glyphicon glyphicon-th-large',
+				'page_icon'		=>	'fa-home',
+				'page_location'	=>	'side',
+				'parent_id'		=>	0,
 				'order'       	=>	1
 			),
 			array(
-				'page_type'     =>	'dynamic',
-				'page_id'  		=>	null,
-				'page_name'  	=>	'Faculty',
-				'page_url'  	=>	'faculty',
-				'page_icon'		=>	'glyphicon glyphicon-th-large',
+				'page_id'  		=>	2,
+				'page_icon'		=>	'fa-users',
+				'page_location'	=>	'side',
+				'parent_id'		=>	0,
 				'order'       	=>	2
 			),
 			array(
-				'page_type'     =>	'dynamic',
-				'page_id'  		=>	null,
-				'page_name'  	=>	'Stuff',
-				'page_url'  	=>	'stuff',
-				'page_icon'		=>	'glyphicon glyphicon-th-large',
+				'page_id'  		=>	3,
+				'page_icon'		=>	'fa-users',
+				'page_location'	=>	'side',
+				'parent_id'		=>	0,
 				'order'       	=>	3
 			),
 			array(
-				'page_type'     =>	'dynamic',
-				'page_id'  		=>	null,
-				'page_name'  	=>	'Students',
-				'page_url'  	=>	'batches',
-				'page_icon'		=>	'glyphicon glyphicon-th-large',
+				'page_id'  		=>	4,
+				'page_icon'		=>	'fa-user',
+				'page_location'	=>	'side',
+				'parent_id'		=>	0,
 				'order'       	=>	4
 			),
 			array(
-				'page_type'     =>	'dynamic',
-				'page_id'  		=>	null,
-				'page_name'  	=>	'FAQ',
-				'page_url'  	=>	'faqs',
-				'page_icon'		=>	'glyphicon glyphicon-th-large',
+				'page_id'  		=>	5,
+				'page_icon'		=>	'fa-question-circle',
+				'page_location'	=>	'top',
+				'parent_id'		=>	0,
 				'order'       	=>	5
 			),
 			array(
-				'page_type'     =>	'dynamic',
-				'page_id'  		=>	null,
-				'page_name'  	=>	'Notices',
-				'page_url'  	=>	'notices',
-				'page_icon'		=>	'glyphicon glyphicon-th-large',
+				'page_id'  		=>	6,
+				'page_icon'		=>	'fa-calendar',
+				'page_location'	=>	'top',
+				'parent_id'		=>	0,
 				'order'       	=>	6
 			),
 		);

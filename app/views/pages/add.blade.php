@@ -31,7 +31,7 @@
 
 	        <div class="form-group">
 	          	{{ Form::label('content', 'Content *') }}
-	          	{{ Form::textarea('content', '', array('class' => 'form-control editor')) }}
+	          	{{ Form::textarea('content', '', array('class' => 'form-control', 'id' => 'editor')) }}
 	          	{{ Form::error($errors, 'content') }}
 	        </div>
 
@@ -50,7 +50,9 @@
 
 
 	
+@stop
 
+@section('script')
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// gets slug/url
@@ -61,8 +63,12 @@
 				});
 			});
 
+			CKEDITOR.replace('editor', {
+		    	filebrowserUploadUrl: "{{ URL::to('upload')}}",
+		    	"extraPlugins": "imagebrowser",
+        		"imageBrowser_listUrl": "{{ URL::to('list')}}"
+		    });
+
 		});
 	</script>
-
-
 @stop

@@ -30,7 +30,7 @@
 
 	        <div class="form-group">
 	          	<?php echo Form::label('content', 'Content *'); ?>
-	          	<?php echo Form::textarea('content', '', array('class' => 'form-control editor')); ?>
+	          	<?php echo Form::textarea('content', '', array('class' => 'form-control', 'id' => 'editor')); ?>
 	          	<?php echo Form::error($errors, 'content'); ?>
 	        </div>
 
@@ -49,7 +49,9 @@
 
 
 	
+<?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('script'); ?>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// gets slug/url
@@ -60,9 +62,13 @@
 				});
 			});
 
+			CKEDITOR.replace('editor', {
+		    	filebrowserUploadUrl: "<?php echo URL::to('upload'); ?>",
+		    	"extraPlugins": "imagebrowser",
+        		"imageBrowser_listUrl": "<?php echo URL::to('list'); ?>"
+		    });
+
 		});
 	</script>
-
-
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

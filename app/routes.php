@@ -53,7 +53,9 @@ Route::group(array('before' => 'auth|admin'), function()
 
 	// build menu DONE
 	Route::get('admin/build-menu', array('as' => 'admin.menu.build', 'uses' => 'MenuController@buildMenu'));
-	Route::post('admin/build-menu', array('uses' => 'MenuController@doBuildMenu'));
+	Route::post('admin/build-side-menu', array('uses' => 'MenuController@doBuildSideMenu'));
+	Route::post('admin/build-top-menu', array('uses' => 'MenuController@doBuildTopMenu'));
+	Route::post('admin/select-icon-location', array('as'=> 'admin.selectIconLocation', 'uses' => 'MenuController@doSelectIcon'));
 
 	// Notices DONE
 	Route::get('admin/notices', array('as' => 'admin.notices', 'uses' => 'NoticeController@index'));
@@ -93,6 +95,12 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('admin/students/{reg}/edit', array('as' => 'admin.students.edit', 'uses' => 'StudentController@edit'));
 	Route::put('admin/students/{reg}/edit', array('uses' => 'StudentController@doEdit'));
 	Route::delete('admin/students/{user_id}', array('as' => 'admin.students.delete', 'uses' => 'StudentController@delete'));
+
+
+	// wysiwyg routes
+	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));
+	Route::get('list', array('as' => 'list', 'uses' => 'BaseController@fileList'));
+	
 });
 
 
@@ -110,6 +118,7 @@ Route::get('stuff', function() {
 });
 Route::get('batches', array('as' => 'batches', 'uses' => 'PublicController@batches'));
 Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'PublicController@batchesShow'));
+Route::get('batches/{year}/reg/{reg}', array('as' => 'students.show', 'uses' => 'PublicController@studentsShow'));
 
 Route::get('{pageUrl}', array('uses' => 'PublicController@pages'));
 

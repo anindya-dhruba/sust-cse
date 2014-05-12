@@ -58,14 +58,7 @@ class PageController extends BaseController {
 				// add page at menu
 				if($page->is_public == 1)
 				{
-					$lastMenuItem = Menu::orderBy('order','desc')->get()->first();
-
-					$menuItem = new Menu;
-					$menuItem->page_type = 'custom';
-					$menuItem->page_id = $page->id;
-					$menuItem->order = $lastMenuItem->order+1;
-
-					$menuItem->save();
+					Page::addToMenu($page);
 				}
 			    return Redirect::route('admin.pages.show', array('url' => $page->url))
 			    					->with('success', "Page '$page->title' has added successfully.");
@@ -119,6 +112,7 @@ class PageController extends BaseController {
 		try
 		{
 		    $page = Page::where('url', '=', $pageUrl)->firstOrFail();
+		    if(!$page->can_update) return;
 
 		    return View::make('pages.edit')
 						->with('title', "Edit $page->title Page")
@@ -137,12 +131,18 @@ class PageController extends BaseController {
 	 */
 	public function doEdit($url)
 	{
-		$rules = array
-		(
-	    	'title' 	=> 'required',
-	    	'url' 		=> 'required|unique:pages,url,'.Input::get('pageId'),
-	    	'content' 	=> 'required'
-		);
+		$page = Page::where('url', '=', $url)->first();
+
+		// check permission
+		if(!$page->can_update) return;
+		
+		// validation rules
+		$rules['title']	= 'required';
+		if($page->can_update && $page->can_delete)
+		{
+			$rules['url']	= 'required|unique:pages,url,'.Input::get('pageId');
+			$rules['content'] = 'required';
+		}
 
 		$validation = Validator::make(Input::all(), $rules);
 		
@@ -152,38 +152,20 @@ class PageController extends BaseController {
 								->withErrors($validation);
 		else
 		{
-			$page            = Page::where('url', '=', $url)->first();
 			$page->title     = Input::get('title');
-			$page->is_public = Input::get('is_public', 0);
-			$page->url       = Input::get('url');
 			$page->content   = Input::get('content');
-
-			// if home page
-			if($page->id == 1) $page->is_public = 1;
+			if($page->can_update && $page->can_delete)
+			{
+				$page->is_public = Input::get('is_public', 0);
+				$page->url       = Input::get('url');
+			}
 
 			if($page->save())
 			{
-				// add page at menu
 				if($page->is_public == 1)
-				{
-					// if already exists at menu, than skip
-					if(!Menu::where('page_id', '=', $page->id)->first())
-					{
-						$lastMenuItem = Menu::orderBy('order','desc')->get()->first();
-
-						$menuItem = new Menu;
-						$menuItem->page_type = 'custom';
-						$menuItem->page_id = $page->id;
-						$menuItem->order = $lastMenuItem->order+1;
-
-						$menuItem->save();
-					}
-				}
+					Page::addToMenu($page);
 				else
-				{
-					// delete from menu
-					Menu::where('page_id', '=', $page->id)->delete();
-				}
+					Page::removeFromMenu($page);
 
 			    return Redirect::route('admin.pages.show', array('url' => $page->url))
 			    					->with('success', "Page '$page->title' has updated successfully.");
@@ -203,16 +185,19 @@ class PageController extends BaseController {
 	public function delete($url)
 	{
 		$page = Page::where('url', '=', $url)->first();
-		if($page->id == 1)
+		if($page->can_delete)
+		{
+			if($page->delete())
+				return Redirect::route('admin.pages')
+									->with('success', "The page has been deleted.");
+			else
+				return Redirect::route('admin.pages')
+									->with('error', 'Some error occured. Try again.');
+		}
+		else
 		{
 			return Redirect::route('admin.pages')
-								->with('error', 'You can not delete Home page');
+								->with('error', 'You can not delete this page');
 		}
-		if($page->delete())
-			return Redirect::route('admin.pages')
-								->with('success', "The page has been deleted.");
-		else
-			return Redirect::route('admin.pages')
-								->with('error', 'Some error occured. Try again.');
 	}
 }

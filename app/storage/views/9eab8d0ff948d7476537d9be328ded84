@@ -1,48 +1,122 @@
 
 <?php $__env->startSection('content'); ?>
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				<?php echo $title; ?>
-			</h3>
-		</div>
-
-		<?php if(count($pages) == 0): ?>
-			<div class="alert alert-danger" id="msg">
+		<?php if(count($allMenus) == 0): ?>
+			<div class="alert alert-danger">
 				No Page found. Try adding one first and make it publicly visible.
-			</div>
-		<?php else: ?>
-			<div class="alert alert-success" id="msg">
-				Drag and reposition the menu items below
 			</div>
 		<?php endif; ?>
 
-	<div class="row"></div>
-		<div class="col-md-4 col-md-offset-4">
-			<div class="row sideNav" id="all_menus">
-				<?php foreach ($pages as $key => $publicPage): ?>
-		        	<?php if($publicPage->page_type == 'custom'): ?>
-						<div class="col-md-6" id="orders_<?php echo $publicPage->id; ?>">
-							<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
-		    				<?php echo $publicPage->page->title; ?>
-					    </div>
-		            <?php else: ?>
-						<div class="col-md-6" id="orders_<?php echo $publicPage->id; ?>">
-							<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
-		    				<?php echo $publicPage->page_name; ?>
-					    </div>
-		            <?php endif; ?>
-		        <?php endforeach; ?>
+		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+	<ul id="myTab" class="nav nav-tabs">
+		<li class="active"><a href="#icon_and_position" data-toggle="tab">Manage Icon &amp; Position</a></li>
+		<li><a href="#side_menu" data-toggle="tab">Manage Side Menu</a></li>
+		<li><a href="#top_menu" data-toggle="tab">Manage Top Menu</a></li>
+	</ul>
+	
+	<div id="myTabContent" class="tab-content">
+
+
+		<div class="tab-pane fade active in" id="icon_and_position">
+			<?php echo Form::open(array('route' => 'admin.selectIconLocation')); ?>
+				<br/>
+				<table class="table table-bordered">
+					<tr>
+						<th>Page Name</th>
+						<th>Select Icon</th>
+						<th>Select Position</th>
+					</tr>
+					 <?php foreach ($allMenus as $key => $menu): ?>
+					 	<tr>
+					 		<td>
+								<?php echo $menu->page->title; ?>
+							</td>
+							<td>
+								<button name="pages[<?php echo $menu->id; ?>]" class="btn btn-default" role="iconpicker" data-cols="6" data-icon="<?php echo $menu->page_icon; ?>" data-iconset="fontawesome"></button>
+							</td>
+							<td>
+								<?php foreach (Menu::$menuPostions as $key => $position): ?>
+									<label class="checkbox-inline">
+										<?php echo Form::radio("locations[$menu->id]", $key, ($menu->page_location == $key)); ?>
+										<?php echo $position; ?>
+									</label>
+								<?php endforeach; ?>
+							</td>
+						</tr>
+			         <?php endforeach; ?>
+		        </table>
+				<?php echo Form::submit('Update Icon & Postion', array('class'=>'btn btn-success', 'data-loading-text'=>'Updating...', 'type' => 'button')); ?>
+			<?php echo Form::close(); ?>
+		</div>
+
+
+		<div class="tab-pane fade" id="side_menu">
+			<div class="row">
+				<div class="col-md-12 sideNav">
+					<br/>
+					<div id="side_menus">
+						<?php foreach ($sideMenus as $key => $menu): ?>
+							<div class="col-md-6" id="orders_<?php echo $menu->id; ?>">
+								<span class="icon fa <?php echo $menu->page_icon; ?>"></span><br/>
+			    				<?php echo $menu->page->title; ?>
+						    </div>
+				        <?php endforeach; ?>
+				    </div>
+				    <p id="success-indicator-side" style="display:none; margin-right: 10px;">
+		          		<span class="glyphicon glyphicon-ok"></span> Side Menu order has been saved
+		        	</p>
+			    </div>
 			</div>
 		</div>
-	</div>
-		
+
+
+		<div class="tab-pane fade" id="top_menu">
+			<div class="col-md-6">
+			    	<br/>
+			    	<div id="all_menus">
+			        	<div class="dd" id="nestable">
+			          		<?php echo $topMenus; ?>
+			        	</div>
+
+			        	<p id="success-indicator-top" style="display:none; margin-right: 10px;">
+			          		<span class="glyphicon glyphicon-ok"></span> Top Menu order has been saved
+			        	</p>
+				    </div>
+			    </div>
+		</div>
 	</div>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+	<?php echo HTML::script('js/icon-picker.min.js'); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('style'); ?>
+	<?php echo HTML::style('css/nestable.css'); ?>
+	<?php echo HTML::style('css/icon-picker.min.css'); ?>
+	<style type="text/css">
+		#side_menus
+		{
+			cursor: move;
+		}
+		#side_menus div
+		{
+			background: #eee;
+			padding: 10px 0px;
+			text-align: center;
+			border: 1px solid #fff;
+		}
+	</style>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+	<?php echo HTML::script('js/nestable.js'); ?>
+	<?php echo HTML::script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js'); ?>
+
 	<script type="text/javascript">
-		$(document).ready(function() { 
-			$("#all_menus").sortable(
+		$(document).ready(function() {
+			$("#side_menus").sortable(
 				{
 					opacity: .7,
 					cursor: 'move',
@@ -50,33 +124,47 @@
 						var order = $(this).sortable("serialize");
 						console.log(order);
 
-						$.post("<?php echo URL::route('admin.menu.build'); ?>", order, function(response) {
+						$.post("<?php echo URL::to('admin/build-side-menu'); ?>", order, function(response) {
 							$("#msg").html(response);
-
-							window.setTimeout(function () {
-							    $("#msg").html('Drag and reposition the menu items below');
-							}, 3000);
-
+						})
+						.done(function() { 
+							$( "#success-indicator-side" ).fadeIn(100).delay(1000).fadeOut();
 						});
-				}		  
+				}
 			});
+
+
+			$('.dd').nestable({ 
+		    dropCallback: function(details) {
+		       
+		       var order = new Array();
+		       $("li[data-id='"+details.destId +"']").find('ol:first').children().each(function(index,elem) {
+		         order[index] = $(elem).attr('data-id');
+		       });
+
+		       if (order.length === 0){
+		        var rootOrder = new Array();
+		        $("#nestable > ol > li").each(function(index,elem) {
+		          rootOrder[index] = $(elem).attr('data-id');
+		        });
+		       }
+
+		       $.post('<?php echo url("admin/build-top-menu/"); ?>', 
+		        { source : details.sourceId, 
+		          destination: details.destId, 
+		          order:JSON.stringify(order),
+		          rootOrder:JSON.stringify(rootOrder) 
+		        }, 
+		        function(data) {
+		         // console.log('data '+data); 
+		        })
+		        .done(function() { 
+		          $( "#success-indicator-top" ).fadeIn(100).delay(1000).fadeOut();
+		        });
+		     }
+		   });
 		});
 	</script>
-
-
-	<style type="text/css">
-	#all_menus
-	{
-		cursor: move;
-	}
-	#all_menus div
-	{
-		background: #eee;
-		padding: 10px 0px;
-		text-align: center;
-		border: 1px solid #fff;
-	}
-	</style>
-
+	
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

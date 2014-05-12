@@ -83,5 +83,5 @@ require app_path().'/filters.php';
 
 Form::macro('error', function($errors, $name)
 {
-    return '<p class="text-danger help-block">'.$errors->first($name).'</p>';
+    return '<p class="text-danger">'.$errors->first($name).'</p>';
 });

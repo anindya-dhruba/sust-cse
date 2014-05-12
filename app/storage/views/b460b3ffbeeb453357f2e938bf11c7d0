@@ -41,14 +41,18 @@
 							</a>
 						</td>
 						<td>
-	        				<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-warning btn-sm'>
-	        					<span class="glyphicon glyphicon-edit"></span>
-	        				</a>
+							<?php if($page->can_update): ?>
+		        				<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-warning btn-sm'>
+		        					<span class="glyphicon glyphicon-edit"></span>
+		        				</a>
+		        			<?php endif; ?>
 	        			</td>
 	        			<td>
-	        				<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="<?php echo $page->url; ?>">
-	        					<span class="glyphicon glyphicon-trash"></span>
-	        				</a>
+	        				<?php if($page->can_delete): ?>
+	        					<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="<?php echo $page->url; ?>">
+	        						<span class="glyphicon glyphicon-trash"></span>
+	        					</a>
+	        				<?php endif; ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -79,18 +83,19 @@
 		</div>
 	</div>
 
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
 	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		// delete a page
-		$('.deleteBtn').click(function() {
-			var deletePageUrl = $(this).attr('deletePageUrl');
-			var url = "<?php echo URL::route('admin.pages'); ?>";
-			$(".deleteForm").attr("action", url+'/'+deletePageUrl);
+		$(document).ready(function() {
+			// delete a page
+			$('.deleteBtn').click(function() {
+				var deletePageUrl = $(this).attr('deletePageUrl');
+				var url = "<?php echo URL::route('admin.pages'); ?>";
+				$(".deleteForm").attr("action", url+'/'+deletePageUrl);
+			});
+
 		});
-
-	});
 	</script>
-
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

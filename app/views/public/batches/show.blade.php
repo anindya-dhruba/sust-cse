@@ -5,7 +5,7 @@
 		<div class="page-header">
 			<h3>
 				{{ $batch->name }} Batch <small> - {{ $batch->year }} year</small>
-				<a href="{{ URL::previous() }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="{{ URL::route('batches') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-chevron-left"></span> Go Back
 				</a>
 			</h3>
@@ -24,7 +24,7 @@
 					</div>
 					<div class="row">
 				@endif
-					<a href="{{ $students[$i]->reg }}">
+					<a href="{{ URL::route('students.show', array('year'=>$batch->year, 'reg' => $students[$i]->reg)) }}">
 						<div class="col-md-4">
 							<div class="thumbnail text-center">
 								{{ Helper::currentPicture($students[$i]) }}

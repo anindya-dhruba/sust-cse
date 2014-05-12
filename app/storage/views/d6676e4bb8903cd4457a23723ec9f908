@@ -1,25 +1,15 @@
 <?php 
-    $publicPages = Helper::getPublicPages();
+    $sideMenus = Helper::getPublicPages('side');
 ?>
-
 <div class="col-md-3">
 	<div class="row-fluid sideNav">
-		<?php foreach ($publicPages as $key => $publicPage): ?>
-        	<?php if($publicPage->page_type == 'custom'): ?>
-        		<a class="<?php echo (Request::segment(1) ==  $publicPage->page->url) ? 'active' : ''; ?>" href="<?php echo URL::to($publicPage->page->url); ?>">
-					<div class="col-md-6">
-					<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
-        			<?php echo $publicPage->page->title; ?>
-				    </div>
-				</a>
-            <?php else: ?>
-            	<a class="<?php echo (Request::segment(1) ==  $publicPage->page_url) ? 'active' : ''; ?>" href="<?php echo URL::to($publicPage->page_url); ?>">
-					<div class="col-md-6">
-					<span class="icon <?php echo $publicPage->page_icon; ?>"></span><br/>
-        			<?php echo $publicPage->page_name; ?>
-				    </div>
-				</a>
-            <?php endif; ?>
+		<?php foreach ($sideMenus as $key => $menu): ?>
+    		<a href="<?php echo URL::to($menu->page->url); ?>">
+				<div class="col-md-6">
+					<span class="icon fa <?php echo $menu->page_icon; ?>"></span><br/>
+    				<?php echo $menu->page->title; ?>
+			    </div>
+			</a>
         <?php endforeach; ?>
 	</div>
 </div>

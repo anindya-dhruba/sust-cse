@@ -23,22 +23,24 @@
 	          	{{ Form::error($errors, 'title') }}
 	        </div>
 	        
-	        <div class="form-group">
-	        	{{ Form::label('url', 'Url *') }}
-	        	<div class="input-group">
-			      	<span class="input-group-addon"> {{ Url::route('home') }}/</span>
-			      	{{ Form::text('url', $page->url, array('class' => 'form-control url')) }}
-			    </div>
-			    {{ Form::error($errors, 'url') }}
-	        </div>
+	        @if($page->can_delete)
+		        <div class="form-group">
+		        	{{ Form::label('url', 'Url *') }}
+		        	<div class="input-group">
+				      	<span class="input-group-addon"> {{ Url::route('home') }}/</span>
+				      	{{ Form::text('url', $page->url, array('class' => 'form-control url')) }}
+				    </div>
+				    {{ Form::error($errors, 'url') }}
+		        </div>
+		    @endif
 
 	        <div class="form-group">
 	          	{{ Form::label('content', 'Content *') }}
-	          	{{ Form::textarea('content', $page->content, array('class' => 'form-control editor')) }}
+	          	{{ Form::textarea('content', $page->content, array('class' => 'form-control', 'id' => 'editor')) }}
 	          	{{ Form::error($errors, 'content') }}
 	        </div>
 
-	        @if($page->id != 1)
+	        @if($page->can_delete)
 		        <div class="form-group">
 			        <div class="checkbox">
 					    <label>
@@ -53,6 +55,9 @@
 		{{ Form::close() }}
 	</div>
 
+@stop
+
+@section('script')
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -64,8 +69,12 @@
 				});
 			});
 
+
+			CKEDITOR.replace('editor', {
+		    	filebrowserUploadUrl: "{{ URL::to('upload')}}",
+		    	"extraPlugins": "imagebrowser",
+        		"imageBrowser_listUrl": "{{ URL::to('list')}}"
+		    });
 		});
 	</script>
-
-
 @stop

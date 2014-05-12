@@ -4,7 +4,7 @@
 		<div class="page-header">
 			<h3>
 				<?php echo $batch->name; ?> Batch <small> - <?php echo $batch->year; ?> year</small>
-				<a href="<?php echo URL::previous(); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+				<a href="<?php echo URL::route('batches'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
 					<span class="glyphicon glyphicon-chevron-left"></span> Go Back
 				</a>
 			</h3>
@@ -23,7 +23,7 @@
 					</div>
 					<div class="row">
 				<?php endif; ?>
-					<a href="<?php echo $students[$i]->reg; ?>">
+					<a href="<?php echo URL::route('students.show', array('year'=>$batch->year, 'reg' => $students[$i]->reg)); ?>">
 						<div class="col-md-4">
 							<div class="thumbnail text-center">
 								<?php echo Helper::currentPicture($students[$i]); ?>
