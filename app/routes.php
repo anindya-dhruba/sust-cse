@@ -131,6 +131,8 @@ Route::get('faqs', array('as' => 'faqs', 'uses' => 'PublicController@faqs'));
 Route::get('notices', array('as' => 'notices', 'uses' => 'PublicController@notices'));
 Route::get('notices/{url}', array('as' => 'notices.show', 'uses' => 'PublicController@noticesShow'));
 Route::get('events', array('as' => 'events', 'uses' => 'PublicController@events'));
+Route::get('events/{url}', array('as' => 'events.show', 'uses' => 'PublicController@noticesShow'));
+Route::get('events', array('as' => 'events', 'uses' => 'PublicController@events'));
 Route::get('events/{url}', array('as' => 'events.show', 'uses' => 'PublicController@eventsShow'));
 
 

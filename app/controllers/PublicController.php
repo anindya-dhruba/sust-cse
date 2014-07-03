@@ -153,5 +153,41 @@ class PublicController extends BaseController {
 		   return "Page not found.";
 		}
 	}
+
+	/**
+	 * show all events 
+	 * @return void
+	 */
+	public function events()
+	{
+	    $events = AppEvent::where('is_public', '=', 1)
+	    					->orderBy('start_date', 'desc')
+	    					->paginate(5);
+
+	    return View::make('public.events.index')
+					->with('title', "All Events")
+					->with('events', $events);
+	}
+
+	/**
+	 * show one event
+	 * @param  string $url
+	 * @return void
+	 */
+	public function eventsShow($url)
+	{
+		try
+		{
+		    $event = AppEvent::where('url', '=', $url)->firstOrFail();
+
+		    return View::make('public.events.show')
+						->with('title', $event->title)
+						->with('event', $event);
+		}
+		catch(ModelNotFoundException $e)
+		{
+		   return "Page not found.";
+		}
+	}
 	
 }
