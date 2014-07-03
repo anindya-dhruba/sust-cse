@@ -25,16 +25,15 @@
 					<div class="row">
 				@endif
 					
-					<div class="col-md-3">
-						<div class="thumbnail text-center">
-							{{ Helper::currentPicture($students[$i]) }}
-							<div class="caption">
-								<h5>{{ $students[$i]->user->full_name}}</h5>
-								<p>{{ $students[$i]->reg }}</p>
-							</div>
+				<div class="col-md-3">
+					<div class="thumbnail text-center">
+						{{ Helper::currentPicture($students[$i]) }}
+						<div class="caption">
+							<h5>{{ $students[$i]->user->full_name}}</h5>
+							<p>{{ $students[$i]->reg }}</p>
 						</div>
 					</div>
-					
+				</div>
 			@endfor
 			</div>
 

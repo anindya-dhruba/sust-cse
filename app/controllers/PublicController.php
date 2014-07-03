@@ -153,6 +153,5 @@ class PublicController extends BaseController {
 		   return "Page not found.";
 		}
 	}
-
 	
 }

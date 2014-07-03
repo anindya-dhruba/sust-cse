@@ -53,6 +53,7 @@
 			          	{{ Form::error($errors, 'content') }}
 			        </div>
 
+
 			        @if($page->can_delete)
 				        <div class="form-group">
 					        <div class="checkbox">
@@ -62,8 +63,9 @@
 						  	</div>
 						</div>
 					@endif
-		        	
-		        	{{ Form::submit('Update Page', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
+        	
+        			{{ Form::submit('Update Page', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
+        			
 		        </div>
 			{{ Form::close() }}
 		</div>

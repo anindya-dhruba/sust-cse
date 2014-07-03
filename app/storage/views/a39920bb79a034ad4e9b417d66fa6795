@@ -1,0 +1,274 @@
+
+<?php $__env->startSection('content'); ?>
+	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				<?php echo $title; ?>
+				<a href="<?php echo URL::route('admin.students'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Students
+				</a>
+			</h3>
+		</div>
+		
+		<?php echo Form::open(array('route' => 'admin.students.add', 'files' => true)); ?>
+
+			<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<div class="row">
+				<div class="col-md-6">
+					<!-- personal information -->
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Personal Information</legend>
+					    
+					    <div class="form-group">
+				          	<?php echo Form::label('full_name', 'Full Name *'); ?>
+				          	<?php echo Form::text('full_name', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'full_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('nick_name', 'Nick Name'); ?>
+				          	<?php echo Form::text('nick_name', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'nick_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('fathers_name', 'Father Name'); ?>
+				          	<?php echo Form::text('fathers_name', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'fathers_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('mothers_name', 'Mother Name'); ?>
+				          	<?php echo Form::text('mothers_name', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'mothers_name'); ?>
+				        </div>
+
+						<div class="form-group">
+				          	<?php echo Form::label('email', 'Email Address'); ?>
+				          	<?php echo Form::text('email', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'email'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('alternate_email', 'Alternate Email'); ?>
+				          	<?php echo Form::text('alternate_email', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'alternate_email'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('phone', 'Phone'); ?>
+				          	<?php echo Form::text('phone', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'phone'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('mobile', 'Mobile'); ?>
+				          	<?php echo Form::text('mobile', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'mobile'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('gender', 'Gender'); ?>
+				          	<?php echo Form::select('gender', User::$genders, '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'gender'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('website', 'Website'); ?>
+				          	<?php echo Form::text('website', '', array('class' => 'form-control', 'placeholder' => 'http://www.example.com')); ?>
+				          	<?php echo Form::error($errors, 'website'); ?>
+				        </div>
+						
+				        <div class="form-group">
+				          	<?php echo Form::label('date_of_birth', 'Date of Birth'); ?>
+				          	<?php echo Form::text('date_of_birth', '', array('class' => 'form-control', 'datepicker',  'autocomplete' => 'off')); ?>
+				          	<?php echo Form::error($errors, 'date_of_birth'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('place_of_birth', 'Place of Birth'); ?>
+				          	<?php echo Form::text('place_of_birth', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'place_of_birth'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('marital_status', 'Marital Status'); ?>
+				          	<?php echo Form::select('marital_status', User::$marital_statuses, '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'marital_status'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('blood_group', 'Blood Group'); ?>
+				          	<div class="row">
+					          	<div class="col-md-6">
+					          		<?php echo Form::select('blood_group', User::$blood_groups, '', array('class' => 'form-control')); ?>
+					          		<?php echo Form::error($errors, 'blood_group'); ?>
+					          	</div>
+					          	<div class="col-md-6">
+					          		<?php echo Form::select('blood_type', User::$blood_types, '', array('class' => 'form-control')); ?>
+					          		<?php echo Form::error($errors, 'blood_type'); ?>
+					          	</div>
+					        </div>
+				        </div>
+						<div class="form-group">
+				          	<?php echo Form::label('permanent_address', 'Permanent Address'); ?>
+				          	<?php echo Form::text('permanent_address', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'permanent_address'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('present_address', 'Present Address'); ?>
+				          	<?php echo Form::text('present_address', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'present_address'); ?>
+				        </div>
+						
+				        <div class="form-group">
+				          	<?php echo Form::label('religion', 'Religion'); ?>
+				          	<?php echo Form::text('religion', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'religion'); ?>
+				        </div>
+				        <div class="form-group">
+				          	<?php echo Form::label('nationality', 'Nationality'); ?>
+				          	<?php echo Form::text('nationality', 'Bangladeshi', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'nationality'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('about', 'About'); ?>
+				          	<?php echo Form::textarea('about', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'about'); ?>
+				        </div>
+					</fieldset>
+
+					<!-- Upload Picture -->
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Upload Picture</legend>
+
+						<div class="form-group">
+						    <?php echo Form::label('picture', 'Upload Picture'); ?>
+						    <?php echo Form::file('picture', array('class' => 'form-control')); ?>
+						    <?php echo Form::error($errors, 'picture'); ?>
+						</div>
+					</fieldset>
+			    </div>
+			    <div class="col-md-6">
+					<!-- academic information -->			    	
+			    	<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Academic Information</legend>
+						
+						<div class="form-group">
+				          	<?php echo Form::label('reg', 'Registration No *'); ?>
+				          	<?php echo Form::text('reg', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'reg'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('batch', 'Batch *'); ?>
+				          	<?php echo Form::select('batch', $batches, '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'batch'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('thesis', 'Thesis'); ?>
+				          	<?php echo Form::textarea('thesis', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'thesis'); ?>
+				        </div>
+					</fieldset>
+
+					<!-- information about college-->
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Information About College</legend>
+					    
+					    <div class="form-group">
+				          	<?php echo Form::label('college_name', 'College Name'); ?>
+				          	<?php echo Form::text('college_name', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'college_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('college_exam_name', 'College Exam Name'); ?>
+				          	<?php echo Form::text('college_exam_name', '', array('class' => 'form-control', 'placeholder' => 'HSC/Alim/A Level')); ?>
+				          	<?php echo Form::error($errors, 'college_exam_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('college_passing_year', 'College Passing Year'); ?>
+				          	<?php echo Form::text('college_passing_year', '', array('class' => 'form-control', 'placeholder' => '2010')); ?>
+				          	<?php echo Form::error($errors, 'college_passing_year'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('college_board_name', 'College Board Name'); ?>
+				          	<?php echo Form::text('college_board_name', '', array('class' => 'form-control', 'placeholder' => 'Dhaka')); ?>
+				          	<?php echo Form::error($errors, 'college_board_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('college_result', 'College Result'); ?>
+				          	<?php echo Form::text('college_result', '', array('class' => 'form-control', 'placeholder' => 'GPA 5.00')); ?>
+				          	<?php echo Form::error($errors, 'college_result'); ?>
+				        </div>
+					</fieldset>
+
+					<!-- information about school-->
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Information About School</legend>
+					    
+						<div class="form-group">
+				          	<?php echo Form::label('school_name', 'School Name'); ?>
+				          	<?php echo Form::text('school_name', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'school_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('school_exam_name', 'School Exam Name'); ?>
+				          	<?php echo Form::text('school_exam_name', '', array('class' => 'form-control', 'placeholder' => 'SSC/Dakhil/O Level')); ?>
+				          	<?php echo Form::error($errors, 'school_exam_name'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('school_passing_year', 'School Passing Year'); ?>
+				          	<?php echo Form::text('school_passing_year', '', array('class' => 'form-control', 'placeholder' => '2008')); ?>
+				          	<?php echo Form::error($errors, 'school_passing_year'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('school_board_name', 'School Board Name'); ?>
+				          	<?php echo Form::text('school_board_name', '', array('class' => 'form-control', 'placeholder' => 'Sylhet')); ?>
+				          	<?php echo Form::error($errors, 'school_board_name'); ?>
+				        </div>
+
+						<div class="form-group">
+				          	<?php echo Form::label('school_result', 'School Result'); ?>
+				          	<?php echo Form::text('school_result', '', array('class' => 'form-control', 'placeholder' => 'GPA 4.88')); ?>
+				          	<?php echo Form::error($errors, 'college_result'); ?>
+				        </div>
+					</fieldset>
+
+					<!-- Other -->
+					<!-- Other information -->
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Other Information</legend>
+
+						<div class="form-group">
+				          	<?php echo Form::label('current_employment', 'Current Employment'); ?>
+				          	<?php echo Form::text('current_employment', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'current_employment'); ?>
+				        </div>
+
+				        <div class="form-group">
+				          	<?php echo Form::label('employment_history', 'Employment History'); ?>
+				          	<?php echo Form::textarea('employment_history', '', array('class' => 'form-control')); ?>
+				          	<?php echo Form::error($errors, 'employment_history'); ?>
+				        </div>
+					</fieldset>
+
+			    </div>
+			</div>
+
+	        <?php echo Form::submit('Add Student', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')); ?>
+
+	    <?php echo Form::close(); ?>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -74,7 +74,7 @@ class PagesTableSeeder extends Seeder {
 				'can_delete'  => 	0,
 				'created_at' => 	date('Y-m-d H-i-s'),
 				'updated_at' => 	date('Y-m-d H-i-s')
-			),
+			)
 		);
 
 		DB::table('pages')->insert($pages);

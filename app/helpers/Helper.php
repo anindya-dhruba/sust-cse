@@ -49,6 +49,7 @@ class Helper
 	  	return $result;
 	}
 
+
 	/**
 	 * get profile picture for a user
 	 * @param  user $anyKindOfUser
@@ -90,5 +91,4 @@ class Helper
 		else
 			return date('j F Y', strtotime($date));
 	}
-
 }

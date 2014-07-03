@@ -107,6 +107,7 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::put('admin/students/{reg}/edit', array('uses' => 'StudentController@doEdit'));
 	Route::delete('admin/students/{user_id}', array('as' => 'admin.students.delete', 'uses' => 'StudentController@delete'));
 
+
 	// faculty
 	Route::get('admin/faculty', array('as' => 'admin.faculty', 'uses' => 'FacultyController@index'));
 	Route::get('admin/faculty/add', array('as' => 'admin.faculty.add', 'uses' => 'FacultyController@add'));
@@ -115,7 +116,6 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('admin/faculty/{tagname}/edit', array('as' => 'admin.faculty.edit', 'uses' => 'FacultyController@edit'));
 	Route::put('admin/faculty/{tagname}/edit', array('uses' => 'FacultyController@doEdit'));
 	Route::delete('admin/faculty/{user_id}', array('as' => 'admin.faculty.delete', 'uses' => 'FacultyController@delete'));
-
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));

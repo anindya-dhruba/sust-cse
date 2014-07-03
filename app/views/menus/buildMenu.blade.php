@@ -127,6 +127,22 @@
 			    </div>
 			</div>
 		</div>
+
+
+		<div class="tab-pane fade" id="top_menu">
+			<div class="col-md-6">
+			    	<br/>
+			    	<div id="all_menus">
+			        	<div class="dd" id="nestable">
+			          		{{ $topMenus }}
+			        	</div>
+
+			        	<p id="success-indicator-top" style="display:none; margin-right: 10px;">
+			          		<span class="glyphicon glyphicon-ok"></span> Top Menu order has been saved
+			        	</p>
+				    </div>
+			    </div>
+		</div>
 	</div>
 
 

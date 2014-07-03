@@ -62,6 +62,18 @@ a:hover
 	font-size: 135px;
 	color: #999;
 }
+legend
+{
+	width: auto;
+	border-bottom: none;
+	padding: 4px 10px;
+}
+fieldset.scheduler-border
+{
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    background: #eee;
+}
 
 .sideNav > a > div
 {
@@ -162,6 +174,7 @@ ul.nav li.dropdown:hover ul.dropdown-menu
 {
 	border-radius: 0px;
 }
+<<<<<<< HEAD
 
 .border-left
 {
@@ -179,3 +192,5 @@ ul.nav li.dropdown:hover ul.dropdown-menu
 {
 	height: auto!important;
 }
+=======
+>>>>>>> FETCH_HEAD
