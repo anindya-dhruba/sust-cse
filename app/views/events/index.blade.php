@@ -15,7 +15,9 @@
 			<thead>
 				<tr>
 					<th>Public?</th>
-					<th>Event Duration</th>
+					<th>Start On</th>
+					<th>Duration</th>
+					<th>Created By</th>
 					<th>Title</th>
 					<th>Content</th>
 					<th>Action</th>
@@ -31,12 +33,13 @@
 								<span class="glyphicon glyphicon-remove text-danger"></span>
 							@endif
 						</td>
-						<td>{{ Helper::date($event->start_date) }} - {{ Helper::date($event->end_date) }}</td>
+						<td>{{ Helper::date($event->start_date) }}</td>
+						<td>{{ Helper::daysDiff($event->start_date, $event->end_date) }} day</td>
 						<td>{{ $event->user->full_name }}</td>
 						<td>
 							<a href="{{ URL::route('events.show', $event->url) }}" target="_blank">{{ $event->title }}</a>
 						</td>
-						<td>{{ Str::limit(strip_tags($event->event), 80, '...') }}</td>
+						<td>{{ Str::limit(strip_tags($event->event), 50, '...') }}</td>
 						<td>
 							<div class="btn-group">
 								<a href="{{ URL::route('admin.events.show', array('url' => $event->url)); }}" class='btn btn-default btn-sm'>

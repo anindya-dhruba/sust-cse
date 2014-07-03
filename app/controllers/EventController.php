@@ -10,7 +10,7 @@ class EventController extends BaseController {
 	 */
 	public function index()
 	{
-		$events = Event::paginate(10);
+		$events = AppEvent::orderBy('created_at', 'desc')->paginate(10);
 
 		return View::make('events.index')
 						->with('title', 'Viewing All Events')
@@ -18,13 +18,13 @@ class EventController extends BaseController {
 	}
 
 	/**
-	 * Generates url for page
+	 * Generates url for event
 	 * @return string
 	 */
 	public function generateUrl()
 	{
 		$url = Str::slug(Input::get('title'));
-		$urlCount = count(event::where('url', '=', $url)->get());
+		$urlCount = count(AppEvent::where('url', '=', $url)->get());
 		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
 	}
 
@@ -63,7 +63,7 @@ class EventController extends BaseController {
 
 		else
 		{
-			$event = new event;
+			$event = new AppEvent;
 			$event->title     	= Input::get('title');
 			$event->url       	= Input::get('url');
 			$event->is_public 	= Input::get('is_public', 0);
@@ -92,7 +92,7 @@ class EventController extends BaseController {
 	{
 		try
 		{
-		    $event = Event::where('url', '=', $url)->firstOrFail();
+		    $event = AppEvent::where('url', '=', $url)->firstOrFail();
 
 		    return View::make('events.show')
 						->with('title', 'Viewing Event')
@@ -113,7 +113,7 @@ class EventController extends BaseController {
 	{
 		try
 		{
-		    $event = Event::where('url', '=', $url)->firstOrFail();
+		    $event = AppEvent::where('url', '=', $url)->firstOrFail();
 
 		    return View::make('events.edit')
 						->with('title', "Editing event")
@@ -135,7 +135,7 @@ class EventController extends BaseController {
 		$rules = array
 		(
 	    	'title' 	=> 'required',
-	    	'url' 		=> 'required|unique:events,url,'.Input::get('noticeId'),
+	    	'url' 		=> 'required|unique:events,url,'.Input::get('eventId'),
 	    	'event' 	=> 'required',
 	    	'start_date'=> 'required|date',
 	    	'end_date'	=> 'required|date'
@@ -149,7 +149,7 @@ class EventController extends BaseController {
 								->withErrors($validation);
 		else
 		{
-			$event = Event::where('url', '=', $url)->first();
+			$event = AppEvent::where('url', '=', $url)->first();
 			$event->title     	= Input::get('title');
 			$event->url       	= Input::get('url');
 			$event->is_public 	= Input::get('is_public', 0);
@@ -174,7 +174,7 @@ class EventController extends BaseController {
 	 */
 	public function delete($url)
 	{
-		$event = Event::where('url', '=', $url);
+		$event = AppEvent::where('url', '=', $url);
 		if($event->delete())
 			return Redirect::route('admin.events')
 								->with('success', "The event has been deleted.");

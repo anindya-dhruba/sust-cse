@@ -91,4 +91,15 @@ class Helper
 		else
 			return date('j F Y', strtotime($date));
 	}
+
+
+	public static function daysDiff($date1 = null, $date2 = null)
+	{
+		$ts1 = strtotime($date1);
+		$ts2 = strtotime($date2);
+
+		$seconds_diff = $ts2 - $ts1;
+
+		echo floor($seconds_diff/3600/24)+1;
+	}
 }
