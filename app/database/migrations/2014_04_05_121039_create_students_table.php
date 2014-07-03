@@ -23,7 +23,7 @@ class CreateStudentsTable extends Migration {
 			$table->string('phone', 20);
 			$table->string('mobile', 20);
 			$table->string('alt_email');
-			$table->string('website', 20);
+			$table->string('website', 100);
 			$table->string('religion', 20);
 			$table->string('nationality', 30);
 			$table->date('date_of_birth')->nullable();

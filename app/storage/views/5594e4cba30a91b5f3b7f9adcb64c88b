@@ -10,23 +10,22 @@
 		<title><?php echo $title; ?> | <?php echo Config::get('myConfig.siteName'); ?> - <?php echo Config::get('myConfig.tagName'); ?></title>
 
 		<?php echo HTML::style("css/bootstrap.css"); ?>
-		<?php echo HTML::style('css/bootstrap3-wysiwyg5.css'); ?>
+		<?php echo HTML::style("css/bootstrap-theme.css"); ?>
 		<?php echo HTML::style('css/datepicker.css'); ?>
 		<?php echo HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'); ?>
 		<?php echo HTML::style("css/custom.css"); ?>
+		<?php echo $__env->yieldContent('style'); ?>
 
 		<?php echo HTML::script('js/jquery.min.js'); ?>
 		<?php echo HTML::script('js/bootstrap.js'); ?>
 		<?php echo HTML::script('js/datepicker.js'); ?>
-
-		<?php echo HTML::script('js/wysihtml5-0.3.0.min.js'); ?>
-		<?php echo HTML::script('js/bootstrap3-wysihtml5.js'); ?>
-
     	<?php echo HTML::script('js/custom.js'); ?>
+    	<?php echo $__env->yieldContent('script'); ?>
     </head>
 	
 	<body>
 		<div class="container">
+			<?php echo $__env->make('includes.topNavAdmin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			<?php echo $__env->make('includes.topNav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			<div class="row">
 				<?php echo $__env->make('includes.sideNav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -34,19 +33,19 @@
 					<?php echo $__env->make('includes.slider', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 				</div>
 				<div class="col-md-3">
-					<div class="panel panel-default">
-					  	<div class="panel-heading">
-					    	<h3 class="panel-title">Recent Notices</h3>
-					  	</div>
-					  	<div class="panel-body">
-					    	<?php foreach (Helper::recentNotices() as $key => $notice): ?>
-					    		<a href="<?php echo URL::route('notices.show', $notice->url); ?>">
-					    			<strong><?php echo $notice->title; ?></strong><br/>
-					    			<?php echo Str::limit(strip_tags($notice->notice), 100); ?>
-					    			<hr/>
-					    		</a>
-					    	<?php endforeach; ?>
-					  	</div>
+					<div class="panel panel-success">
+						<div class="panel-heading">Recent Notices</div>
+
+						<div class="list-group">
+							<?php foreach (Helper::recentNotices() as $key => $notice): ?>
+								<a href="<?php echo URL::route('notices.show', $notice->url); ?>" class="list-group-item">
+									<h5 class="list-group-item-heading"><strong><?php echo $notice->title; ?></strong></h5>
+									<p class="list-group-item-text">
+										<?php echo Str::limit(strip_tags($notice->notice), 100); ?>
+									</p>
+								</a>
+							<?php endforeach; ?>
+						</div>
 					</div>
 				</div>
 	            <div class="col-md-9">

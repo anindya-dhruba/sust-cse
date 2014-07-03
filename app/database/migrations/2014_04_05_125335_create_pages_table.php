@@ -18,6 +18,8 @@ class CreatePagesTable extends Migration {
 			$table->string('title');
 			$table->string('url');
 			$table->boolean('is_public');
+			$table->boolean('can_update')->default(1);
+			$table->boolean('can_delete')->default(1);
 			$table->longtext('content');
 			$table->timestamps();
 		});

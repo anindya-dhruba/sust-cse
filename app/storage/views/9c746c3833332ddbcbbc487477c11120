@@ -10,23 +10,24 @@
 		<title><?php echo $title; ?> | <?php echo Config::get('myConfig.siteName'); ?> - <?php echo Config::get('myConfig.tagName'); ?></title>
 
 		<?php echo HTML::style("css/bootstrap.css"); ?>
-		<?php echo HTML::style('css/bootstrap3-wysiwyg5.css'); ?>
+		<?php echo HTML::style("css/bootstrap-theme.css"); ?>
 		<?php echo HTML::style('css/datepicker.css'); ?>
 		<?php echo HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'); ?>
 		<?php echo HTML::style("css/custom.css"); ?>
+		<?php echo $__env->yieldContent('style'); ?>
 
 		<?php echo HTML::script('js/jquery.min.js'); ?>
 		<?php echo HTML::script('js/bootstrap.js'); ?>
 		<?php echo HTML::script('js/datepicker.js'); ?>
-
-		<?php echo HTML::script('js/wysihtml5-0.3.0.min.js'); ?>
-		<?php echo HTML::script('js/bootstrap3-wysihtml5.js'); ?>
-
-    	<?php echo HTML::script('js/custom.js'); ?>
+		<?php echo HTML::script('ckeditor/ckeditor.js'); ?>
+		<?php echo HTML::script('js/custom.js'); ?>
+    	<?php echo $__env->yieldContent('script'); ?>
+    	
     </head>
 	
 	<body>
 		<div class="container">
+			<?php echo $__env->make('includes.topNavAdmin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			<?php echo $__env->make('includes.topNav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			<div class="row">
 				<?php echo $__env->make('includes.sideNav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

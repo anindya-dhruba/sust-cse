@@ -4,20 +4,20 @@
 	border-color: #e7e7e7;
 }
 
-.navbar-nav>li>a:hover, .navbar-nav>li>a:focus
+.navbar-custom .navbar-nav>li>a:hover, .navbar-nav>li>a:focus
 {
 	color: #333;
-	background-color: transparent;
+	background-color: #eee;
 }
-.navbar-nav>li>a
+.navbar-custom .navbar-nav>li>a
 {
 	color: #777;
 }
-.navbar-brand
+.navbar-custom .navbar-brand
 {
 	color: #777;
 }
-.navbar-brand:hover, .navbar-brand:focus
+.navbar-custom .navbar-brand:hover, .navbar-brand:focus
 {
 	color: #000;
 	background-color: transparent;
@@ -34,10 +34,6 @@ a:hover
 {
 	color: #000;
 }
-.form-control
-{
-	padding: 10px;
-}
 .page-header
 {
 	margin: 5px 0px;
@@ -52,7 +48,7 @@ a:hover
 {
 	text-align: center;
 }
-.navbar
+.navbar-custom .navbar
 {
 	margin-bottom: 10px;
 }
@@ -60,33 +56,13 @@ a:hover
 {
 	border: none!important;
 }
-.fa
-{
-	color: #999;
-}
+
 .fa-avatar
 {
-	font-size: 210px;
-}
-legend
-{
-	width: auto;
-	border-bottom: none;
-	padding: 4px 10px;
-}
-fieldset.scheduler-border
-{
-    padding: 0 1.4em 1.4em 1.4em !important;
-    margin: 0 0 1.5em 0 !important;
-    background: #eee;
+	font-size: 135px;
+	color: #999;
 }
 
-legend.scheduler-border
-{
-    font-size: 18px;
-    text-align: left !important;
-    background: #DDDDDD;
-}
 .sideNav > a > div
 {
 	background: rgb(2, 196, 103);
@@ -116,31 +92,28 @@ legend.scheduler-border
 	border: none;
 	/*border-bottom: 1px solid #eee;*/
 }
-.navbar-brand
+.navbar-custom .navbar-brand
 {
 	font-size: 20px;
 	padding: 20px 0px;
 	line-height: 23px;
 }
-.navbar
+.navbar-custom .navbar
 {
 	min-height: 85px;
 }
-.navbar-nav > li > a
+.navbar-custom .navbar-nav > li > a
 {
 	padding-top: 30px;
 	padding-bottom: 26px;
 }
 
-.navbar-nav > li > a:focus, .navbar-nav > li > a:hover
+.navbar-custom .navbar-nav > li > a:focus, .navbar-nav > li > a:hover
 {
 	background: #eee;
 	color: #000;
 }
-h1, .h1, h2, .h2, h3, .h3
-{
-	margin-top: 0px;
-}
+
 .bold
 {
 	font-weight: bold;
@@ -158,4 +131,51 @@ h1, .h1, h2, .h2, h3, .h3
 .date_helper .small
 {
 	font-size: 20px;
+}
+blockquote
+{
+	font-size: 15px;
+	background: #eee;
+	border-left: 5px solid #999;
+}
+
+.table-icons tbody .btn
+{
+	padding: 6px 12px!important;
+	margin: 1px;
+}
+
+.navbar-custom .navbar-nav > .active > a, .navbar-custom .navbar-nav > .active > a:hover, .navbar-custom .navbar-nav > .active > a:focus
+{
+	color: #555;
+	background-color: #e7e7e7;
+}
+ul.nav li.dropdown:hover ul.dropdown-menu
+{
+    display: block;
+}
+.navbar-nav > li:hover
+{
+	background: #eee;
+}
+.navbar
+{
+	border-radius: 0px;
+}
+
+.border-left
+{
+	border-left: 1px solid #eee;
+}
+.border-right
+{
+	border-right: 1px solid #eee;
+}
+.border-bottom
+{
+	border-bottom: 1px solid #eee;
+}
+.cke_dialog_ui_input_file
+{
+	height: auto!important;
 }

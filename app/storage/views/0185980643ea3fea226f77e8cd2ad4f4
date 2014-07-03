@@ -1,14 +1,14 @@
 
 <?php $__env->startSection('content'); ?>
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				<?php echo $title; ?>
-				<a href="<?php echo URL::route('admin.faqs.add'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-plus"></span> Add New FAQ's
-				</a>
-			</h3>
-		</div>
+		<h3>
+			<?php echo $title; ?>
+			<a href="<?php echo URL::route('admin.faqs.add'); ?>" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-plus"></span> Add New FAQ
+			</a>
+		</h3>
+		<hr/>
+
 		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -85,4 +85,4 @@
 	</script>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,35 +1,65 @@
 
 <?php $__env->startSection('content'); ?>
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				<?php echo $title; ?>
-				<a href="<?php echo URL::route('admin.pages'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-chevron-left"></span> View All Pages
-				</a>
-			</h3>
-		</div>
-		<hr/>
-		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-		<h4>Page Title:</h4>
-		<?php echo $page->title; ?>
-		<hr/>
-		<h4>Is public?</h4>
-			<?php if($page->is_public): ?>
-				<span class="glyphicon glyphicon-ok text-success"></span> Public
-			<?php else: ?>
-				<span class="glyphicon glyphicon-remove text-danger"></span> Not Public
-			<?php endif; ?>
-		<hr/>
-		<h4>Page Url:</h4>
-		<?php echo HTML::link($page->url, URL::to($page->url)); ?>
-		<hr/>
-		<h4>Content:</h4>
-		<div class="well"><?php echo $page->content; ?></div>
-		<hr/>
-		<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
-				<span class="glyphicon glyphicon-edit"></span> Edit this Page
+		<h3>
+			<?php echo $title; ?>
+			<a href="<?php echo URL::route('admin.pages'); ?>" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-chevron-left"></span> View All Pages
 			</a>
+		</h3>
+		<hr/>
+
+		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		
+		<div class="row">
+			<div class="col-md-9 border-right">
+				<h4>Page Title:</h4>
+				<?php echo $page->title; ?>
+				<br/>
+				<br/>
+				
+				<h4>Page Content:</h4>
+				<?php echo $page->content; ?>
+
+				<?php if(!$page->can_update): ?>
+					<div class="alert alert-info">You can't update this page, This page will automatically fetch content!</div>
+				<?php endif; ?>
+			</div>
+
+			<div class="col-md-3">
+				<dl>
+					<dt>Is public?:</dt>
+					<dd>
+						<?php if($page->is_public): ?>
+							<span class="glyphicon glyphicon-ok text-success"></span> Public
+						<?php else: ?>
+							<span class="glyphicon glyphicon-remove text-danger"></span> Not Public
+						<?php endif; ?>
+					</dd>
+				</dl>
+
+				<dl>
+					<dt>URL:</dt>
+					<dd><?php echo HTML::link($page->url, URL::to($page->url)); ?></dd>
+				</dl>
+
+				<dl>
+					<dt>Created At:</dt>
+					<dd><?php echo Helper::date($page->created_at,  true); ?></dd>
+				</dl>
+
+				<dl>
+					<dt>Updated At:</dt>
+					<dd><?php echo Helper::date($page->updated_at,  true); ?></dd>
+				</dl>
+
+				<?php if($page->can_update): ?>
+					<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-success btn-block' style="vertical-align: middle;">
+						<span class="glyphicon glyphicon-edit"></span> Edit this Page
+					</a>
+				<?php endif; ?>
+			</div>
+		</div>
 	</div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

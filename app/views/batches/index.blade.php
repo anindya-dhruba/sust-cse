@@ -1,15 +1,15 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				{{ $title }}
-				<a href="{{ URL::route('admin.batches.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-plus"></span> Add New Batch
-				</a>
-			</h3>
-		</div>
+		<h3>
+			{{ $title }}
+			<a href="{{ URL::route('admin.batches.add') }}" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-plus"></span> Add New Batch
+			</a>
+		</h3>
+		<hr/>
+
 		@include('includes.alert')
 		<table class="table table-bordered table-striped">
 			<thead>

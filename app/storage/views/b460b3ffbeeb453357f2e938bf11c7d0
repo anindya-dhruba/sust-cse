@@ -1,23 +1,23 @@
 
 <?php $__env->startSection('content'); ?>
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				<?php echo $title; ?>
-				<a href="<?php echo URL::route('admin.pages.add'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-plus"></span> Add New Page
-				</a>
-			</h3>
-		</div>
+		<h3>
+			<?php echo $title; ?>
+			<a href="<?php echo URL::route('admin.pages.add'); ?>" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-plus"></span> Add New Page
+			</a>
+		</h3>
+		<hr/>
+
 		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>Public?</th>
+					<th>Updated On</th>
 					<th>Title</th>
-					<th>Url</th>
 					<th>Content</th>
-					<th colspan="3">Action</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,25 +30,35 @@
 								<span class="glyphicon glyphicon-remove text-danger"></span>
 							<?php endif; ?>
 						</td>
-						<td><?php echo $page->title; ?></td>
+						<td><?php echo Helper::date($page->updated_at); ?></td>
 						<td>
-							<a href="<?php echo URL::to($page->url); ?>"><?php echo $page->url; ?></a>
+							<a href="<?php echo URL::to($page->url); ?>" target="_blank"><?php echo $page->title; ?></a>
 						</td>
-						<td><?php echo Str::limit(strip_tags($page->content), 80, '...'); ?></td>
+						<td><?php echo Str::limit(strip_tags($page->content), 70, '...'); ?></td>
 						<td>
-							<a href="<?php echo URL::route('admin.pages.show', array('url' => $page->url));; ?>" class='btn btn-success btn-sm'>
-					        	<span class="glyphicon glyphicon-zoom-in"></span>
-							</a>
-						</td>
-						<td>
-	        				<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-warning btn-sm'>
-	        					<span class="glyphicon glyphicon-edit"></span>
-	        				</a>
-	        			</td>
-	        			<td>
-	        				<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="<?php echo $page->url; ?>">
-	        					<span class="glyphicon glyphicon-trash"></span>
-	        				</a>
+							<div class="btn-group">
+								<a href="<?php echo URL::route('admin.pages.show', array('url' => $page->url));; ?>" class='btn btn-default btn-sm'>
+						        	<span class="glyphicon glyphicon-zoom-in"></span> View
+								</a>
+								<?php if($page->can_update): ?>
+			        				<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-default btn-sm'>
+			        					<span class="glyphicon glyphicon-edit"></span> Edit
+			        				</a>
+			        			<?php else: ?>
+			        				<a href="<?php echo URL::route('admin.pages.edit', array('url' => $page->url)); ?>" class='btn btn-default btn-sm disabled'>
+			        					<span class="glyphicon glyphicon-edit"></span> Edit
+			        				</a>
+			        			<?php endif; ?>
+			        			<?php if($page->can_delete): ?>
+		        					<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="<?php echo $page->url; ?>">
+		        						<span class="glyphicon glyphicon-trash"></span> Delete
+		        					</a>
+		        				<?php else: ?>
+		        					<a href="#" class="btn btn-default btn-sm deleteBtn disabled" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="<?php echo $page->url; ?>">
+		        						<span class="glyphicon glyphicon-trash"></span> Delete
+		        					</a>
+		        				<?php endif; ?>
+							</div>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -79,18 +89,19 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		// delete a page
-		$('.deleteBtn').click(function() {
-			var deletePageUrl = $(this).attr('deletePageUrl');
-			var url = "<?php echo URL::route('admin.pages'); ?>";
-			$(".deleteForm").attr("action", url+'/'+deletePageUrl);
-		});
-
-	});
-	</script>
-
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<?php $__env->startSection('script'); ?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// delete a page
+			$('.deleteBtn').click(function() {
+				var deletePageUrl = $(this).attr('deletePageUrl');
+				var url = "<?php echo URL::route('admin.pages'); ?>";
+				$(".deleteForm").attr("action", url+'/'+deletePageUrl);
+			});
+
+		});
+	</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

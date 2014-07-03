@@ -1,14 +1,14 @@
 
 <?php $__env->startSection('content'); ?>
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				<?php echo $title; ?>
-				<a href="<?php echo URL::route('admin.students.add'); ?>" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-plus"></span> Add New Student
-				</a>
-			</h3>
-		</div>
+		<h3>
+			<?php echo $title; ?>
+			<a href="<?php echo URL::route('admin.students.add'); ?>" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-plus"></span> Add New Student
+			</a>
+		</h3>
+		<hr/>
+
 		<?php echo $__env->make('includes.alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -16,8 +16,9 @@
 					<th>Photo</th>
 					<th>Reg.</th>
 					<th>Full Name</th>
-					<th>Email</th>
-					<th colspan="3">Action</th>
+					<th>Email Address</th>
+					<th>Mobile</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,22 +27,22 @@
 						<td><?php echo Helper::currentPicture($student, 'thumbnail'); ?></td>
 						<td><?php echo $student->reg; ?></td>
 						<td><?php echo $student->user->full_name; ?></td>
-						<td><?php echo $student->user->email; ?></td>
-						
 						<td>
-							<a href="<?php echo URL::route('admin.students.show', array('reg' => $student->reg));; ?>" class='btn btn-success btn-sm'>
-					        	<span class="glyphicon glyphicon-zoom-in"></span>
-							</a>
+							<a href="mailto:<?php echo $student->user->email; ?>"><?php echo $student->user->email; ?></a>
 						</td>
+						<td><?php echo $student->mobile; ?></td>
 						<td>
-	        				<a href="<?php echo URL::route('admin.students.edit', array('reg' => $student->reg)); ?>" class='btn btn-warning btn-sm'>
-	        					<span class="glyphicon glyphicon-edit"></span>
-	        				</a>
-	        			</td>
-	        			<td>
-	        				<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="<?php echo $student->user_id; ?>">
-	        					<span class="glyphicon glyphicon-trash"></span>
-	        				</a>
+							<div class="btn-group">
+								<a href="<?php echo URL::route('admin.students.show', array('reg' => $student->reg));; ?>" class='btn btn-default btn-sm'>
+						        	<span class="glyphicon glyphicon-zoom-in"></span> View
+								</a>
+		        				<a href="<?php echo URL::route('admin.students.edit', array('reg' => $student->reg)); ?>" class='btn btn-default btn-sm'>
+		        					<span class="glyphicon glyphicon-edit"></span> Edit
+		        				</a>
+		        				<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="<?php echo $student->user_id; ?>">
+		        					<span class="glyphicon glyphicon-trash"></span> Delete
+		        				</a>
+		        			</div>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -71,19 +72,20 @@
 	    	</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		// delete a student
-		$('.deleteBtn').click(function() {
-			var deleteUserId = $(this).attr('deleteUserId');
-			var url = "<?php echo URL::route('admin.students'); ?>";
-			$(".deleteForm").attr("action", url+'/'+deleteUserId);
-		});
-
-	});
-	</script>
-
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<?php $__env->startSection('script'); ?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			// delete a student
+			$('.deleteBtn').click(function() {
+				var deleteUserId = $(this).attr('deleteUserId');
+				var url = "<?php echo URL::route('admin.students'); ?>";
+				$(".deleteForm").attr("action", url+'/'+deleteUserId);
+			});
+
+		});
+	</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -16,6 +16,7 @@ class CreateFacultyTable extends Migration {
 		{
 			$table->integer('user_id')->unsigned();
 			$table->string('designation');
+			$table->string('tagname');
 			$table->string('alt_email');
 			$table->string('phone', 20);
 			$table->string('mobile', 20);
@@ -24,7 +25,7 @@ class CreateFacultyTable extends Migration {
 			$table->longtext('prof_exp');
 			$table->longtext('awards_and_honors');
 			$table->text('interests');
-			$table->string('website', 20);
+			$table->string('website', 100);
 			$table->text('present_address');
 			$table->text('permanent_address');
 			$table->longtext('about');

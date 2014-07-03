@@ -1,15 +1,14 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				{{ $title }}
-				<a href="{{ URL::route('admin.batches') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-chevron-left"></span> View All Batches
-				</a>
-			</h3>
-		</div>
+		<h3>
+			{{ $title }}
+			<a href="{{ URL::route('admin.batches') }}" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-chevron-left"></span> View All Batches
+			</a>
+		</h3>
+		<hr/>
 
 		{{ Form::open(array('route' => array('admin.batches.edit',  $batch->year), 'method' => 'put')) }}
 

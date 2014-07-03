@@ -10,10 +10,11 @@ class StudentController extends BaseController {
 	 */
 	public function index()
 	{
-		$students = Student::paginate(10);
+		$students = Student::orderBy('created_at', 'desc')
+							->paginate(10);
 
 		return View::make('students.index')
-						->with('title', 'View All Students')
+						->with('title', 'Viewing All Students')
 						->with('students', $students);
 	}
 
@@ -152,7 +153,7 @@ class StudentController extends BaseController {
 		    $student = student::where('reg', '=', $reg)->firstOrFail();
 
 		    return View::make('students.show')
-						->with('title', "Student Details")
+						->with('title', "Viewing Student")
 						->with('student', $student);
 		}
 		catch(ModelNotFoundException $e)
@@ -173,7 +174,7 @@ class StudentController extends BaseController {
 		    $student = Student::where('reg', '=', $reg)->firstOrFail();
 
 		    return View::make('students.edit')
-						->with('title', "Edit $student->reg ")
+						->with('title', "Editing Student Info")
 						->with('batches', Batch::orderBy('year', 'desc')->lists('year', 'id'))
 						->with('student', $student);
 		}
@@ -286,7 +287,7 @@ class StudentController extends BaseController {
 
 				if($user->student()->save($student))
 			    	return Redirect::route('admin.students.show', array('reg' => $student->reg))
-		    						->with('success', "Student '$user->full_name' has added successfully.");
+		    						->with('success', "'$user->full_name' has been updated successfully.");
 		    	else
 					return Redirect::route('admin.students.edit', array('reg' => $student->reg))
 										->withInput()

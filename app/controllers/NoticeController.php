@@ -13,7 +13,7 @@ class NoticeController extends BaseController {
 		$notices = Notice::paginate(10);
 
 		return View::make('notices.index')
-						->with('title', 'View All Notices')
+						->with('title', 'Viewing All Notices')
 						->with('notices', $notices);
 	}
 
@@ -91,7 +91,7 @@ class NoticeController extends BaseController {
 		    $notice = Notice::where('url', '=', $url)->firstOrFail();
 
 		    return View::make('notices.show')
-						->with('title', "View $notice->title Page")
+						->with('title', 'Viewing Notice')
 						->with('notice', $notice);
 		}
 		catch(ModelNotFoundException $e)
@@ -112,7 +112,7 @@ class NoticeController extends BaseController {
 		    $notice = Notice::where('url', '=', $url)->firstOrFail();
 
 		    return View::make('notices.edit')
-						->with('title', "Edit $notice->title ")
+						->with('title', "Editing Notice")
 						->with('notice', $notice);
 		}
 		catch(ModelNotFoundException $e)

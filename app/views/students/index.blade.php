@@ -1,15 +1,15 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				{{ $title }}
-				<a href="{{ URL::route('admin.students.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-plus"></span> Add New Student
-				</a>
-			</h3>
-		</div>
+		<h3>
+			{{ $title }}
+			<a href="{{ URL::route('admin.students.add') }}" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-plus"></span> Add New Student
+			</a>
+		</h3>
+		<hr/>
+
 		@include('includes.alert')
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -17,8 +17,9 @@
 					<th>Photo</th>
 					<th>Reg.</th>
 					<th>Full Name</th>
-					<th>Email</th>
-					<th colspan="3">Action</th>
+					<th>Email Address</th>
+					<th>Mobile</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,22 +28,22 @@
 						<td>{{ Helper::currentPicture($student, 'thumbnail') }}</td>
 						<td>{{ $student->reg }}</td>
 						<td>{{ $student->user->full_name}}</td>
-						<td>{{ $student->user->email }}</td>
-						
 						<td>
-							<a href="{{ URL::route('admin.students.show', array('reg' => $student->reg)); }}" class='btn btn-success btn-sm'>
-					        	<span class="glyphicon glyphicon-zoom-in"></span>
-							</a>
+							<a href="mailto:{{ $student->user->email }}">{{ $student->user->email }}</a>
 						</td>
+						<td>{{ $student->mobile }}</td>
 						<td>
-	        				<a href="{{ URL::route('admin.students.edit', array('reg' => $student->reg)) }}" class='btn btn-warning btn-sm'>
-	        					<span class="glyphicon glyphicon-edit"></span>
-	        				</a>
-	        			</td>
-	        			<td>
-	        				<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="{{ $student->user_id }}">
-	        					<span class="glyphicon glyphicon-trash"></span>
-	        				</a>
+							<div class="btn-group">
+								<a href="{{ URL::route('admin.students.show', array('reg' => $student->reg)); }}" class='btn btn-default btn-sm'>
+						        	<span class="glyphicon glyphicon-zoom-in"></span> View
+								</a>
+		        				<a href="{{ URL::route('admin.students.edit', array('reg' => $student->reg)) }}" class='btn btn-default btn-sm'>
+		        					<span class="glyphicon glyphicon-edit"></span> Edit
+		        				</a>
+		        				<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="{{ $student->user_id }}">
+		        					<span class="glyphicon glyphicon-trash"></span> Delete
+		        				</a>
+		        			</div>
 						</td>
 					</tr>
 				@endforeach
@@ -72,18 +73,19 @@
 	    	</div>
 		</div>
 	</div>
+@stop
 
+@section('script')
 	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		// delete a student
-		$('.deleteBtn').click(function() {
-			var deleteUserId = $(this).attr('deleteUserId');
-			var url = "<?php echo URL::route('admin.students'); ?>";
-			$(".deleteForm").attr("action", url+'/'+deleteUserId);
+		$(document).ready(function() {
+			
+			// delete a student
+			$('.deleteBtn').click(function() {
+				var deleteUserId = $(this).attr('deleteUserId');
+				var url = "<?php echo URL::route('admin.students'); ?>";
+				$(".deleteForm").attr("action", url+'/'+deleteUserId);
+			});
+
 		});
-
-	});
 	</script>
-
 @stop

@@ -10,23 +10,24 @@
 		<title>{{ $title }} | {{ Config::get('myConfig.siteName') }} - {{ Config::get('myConfig.tagName') }}</title>
 
 		{{ HTML::style("css/bootstrap.css") }}
-		{{ HTML::style('css/bootstrap3-wysiwyg5.css') }}
+		{{ HTML::style("css/bootstrap-theme.css") }}
 		{{ HTML::style('css/datepicker.css') }}
 		{{ HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css') }}
 		{{ HTML::style("css/custom.css") }}
+		@yield('style')
 
 		{{ HTML::script('js/jquery.min.js') }}
 		{{ HTML::script('js/bootstrap.js') }}
 		{{ HTML::script('js/datepicker.js') }}
-
-		{{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
-		{{ HTML::script('js/bootstrap3-wysihtml5.js') }}
-
-    	{{ HTML::script('js/custom.js') }}
+		{{ HTML::script('ckeditor/ckeditor.js') }}
+		{{ HTML::script('js/custom.js') }}
+    	@yield('script')
+    	
     </head>
 	
 	<body>
 		<div class="container">
+			@include('includes.topNavAdmin')
 			@include('includes.topNav')
 			<div class="row">
 				@include('includes.sideNav')

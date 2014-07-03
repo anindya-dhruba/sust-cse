@@ -5,8 +5,6 @@ $(document).ready(function() {
         'format': 'yyyy-mm-dd'
     });
 
-    $('.editor').wysihtml5();
-
     $("[data-loading-text]").click(function() {
         var $btn = $(this);
         $btn.button('loading');

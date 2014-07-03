@@ -15,10 +15,10 @@ class CreateMenusTable extends Migration {
 		Schema::create('menus', function($table)
 		{
 			$table->increments('id');
-			$table->enum('page_type', array('dynamic', 'custom'));
 			$table->integer('page_id')->unsigned()->nullable();
-			$table->string('page_name');
-			$table->string('page_icon')->default('glyphicon glyphicon-th-large');
+			$table->string('page_icon')->default('fa-th-large');
+			$table->enum('page_location', array('top', 'side'));
+			$table->integer('parent_id');
 			$table->integer('order');
 
 			$table->foreign('page_id')

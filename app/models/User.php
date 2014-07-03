@@ -43,6 +43,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasOne('Student');
 	}
 
+	public function faculty()
+	{
+		return $this->hasOne('Faculty');
+	}
+
+	public function notices()
+	{
+		return $this->hasMany('Notice')
+						->orderBy('updated_at', 'desc');
+	}
+
+	public function events()
+	{
+		return $this->hasMany('Event')
+						->orderBy('start_date', 'desc');
+	}
+
 	public function pictures()
 	{
 		return $this->hasMany('Download')
@@ -50,6 +67,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 						->orderBy('updated_at', 'desc');
 	}
 
+	
 	/**
 	 * Get the unique identifier for the user.
 	 *

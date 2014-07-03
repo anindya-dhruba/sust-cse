@@ -10,23 +10,22 @@
 		<title>{{ $title }} | {{ Config::get('myConfig.siteName') }} - {{ Config::get('myConfig.tagName') }}</title>
 
 		{{ HTML::style("css/bootstrap.css") }}
-		{{ HTML::style('css/bootstrap3-wysiwyg5.css') }}
+		{{ HTML::style("css/bootstrap-theme.css") }}
 		{{ HTML::style('css/datepicker.css') }}
 		{{ HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css') }}
 		{{ HTML::style("css/custom.css") }}
+		@yield('style')
 
 		{{ HTML::script('js/jquery.min.js') }}
 		{{ HTML::script('js/bootstrap.js') }}
 		{{ HTML::script('js/datepicker.js') }}
-
-		{{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
-		{{ HTML::script('js/bootstrap3-wysihtml5.js') }}
-
     	{{ HTML::script('js/custom.js') }}
+    	@yield('script')
     </head>
 	
 	<body>
 		<div class="container">
+			@include('includes.topNavAdmin')
 			@include('includes.topNav')
 			<div class="row">
 				@include('includes.sideNav')
@@ -34,19 +33,19 @@
 					@include('includes.slider')
 				</div>
 				<div class="col-md-3">
-					<div class="panel panel-default">
-					  	<div class="panel-heading">
-					    	<h3 class="panel-title">Recent Notices</h3>
-					  	</div>
-					  	<div class="panel-body">
-					    	@foreach (Helper::recentNotices() as $key => $notice)
-					    		<a href="{{ URL::route('notices.show', $notice->url) }}">
-					    			<strong>{{ $notice->title }}</strong><br/>
-					    			{{ Str::limit(strip_tags($notice->notice), 100) }}
-					    			<hr/>
-					    		</a>
-					    	@endforeach
-					  	</div>
+					<div class="panel panel-success">
+						<div class="panel-heading">Recent Notices</div>
+
+						<div class="list-group">
+							@foreach (Helper::recentNotices() as $key => $notice)
+								<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
+									<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
+									<p class="list-group-item-text">
+										{{ Str::limit(strip_tags($notice->notice), 100) }}
+									</p>
+								</a>
+							@endforeach
+						</div>
 					</div>
 				</div>
 	            <div class="col-md-9">

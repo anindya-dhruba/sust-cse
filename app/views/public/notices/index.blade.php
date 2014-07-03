@@ -2,6 +2,11 @@
 
 @section('content')
 	<div class="col-md-12">
+		@if(count($notices) == 0)
+			<div class="alert alert-success">
+				No Notice Found.
+			</div>
+		@endif
   		@foreach ($notices as $notice)
 			<div class="row">
 				<div class="col-md-2">

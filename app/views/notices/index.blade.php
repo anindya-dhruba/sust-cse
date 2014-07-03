@@ -1,24 +1,25 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
 	<div class="col-md-12">
-		<div class="page-header">
-			<h3>
-				{{ $title }}
-				<a href="{{ URL::route('admin.notices.add') }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
-					<span class="glyphicon glyphicon-plus"></span> Add New Notice
-				</a>
-			</h3>
-		</div>
+		<h3>
+			{{ $title }}
+			<a href="{{ URL::route('admin.notices.add') }}" class='btn btn-primary pull-right'>
+				<span class="glyphicon glyphicon-plus"></span> Add New Notice
+			</a>
+		</h3>
+		<hr/>
+
 		@include('includes.alert')
-		<table class="table table-bordered table-striped">
+		<table class="table table-responsive table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>Public?</th>
+					<th>Updated On</th>
+					<th>Created By</th>
 					<th>Title</th>
-					<th>Url</th>
 					<th>Content</th>
-					<th colspan="3">Action</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,25 +32,24 @@
 								<span class="glyphicon glyphicon-remove text-danger"></span>
 							@endif
 						</td>
-						<td>{{ $notice->title }}</td>
+						<td>{{ Helper::date($notice->updated_at) }}</td>
+						<td>{{ $notice->user->full_name }}</td>
 						<td>
-							<a href="{{ URL::route('notices.show', $notice->url) }}">{{ $notice->url }}</a>
+							<a href="{{ URL::route('notices.show', $notice->url) }}" target="_blank">{{ $notice->title }}</a>
 						</td>
 						<td>{{ Str::limit(strip_tags($notice->notice), 80, '...') }}</td>
 						<td>
-							<a href="{{ URL::route('admin.notices.show', array('url' => $notice->url)); }}" class='btn btn-success btn-sm'>
-					        	<span class="glyphicon glyphicon-zoom-in"></span>
-							</a>
-						</td>
-						<td>
-	        				<a href="{{ URL::route('admin.notices.edit', array('url' => $notice->url)) }}" class='btn btn-warning btn-sm'>
-	        					<span class="glyphicon glyphicon-edit"></span>
-	        				</a>
-	        			</td>
-	        			<td>
-	        				<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="{{ $notice->url }}">
-	        					<span class="glyphicon glyphicon-trash"></span>
-	        				</a>
+							<div class="btn-group">
+								<a href="{{ URL::route('admin.notices.show', array('url' => $notice->url)); }}" class='btn btn-default btn-sm'>
+						        	<span class="glyphicon glyphicon-zoom-in"></span> View
+								</a>
+								<a href="{{ URL::route('admin.notices.edit', array('url' => $notice->url)) }}" class='btn btn-default btn-sm'>
+	        						<span class="glyphicon glyphicon-edit"></span> Edit
+	        					</a>
+	        					<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="{{ $notice->url }}">
+		        					<span class="glyphicon glyphicon-trash"></span> Delete
+		        				</a>
+	        				</div>
 						</td>
 					</tr>
 				@endforeach
