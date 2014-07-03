@@ -28,31 +28,48 @@
 			@include('includes.topNavAdmin')
 			@include('includes.topNav')
 			<div class="row">
-				@include('includes.sideNav')
-				<div class="col-md-9">
-					@include('includes.slider')
-				</div>
+				<!-- sidenav -->
 				<div class="col-md-3">
-					<div class="panel panel-success">
-						<div class="panel-heading">Recent Notices</div>
+					@include('includes.sideNav')
+				</div>
 
-						<div class="list-group">
-							@foreach (Helper::recentNotices() as $key => $notice)
-								<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
-									<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
-									<p class="list-group-item-text">
-										{{ Str::limit(strip_tags($notice->notice), 100) }}
-									</p>
-								</a>
-							@endforeach
+				<!-- main content -->
+				<div class="col-md-9">
+					<div class="row">
+						<!-- slider -->
+						<div class="col-md-12">
+							@include('includes.slider')
+						</div>
+				
+						<!-- home page content -->
+			            <div class="col-md-8">
+			            	<div class="row">
+			                	@yield('content')
+			                </div>
+			            </div>
+
+			            <!-- recent events -->
+			            <div class="col-md-4">
+							<div class="panel panel-success vspace">
+								<div class="panel-heading">Recent Events</div>
+
+								<div class="list-group">
+									@foreach (Helper::recentEvents() as $key => $event)
+										<a href="{{ URL::route('events.show', $event->url) }}" class="list-group-item">
+											<h5 class="list-group-item-heading"><strong>{{ $event->title }}</strong></h5>
+											<p class="list-group-item-text">
+												{{ Str::limit(strip_tags($event->event), 100) }}
+											</p>
+										</a>
+									@endforeach
+									<a href="{{ URL::route('events') }}" class="list-group-item">
+										<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View all Events</h5>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-	            <div class="col-md-9">
-	            	<div class="row">
-	                	@yield('content')
-	                </div>
-	            </div>
             	@include('includes.footer')
             </div>
         </div>

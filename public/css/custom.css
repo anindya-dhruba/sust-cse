@@ -174,8 +174,6 @@ ul.nav li.dropdown:hover ul.dropdown-menu
 {
 	border-radius: 0px;
 }
-<<<<<<< HEAD
-
 .border-left
 {
 	border-left: 1px solid #eee;
@@ -192,5 +190,15 @@ ul.nav li.dropdown:hover ul.dropdown-menu
 {
 	height: auto!important;
 }
-=======
->>>>>>> FETCH_HEAD
+.vspace
+{
+	margin-top: 20px;
+}
+body
+{
+	background-image: -webkit-linear-gradient(top, #fff 0%, #eee 100%);
+	background-image: linear-gradient(to bottom, #fff 0%, #eee 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	min-height: 650px;
+}

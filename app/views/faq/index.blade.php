@@ -17,7 +17,7 @@
 					<th>Question</th>
 					<th>Url</th>
 					<th>Answer</th>
-					<th colspan="3">Action</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,19 +29,17 @@
 							<a href="{{ URL::route('faqs') }}#{{ $faq->url }}">{{ $faq->url }}</a>
 						</td>
 						<td>
-							<a href="{{ URL::route('admin.faqs.show', array('pageUrl' => $faq->url)); }}" class='btn btn-success btn-sm'>
-					        	<span class="glyphicon glyphicon-zoom-in"></span>
-							</a>
-						</td>
-						<td>
-	        				<a href="{{ URL::route('admin.faqs.edit', array('pageUrl' => $faq->url)) }}" class='btn btn-warning btn-sm'>
-	        					<span class="glyphicon glyphicon-edit"></span>
-	        				</a>
-	        			</td>
-	        			<td>
-	        				<a href="#" class="btn btn-danger btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="{{ $faq->url }}">
-	        					<span class="glyphicon glyphicon-trash"></span>
-	        				</a>
+							<div class="btn-group">
+								<a href="{{ URL::route('admin.faqs.show', array('pageUrl' => $faq->url)); }}" class='btn btn-default btn-sm'>
+						        	<span class="glyphicon glyphicon-zoom-in"></span> View
+								</a>
+								<a href="{{ URL::route('admin.faqs.edit', array('pageUrl' => $faq->url)) }}" class='btn btn-default btn-sm'>
+	        						<span class="glyphicon glyphicon-edit"></span> Edit
+	        					</a>
+	        					<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePageUrl="{{ $faq->url }}">
+		        					<span class="glyphicon glyphicon-trash"></span> Delete
+		        				</a>
+	        				</div>
 						</td>
 					</tr>
 				@endforeach

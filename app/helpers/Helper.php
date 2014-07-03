@@ -82,6 +82,19 @@ class Helper
 						->get();
 	}
 
+	/**
+	 * Recent Events
+	 * @param  integer $limit
+	 * @return array
+	 */
+	public static function recentEvents($limit = 5)
+	{
+		return AppEvent::where('is_public', '=', 1)
+						->limit($limit)
+						->orderBy('start_date', 'desc')
+						->get();
+	}
+
 	public static function date($date, $withTime = false)
 	{
 		if(is_null($date))

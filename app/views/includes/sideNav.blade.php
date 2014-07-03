@@ -1,9 +1,5 @@
-<?php 
-    $sideMenus = Helper::getPublicPages('side');
-?>
-<div class="col-md-3">
 	<div class="row-fluid sideNav">
-		@foreach ($sideMenus as $key => $menu)
+		@foreach (Helper::getPublicPages('side') as $key => $menu)
     		<a href="{{ URL::to($menu->page->url) }}">
 				<div class="col-md-6">
 					<span class="icon fa {{ $menu->page_icon }}"></span><br/>
@@ -12,4 +8,24 @@
 			</a>
         @endforeach
 	</div>
-</div>
+
+	<div class="clearfix"></div>
+
+	<!-- recent notices -->
+	<div class="panel panel-success vspace">
+		<div class="panel-heading">Recent Notices</div>
+
+		<div class="list-group">
+			@foreach (Helper::recentNotices() as $key => $notice)
+				<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
+					<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
+					<p class="list-group-item-text">
+						{{ Str::limit(strip_tags($notice->notice), 100) }}
+					</p>
+				</a>
+			@endforeach
+			<a href="{{ URL::route('notices') }}" class="list-group-item">
+				<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View all Notices</h5>
+			</a>
+		</div>
+	</div>

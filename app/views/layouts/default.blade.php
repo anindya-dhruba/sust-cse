@@ -30,7 +30,9 @@
 			@include('includes.topNavAdmin')
 			@include('includes.topNav')
 			<div class="row">
-				@include('includes.sideNav')
+				<div class="col-md-3">
+					@include('includes.sideNav')
+				</div>
 	            <div class="col-md-9">
 	            	<div class="row">
 	                	@yield('content')

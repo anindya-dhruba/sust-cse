@@ -37,7 +37,7 @@
 						<td>
 							<a href="{{ URL::route('notices.show', $notice->url) }}" target="_blank">{{ $notice->title }}</a>
 						</td>
-						<td>{{ Str::limit(strip_tags($notice->notice), 80, '...') }}</td>
+						<td>{{ Str::limit(strip_tags($notice->notice), 50, '...') }}</td>
 						<td>
 							<div class="btn-group">
 								<a href="{{ URL::route('admin.notices.show', array('url' => $notice->url)); }}" class='btn btn-default btn-sm'>
