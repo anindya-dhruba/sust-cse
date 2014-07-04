@@ -8,4 +8,9 @@ class Album extends Eloquent {
 	{
 		return $this->belongsTo('User');
 	}
+
+	public function pictures()
+	{
+		return $this->hasMany('Picture');
+	}
 }

@@ -117,7 +117,7 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::put('admin/faculty/{tagname}/edit', array('uses' => 'FacultyController@doEdit'));
 	Route::delete('admin/faculty/{user_id}', array('as' => 'admin.faculty.delete', 'uses' => 'FacultyController@delete'));
 
-	// gallery
+	// gallery DONE
 	Route::get('admin/albums', array('as' => 'admin.albums', 'uses' => 'AlbumController@albums'));
 	Route::get('admin/albums/add', array('as' => 'admin.albums.add', 'uses' => 'AlbumController@add'));
 	Route::post('admin/albums/add', array('uses' => 'AlbumController@doAdd'));
@@ -127,6 +127,21 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::delete('admin/albums/{id}', array('as' => 'admin.albums.delete', 'uses' => 'AlbumController@delete'));
 
 	Route::post('admin/albums/generate-url', array('as' => 'admin.albums.generateUrl', 'uses' => 'AlbumController@generateUrl'));
+
+	// pictures Done
+	Route::get('admin/pictures', array('as' => 'admin.pictures', 'uses' => 'PictureController@index'));
+	Route::get('admin/pictures/add', array('as' => 'admin.pictures.add', 'uses' => 'PictureController@add'));
+	Route::post('admin/pictures/add', array('uses' => 'PictureController@doAdd'));
+	Route::get('admin/pictures/{url}', array('as' => 'admin.pictures.show', 'uses' => 'PictureController@show'));
+	Route::get('admin/pictures/{url}/edit', array('as' => 'admin.pictures.edit', 'uses' => 'PictureController@edit'));
+	Route::put('admin/pictures/{url}/edit', array('uses' => 'PictureController@doEdit'));
+	Route::delete('admin/pictures/{id}', array('as' => 'admin.pictures.delete', 'uses' => 'PictureController@delete'));
+
+	Route::post('admin/pictures/generate-url', array('as' => 'admin.pictures.generateUrl', 'uses' => 'PictureController@generateUrl'));
+
+	
+	// Slider
+	Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));

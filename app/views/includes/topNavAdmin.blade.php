@@ -26,7 +26,13 @@
             </li>
             <li><a href="{{ URL::route('admin.menu.build') }}">Menus</a></li>
             <li><a href="{{ URL::route('admin.batches') }}">Batches</a></li>
-            <li><a href="{{ URL::route('admin.albums') }}">Gallery</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ URL::route('admin.albums') }}">Albums</a></li>
+                    <li><a href="{{ URL::route('admin.pictures') }}">Pictures</a></li>
+                </ul>
+            </li>
             <li><a href="{{ URL::route('admin.faqs') }}">FAQ's</a></li>
             <li><a href="{{ URL::route('home') }}">Visit Website</a></li>
             <li><a href="{{ URL::route('logout') }}">Logout</a></li>
