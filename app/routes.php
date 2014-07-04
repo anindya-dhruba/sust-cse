@@ -142,6 +142,7 @@ Route::group(array('before' => 'auth|admin'), function()
 	
 	// Slider
 	Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
+	Route::post('admin/slider/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@crop'));
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));

@@ -107,8 +107,8 @@ class StudentController extends BaseController {
 
 			        $destinationPath = public_path('uploads/user_pictures');
 			        
-			        // generate random unique name [ randomStr + userId + extn ]
-			        $fileName = Str::random(4, 'alpha').$user->id.".".$file->getClientOriginalExtension();
+			        // generate random unique name [ timestamp + userId + extn ]
+			        $fileName = strtotime(date('Y-m-d H:i:s')).$user->id.".".$file->getClientOriginalExtension();
 
 			        // original file starts with original_
 			        $file->move($destinationPath, "original_".$fileName);
@@ -261,8 +261,8 @@ class StudentController extends BaseController {
 
 			        $destinationPath = public_path('uploads/user_pictures');
 			        
-			        // generate random unique name [ randomStr + userId + extn ]
-			        $fileName = Str::random(4, 'alpha').$user->id.".".$file->getClientOriginalExtension();
+			        // generate random unique name [ timestamp + userId + extn ]
+			        $fileName = strtotime(date('Y-m-d H:i:s')).$user->id.".".$file->getClientOriginalExtension();
 
 			        // original file starts with original_
 			        $file->move($destinationPath, "original_".$fileName);
