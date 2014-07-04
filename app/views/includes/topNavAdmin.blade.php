@@ -26,6 +26,7 @@
             </li>
             <li><a href="{{ URL::route('admin.menu.build') }}">Menus</a></li>
             <li><a href="{{ URL::route('admin.batches') }}">Batches</a></li>
+            <li><a href="{{ URL::route('admin.albums') }}">Gallery</a></li>
             <li><a href="{{ URL::route('admin.faqs') }}">FAQ's</a></li>
             <li><a href="{{ URL::route('home') }}">Visit Website</a></li>
             <li><a href="{{ URL::route('logout') }}">Logout</a></li>

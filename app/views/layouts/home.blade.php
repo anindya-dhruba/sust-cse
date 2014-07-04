@@ -57,9 +57,10 @@
 									@foreach (Helper::recentEvents() as $key => $event)
 										<a href="{{ URL::route('events.show', $event->url) }}" class="list-group-item">
 											<h5 class="list-group-item-heading"><strong>{{ $event->title }}</strong></h5>
-											<p class="list-group-item-text">
-												{{ Str::limit(strip_tags($event->event), 100) }}
-											</p>
+											<small>
+												{{ Helper::date($event->start_date) }} - {{ Helper::date($event->end_date) }} :
+												<mark>{{ Helper::daysDiff($event->start_date, $event->end_date) }} day</mark>
+											</small>
 										</a>
 									@endforeach
 									<a href="{{ URL::route('events') }}" class="list-group-item">

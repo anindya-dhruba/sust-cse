@@ -108,7 +108,7 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::delete('admin/students/{user_id}', array('as' => 'admin.students.delete', 'uses' => 'StudentController@delete'));
 
 
-	// faculty
+	// faculty DONE
 	Route::get('admin/faculty', array('as' => 'admin.faculty', 'uses' => 'FacultyController@index'));
 	Route::get('admin/faculty/add', array('as' => 'admin.faculty.add', 'uses' => 'FacultyController@add'));
 	Route::post('admin/faculty/add', array('uses' => 'FacultyController@doAdd'));
@@ -116,6 +116,17 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('admin/faculty/{tagname}/edit', array('as' => 'admin.faculty.edit', 'uses' => 'FacultyController@edit'));
 	Route::put('admin/faculty/{tagname}/edit', array('uses' => 'FacultyController@doEdit'));
 	Route::delete('admin/faculty/{user_id}', array('as' => 'admin.faculty.delete', 'uses' => 'FacultyController@delete'));
+
+	// gallery
+	Route::get('admin/albums', array('as' => 'admin.albums', 'uses' => 'AlbumController@albums'));
+	Route::get('admin/albums/add', array('as' => 'admin.albums.add', 'uses' => 'AlbumController@add'));
+	Route::post('admin/albums/add', array('uses' => 'AlbumController@doAdd'));
+	Route::get('admin/albums/{pageUrl}', array('as' => 'admin.albums.show', 'uses' => 'AlbumController@show'));
+	Route::get('admin/albums/{pageUrl}/edit', array('as' => 'admin.albums.edit', 'uses' => 'AlbumController@edit'));
+	Route::put('admin/albums/{pageUrl}/edit', array('uses' => 'AlbumController@doEdit'));
+	Route::delete('admin/albums/{id}', array('as' => 'admin.albums.delete', 'uses' => 'AlbumController@delete'));
+
+	Route::post('admin/albums/generate-url', array('as' => 'admin.albums.generateUrl', 'uses' => 'AlbumController@generateUrl'));
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));

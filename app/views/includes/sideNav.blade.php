@@ -19,13 +19,13 @@
 			@foreach (Helper::recentNotices() as $key => $notice)
 				<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
 					<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
-					<p class="list-group-item-text">
-						{{ Str::limit(strip_tags($notice->notice), 100) }}
-					</p>
+					<small>
+						{{ Helper::date($notice->created_at) }}
+					</small>
 				</a>
 			@endforeach
 			<a href="{{ URL::route('notices') }}" class="list-group-item">
-				<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View all Notices</h5>
+				<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View All Notices</h5>
 			</a>
 		</div>
 	</div>
