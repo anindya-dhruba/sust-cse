@@ -31,6 +31,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="{{ URL::route('admin.albums') }}">Albums</a></li>
                     <li><a href="{{ URL::route('admin.pictures') }}">Pictures</a></li>
+                    <li><a href="{{ URL::route('admin.slider') }}">Home Slider</a></li>
                 </ul>
             </li>
             <li><a href="{{ URL::route('admin.faqs') }}">FAQ's</a></li>

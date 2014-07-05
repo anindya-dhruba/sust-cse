@@ -142,7 +142,12 @@ Route::group(array('before' => 'auth|admin'), function()
 	
 	// Slider
 	Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
-	Route::post('admin/slider/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@crop'));
+	Route::get('admin/slider/select', array('as' => 'admin.slider.select', 'uses' => 'SliderController@select'));
+	Route::get('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@crop'));
+	Route::post('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@doCrop'));
+	Route::get('admin/slider/{id}/edit', array('as' => 'admin.slider.edit', 'uses' => 'SliderController@edit'));
+	Route::put('admin/slider/{id}/edit', array('uses' => 'SliderController@doEdit'));
+	Route::delete('admin/slider/{id}', array('as' => 'admin.slider.delete', 'uses' => 'SliderController@delete'));
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));

@@ -95,6 +95,17 @@ class Helper
 						->get();
 	}
 
+	/**
+	 * Slider images
+	 * @return array
+	 */
+	public static function sliderPictures()
+	{
+		return Slider::where('is_active', '=', 1)
+						->orderBy('updated_at', 'desc')
+						->get();
+	}
+
 	public static function date($date, $withTime = false)
 	{
 		if(is_null($date))
