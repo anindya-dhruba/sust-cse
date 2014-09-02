@@ -9,7 +9,7 @@
 					<h4 class="list-group-item-heading">
 						{{ $batches[$i]->name }} Batch
 					</h4>
-					<p class="list-group-item-text">Year {{ $batches[$i]->year }} - {{ $batches[$i]->students->count() }} Students</p>
+					<p class="list-group-item-text">Year {{ $batches[$i]->year }} - {{ $batches[$i]->users->count() }} Students</p>
 				</a>
 			@endfor
 		</div>
@@ -21,7 +21,7 @@
 					<h4 class="list-group-item-heading">
 						{{ $batches[$i]->name }} Batch
 					</h4>
-					<p class="list-group-item-text">Year {{ $batches[$i]->year }} - {{ $batches[$i]->students->count() }} Students</p>
+					<p class="list-group-item-text">Year {{ $batches[$i]->year }} - {{ $batches[$i]->users->count() }} Students</p>
 				</a>
 			@endfor
 		</div>

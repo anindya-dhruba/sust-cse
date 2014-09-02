@@ -49,7 +49,7 @@
 
 			        <div class="form-group">
 			          	{{ Form::label('details', 'Album Details *') }}
-			          	{{ Form::textarea('details', $album->details, array('class' => 'form-control', 'id' => 'editor')) }}
+			          	{{ Form::textarea('details', $album->details, array('class' => 'form-control ckeditor')) }}
 			          	{{ Form::error($errors, 'details') }}
 			        </div>
 
@@ -78,12 +78,6 @@
 				    	$('.url').val(url);
 				});
 			});
-
-			CKEDITOR.replace('editor', {
-		    	filebrowserUploadUrl: "{{ URL::route('upload')}}",
-		    	"extraPlugins": "imagebrowser",
-        		"imageBrowser_listUrl": "{{ URL::route('list')}}"
-		    });
 		});
 	</script>
 

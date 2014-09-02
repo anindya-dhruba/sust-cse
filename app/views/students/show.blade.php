@@ -7,10 +7,10 @@
 			<div class="col-md-4">
 		      	<p class="text-center">{{ Helper::currentPicture($student) }}</p>
 	        	
-	        	<h4 class="text-center">{{ $student->user->full_name }} {{ $student->user->nick_name }}</h4>
+	        	<h4 class="text-center">{{ $student->full_name }} {{ $student->nick_name }}</h4>
 	        	<p class="text-center">
 	        		{{ $student->reg }}<br/>
-	        		{{ $student->user->email }}<br/>
+	        		{{ $student->email }}<br/>
 	        		{{ HTML::linkRoute('batches.show', $student->batch->year." - ".$student->batch->name." batch", $student->batch->year) }}
 	        	</p>
 
@@ -31,11 +31,11 @@
 					<div class="col-md-6">
 						<dl>
 		        			<dt>Full Name:</dt>
-		        			<dd>{{ $student->user->full_name }}</dd>
+		        			<dd>{{ $student->full_name }}</dd>
 		        		</dl>
 		        		<dl>
 		        			<dt>Nick Name:</dt>
-		        			<dd>{{ $student->user->nick_name }}</dd>
+		        			<dd>{{ $student->nick_name }}</dd>
 		        		</dl>
 		        		<dl>
 		        			<dt>Registration No:</dt>
@@ -47,7 +47,7 @@
 		        		</dl>
 		        		<dl>
 		        			<dt>Email Address:</dt>
-		        			<dd><a href="mailto:{{ $student->user->email }}">{{ $student->user->email }}</a></dd>
+		        			<dd><a href="mailto:{{ $student->email }}">{{ $student->email }}</a></dd>
 		        		</dl>
 		        		<dl>
 		        			<dt>Alternate Email:</dt>
@@ -69,30 +69,6 @@
 		        			<dt>Website:</dt>
 		        			<dd><a href="{{ $student->website }}" target="_blank">{{ $student->website }}</a></dd>
 		        		</dl>
-		        		<dl>
-							<dt>School Name:</dt>
-							<dd>{{ $student->scl_name }}</dd>
-						</dl>
-						<dl>
-							<dt>School Exam Name:</dt>
-							<dd>{{ $student->scl_exam_name }}</dd>
-						</dl>
-						<dl>
-							<dt>School Passing Year:</dt>
-							<dd>{{ $student->scl_passing_year }}</dd>
-						</dl>
-						<dl>
-							<dt>School Board Name:</dt>
-							<dd>{{ $student->scl_board_name }}</dd>
-						</dl>
-						<dl>
-							<dt>School Result:</dt>
-							<dd>{{ $student->scl_result }}</dd>
-						</dl>
-						<dl>
-							<dt>Thesis:</dt>
-							<dd>{{ nl2br($student->thesis) }}</dd>
-						</dl>
 					</div>
 					<div class="col-md-6">
 						<dl>
@@ -115,6 +91,10 @@
 		        			<dt>Date of Birth:</dt>
 		        			<dd>{{ Helper::date($student->date_of_birth) }}</dd>
 		        		</dl>
+		        		<dl>
+		        			<dt>Place of Birth:</dt>
+		        			<dd>{{ $student->place_of_birth }}</dd>
+		        		</dl>
 	        			<dl>
 		        			<dt>Nationality:</dt>
 		        			<dd>{{ $student->nationality }}</dd>
@@ -131,33 +111,23 @@
 		        			<dt>Permanent Address:</dt>
 		        			<dd>{{ $student->permanent_address }}</dd>
 		        		</dl>
-		        		<dl>
-							<dt>College Name:</dt>
-							<dd>{{ $student->clg_name }}</dd>
-						</dl>
-						<dl>
-							<dt>College Exam Name:</dt>
-							<dd>{{ $student->clg_exam_name }}</dd>
-						</dl>
-						<dl>
-							<dt>College Passing Year:</dt>
-							<dd>{{ $student->clg_passing_year }}</dd>
-						</dl>
-						<dl>
-							<dt>College Board Name:</dt>
-							<dd>{{ $student->clg_board_name }}</dd>
-						</dl>
-						<dl>
-							<dt>College Result:</dt>
-							<dd>{{ $student->clg_result }}</dd>
-						</dl>
 						<dl>
 							<dt>Current Employment:</dt>
 							<dd>{{ $student->current_employment }}</dd>
 						</dl>
+		        	</div>
+		        	<div class="col-md-12">
+		        		<dl>
+							<dt>Academic Background:</dt>
+							<dd>{{ $student->academic_background }}</dd>
+						</dl>
 						<dl>
 							<dt>Employment History:</dt>
-							<dd>{{ nl2br($student->employment_history) }}</dd>
+							<dd>{{ $student->employment_history }}</dd>
+						</dl>
+						<dl>
+							<dt>About:</dt>
+							<dd>{{ $student->about }}</dd>
 						</dl>
 					</div>
 

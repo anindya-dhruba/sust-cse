@@ -33,13 +33,13 @@
         	
         	<div class="form-group">
 	          	{{ Form::label('answer', 'Answer *') }}
-	          	{{ Form::textarea('answer', '', array('class' => 'form-control editor')) }}
+	          	{{ Form::textarea('answer', '', array('class' => 'form-control ckeditor')) }}
 	          	{{ Form::error($errors, 'answer') }}
 	        </div>
 
 
 
-        	{{ Form::submit('Add FAQ Page', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
+        	{{ Form::submit('Add FAQ', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
 
 		{{ Form::close() }}
 	</div>

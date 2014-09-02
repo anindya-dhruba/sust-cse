@@ -8,7 +8,6 @@
 				<h2>{{ $title }}</h2>
 			</div>
 		@endif
-
       	<p>{{ $page->content }}</p>
     </div>
 @stop

@@ -4,8 +4,9 @@ class Batch extends Eloquent {
 
 	protected $table = 'batches';
 
-	public function students()
+	public function users()
 	{
-		return $this->hasMany('Student');
+		return $this->hasMany('User')
+						->where('role_id', '=', 5);
 	}
 }

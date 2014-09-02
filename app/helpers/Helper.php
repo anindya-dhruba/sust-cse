@@ -52,13 +52,13 @@ class Helper
 
 	/**
 	 * get profile picture for a user
-	 * @param  user $anyKindOfUser
+	 * @param  user $user
 	 * @param  string $resolution
 	 * @return string/html
 	 */
-	public static function currentPicture($anyKindOfUser, $resolution = 'medium')
+	public static function currentPicture($user, $resolution = 'medium')
 	{
-		if($picture = $anyKindOfUser->user->pictures()->first())
+		if($picture = $user->pictures()->first())
 			return HTML::image('uploads/user_pictures/'.$resolution.'_'.$picture->url);
 		else
 		{

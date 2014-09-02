@@ -10,7 +10,9 @@ class PictureController extends BaseController {
 	 */
 	public function index()
 	{
-		$pictures = Picture::paginate(10);
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
+		$pictures = Picture::with('user')->paginate(10);
 
 		return View::make('pictures.index')
 						->with('title', 'Viewing All Pictures')
@@ -23,6 +25,8 @@ class PictureController extends BaseController {
 	 */
 	public function generateUrl()
 	{
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
 		$url = Str::slug(Input::get('caption'));
 		$urlCount = count(Picture::where('url', '=', $url)->get());
 		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
@@ -33,6 +37,8 @@ class PictureController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
 		return View::make('pictures.add')
 						->with('title', 'Add New Picture')
 						->with('albumOptions', Album::orderBy('name')->lists('name', 'id'));
@@ -44,6 +50,8 @@ class PictureController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'caption' 		=> 'required',
@@ -57,7 +65,7 @@ class PictureController extends BaseController {
 
 		
 		if($validation->fails())
-			return Redirect::route('admin.pictures.add')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 
@@ -101,7 +109,7 @@ class PictureController extends BaseController {
 			    return Redirect::route('admin.pictures.show', array('pageUrl' => $picture->url))
 			    					->with('success', "Picture '$picture->caption' has added successfully.");
 			else
-				return Redirect::route('admin.pictures.add')
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -114,6 +122,8 @@ class PictureController extends BaseController {
 	 */
 	public function show($url)
 	{
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
 		try
 		{
 		    $picture = Picture::where('url', '=', $url)->firstOrFail();
@@ -135,6 +145,8 @@ class PictureController extends BaseController {
 	 */
 	public function edit($url)
 	{
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
 		try
 		{
 		    $picture = picture::where('url', '=', $url)->firstOrFail();
@@ -157,6 +169,8 @@ class PictureController extends BaseController {
 	 */
 	public function doEdit($url)
 	{
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'caption' 	=> 'required',
@@ -197,6 +211,8 @@ class PictureController extends BaseController {
 	 */
 	public function delete($id)
 	{
+		if(!$this->permission['pictures']) return Redirect::to('/');
+
 		$picture = picture::find($id);
 		if($picture->delete())
 			return Redirect::route('admin.pictures')

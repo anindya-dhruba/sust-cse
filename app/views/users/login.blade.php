@@ -12,7 +12,7 @@
 		        @include('includes.alert')
 		        <div class="form-group">
 		          	{{ Form::label('email', 'Email Address *') }}
-		          	{{ Form::text('email', '', array('class' => 'form-control')) }}
+		          	{{ Form::text('email', '', array('class' => 'form-control', 'autofocus' => true)) }}
 		          	{{ Form::error($errors, 'email') }}
 		        </div>
 		        <div class="form-group">
@@ -22,7 +22,7 @@
 		          	{{ Form::error($errors, 'password') }}
 		        </div>
 	        	
-	        	{{ Form::submit('Login',array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Logging in...')) }}
+	        	{{ Form::submit('Log in',array('class' => 'btn btn-primary btn-block btn-lg', 'data-loading-text' => 'Logging in...')) }}
 	      	
 	      	{{ Form::close() }}
       	</div>

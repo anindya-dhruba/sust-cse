@@ -11,35 +11,7 @@ Route::group(array('before' => 'guest'), function()
 Route::group(array('before' => 'auth'), function()
 {
 	Route::get('logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
-});
-
-// for student
-Route::group(array('before' => 'auth|student'), function()
-{
 	
-});
-
-// for stuff
-Route::group(array('before' => 'auth|stuff'), function()
-{
-	
-});
-
-// for faculty
-Route::group(array('before' => 'auth|faculty'), function()
-{
-	
-});
-
-// for head
-Route::group(array('before' => 'auth|head'), function()
-{
-
-});
-
-// for admin
-Route::group(array('before' => 'auth|admin'), function()
-{
 	// pages DONE
 	Route::get('admin/pages', array('as' => 'admin.pages', 'uses' => 'PageController@index'));
 	Route::get('admin/pages/add', array('as' => 'admin.pages.add', 'uses' => 'PageController@add'));
@@ -116,6 +88,17 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('admin/faculty/{tagname}/edit', array('as' => 'admin.faculty.edit', 'uses' => 'FacultyController@edit'));
 	Route::put('admin/faculty/{tagname}/edit', array('uses' => 'FacultyController@doEdit'));
 	Route::delete('admin/faculty/{user_id}', array('as' => 'admin.faculty.delete', 'uses' => 'FacultyController@delete'));
+	Route::post('admin/faculty/research/add', array('as' => 'admin.faculty.research.add', 'uses' => 'FacultyController@doAddResearch'));
+
+	// stuffs DONE
+	Route::get('admin/stuffs', array('as' => 'admin.stuffs', 'uses' => 'StuffController@index'));
+	Route::get('admin/stuffs/add', array('as' => 'admin.stuffs.add', 'uses' => 'StuffController@add'));
+	Route::post('admin/stuffs/add', array('uses' => 'StuffController@doAdd'));
+	Route::get('admin/stuffs/{tagname}', array('as' => 'admin.stuffs.show', 'uses' => 'StuffController@show'));
+	Route::get('admin/stuffs/{tagname}/edit', array('as' => 'admin.stuffs.edit', 'uses' => 'StuffController@edit'));
+	Route::put('admin/stuffs/{tagname}/edit', array('uses' => 'StuffController@doEdit'));
+	Route::delete('admin/stuffs/{user_id}', array('as' => 'admin.stuffs.delete', 'uses' => 'StuffController@delete'));
+	Route::post('admin/stuffs/research/add', array('as' => 'admin.stuffs.research.add', 'uses' => 'FacultyController@doAddResearch'));
 
 	// gallery DONE
 	Route::get('admin/albums', array('as' => 'admin.albums', 'uses' => 'AlbumController@albums'));
@@ -139,6 +122,18 @@ Route::group(array('before' => 'auth|admin'), function()
 
 	Route::post('admin/pictures/generate-url', array('as' => 'admin.pictures.generateUrl', 'uses' => 'PictureController@generateUrl'));
 
+
+	// courses Done
+	Route::get('admin/courses', array('as' => 'admin.courses', 'uses' => 'CourseController@index'));
+	Route::get('admin/courses/add', array('as' => 'admin.courses.add', 'uses' => 'CourseController@add'));
+	Route::post('admin/courses/add', array('uses' => 'CourseController@doAdd'));
+	Route::get('admin/courses/{url}', array('as' => 'admin.courses.show', 'uses' => 'CourseController@show'));
+	Route::get('admin/courses/{url}/edit', array('as' => 'admin.courses.edit', 'uses' => 'CourseController@edit'));
+	Route::put('admin/courses/{url}/edit', array('uses' => 'CourseController@doEdit'));
+	Route::delete('admin/courses/{id}', array('as' => 'admin.courses.delete', 'uses' => 'CourseController@delete'));
+
+	Route::post('admin/courses/generate-url', array('as' => 'admin.courses.generateUrl', 'uses' => 'CourseController@generateUrl'));
+
 	
 	// Slider
 	Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
@@ -148,6 +143,10 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('admin/slider/{id}/edit', array('as' => 'admin.slider.edit', 'uses' => 'SliderController@edit'));
 	Route::put('admin/slider/{id}/edit', array('uses' => 'SliderController@doEdit'));
 	Route::delete('admin/slider/{id}', array('as' => 'admin.slider.delete', 'uses' => 'SliderController@delete'));
+
+	Route::get('profile', array('as' => 'profile.show', 'uses' => 'PublicController@profile'));
+	Route::get('profile/edit', array('as' => 'profile.edit', 'uses' => 'PublicController@editProfile'));
+	Route::put('profile/edit', array('as' => 'profile.edit', 'uses' => 'PublicController@doEditProfile'));
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));
@@ -166,15 +165,15 @@ Route::get('events', array('as' => 'events', 'uses' => 'PublicController@events'
 Route::get('events/{url}', array('as' => 'events.show', 'uses' => 'PublicController@noticesShow'));
 Route::get('events', array('as' => 'events', 'uses' => 'PublicController@events'));
 Route::get('events/{url}', array('as' => 'events.show', 'uses' => 'PublicController@eventsShow'));
-
+Route::get('courses', array('as' => 'courses', 'uses' => 'PublicController@courses'));
+Route::get('courses/{url}', array('as' => 'courses.show', 'uses' => 'PublicController@coursesShow'));
 
 Route::get('faculty', array('as' => 'faculty', 'uses' => 'PublicController@faculty'));
 Route::get('faculty/{tagname}', array('as' => 'faculty.show', 'uses' => 'PublicController@facultyShow'));
 
+Route::get('stuffs', array('as' => 'stuffs', 'uses' => 'PublicController@stuffs'));
+Route::get('stuffs/{tagname}', array('as' => 'stuffs.show', 'uses' => 'PublicController@stuffsShow'));
 
-Route::get('stuff', function() {
-	return "Under Construction";
-});
 Route::get('batches', array('as' => 'batches', 'uses' => 'PublicController@batches'));
 Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'PublicController@batchesShow'));
 Route::get('batches/{year}/reg/{reg}', array('as' => 'students.show', 'uses' => 'PublicController@studentsShow'));

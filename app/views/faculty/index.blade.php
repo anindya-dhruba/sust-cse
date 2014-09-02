@@ -28,9 +28,9 @@
 					<tr>
 						<td>{{ Helper::currentPicture($teacher, 'thumbnail') }}</td>
 						<td>{{ $teacher->designation }}</td>
-						<td>{{ $teacher->user->full_name}}</td>
+						<td>{{ $teacher->full_name}}</td>
 						<td>
-							<a href="mailto:{{ $teacher->user->email }}">{{ $teacher->user->email }}</a>
+							<a href="mailto:{{ $teacher->email }}">{{ $teacher->email }}</a>
 						</td>
 						<td>{{ $teacher->mobile }}</td>
 						<td>{{ $teacher->status}}</td>
@@ -42,7 +42,7 @@
 		        				<a href="{{ URL::route('admin.faculty.edit', array('tagname' => $teacher->tagname)) }}" class='btn btn-default btn-sm'>
 		        					<span class="glyphicon glyphicon-edit"></span> Edit
 		        				</a>
-		        				<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="{{ $teacher->user_id }}">
+		        				<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="{{ $teacher->id }}">
 		        					<span class="glyphicon glyphicon-trash"></span> Delete
 		        				</a>
 		        			</div>

@@ -37,7 +37,7 @@
 							<a href="{{ URL::route('admin.albums.show', $album->url) }}" target="_blank">{{ $album->name }}</a>
 						</td>
 						<td>{{ Str::limit(strip_tags($album->details), 50, '...') }}</td>
-						<td>Number</td>
+						<td>{{ $album->pictures->count() }}</td>
 						<td>
 							<div class="btn-group">
 								<a href="{{ URL::route('admin.albums.show', array('url' => $album->url)); }}" class='btn btn-default btn-sm'>

@@ -17,7 +17,6 @@ class CreateFaqTable extends Migration {
 			$table->increments('id');
 			$table->string('question');
 			$table->string('url');
-			$table->boolean('is_visible');
 			$table->longtext('answer');
 			$table->timestamps();
 		});

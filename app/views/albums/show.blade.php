@@ -21,6 +21,13 @@
 
 				<h4>Album Details:</h4>
 				{{ $album->details }}
+				<br/>
+
+				<h4>Album Pictures:</h4>
+				<p>{{ $album->pictures->count() }} pictures</p>
+				<?php foreach ($album->pictures as $key => $picture): ?>
+					<img class="img-thumbnail" src="{{ URL::to('uploads/album_pictures/thumbnail_'.$picture->file_url) }}">
+				<?php endforeach ?>
 			</div>
 
 			<div class="col-md-3">

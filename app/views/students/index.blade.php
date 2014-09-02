@@ -27,9 +27,9 @@
 					<tr>
 						<td>{{ Helper::currentPicture($student, 'thumbnail') }}</td>
 						<td>{{ $student->reg }}</td>
-						<td>{{ $student->user->full_name}}</td>
+						<td>{{ $student->full_name}}</td>
 						<td>
-							<a href="mailto:{{ $student->user->email }}">{{ $student->user->email }}</a>
+							<a href="mailto:{{ $student->email }}">{{ $student->email }}</a>
 						</td>
 						<td>{{ $student->mobile }}</td>
 						<td>
@@ -40,7 +40,7 @@
 		        				<a href="{{ URL::route('admin.students.edit', array('reg' => $student->reg)) }}" class='btn btn-default btn-sm'>
 		        					<span class="glyphicon glyphicon-edit"></span> Edit
 		        				</a>
-		        				<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="{{ $student->user_id }}">
+		        				<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteUserId="{{ $student->id }}">
 		        					<span class="glyphicon glyphicon-trash"></span> Delete
 		        				</a>
 		        			</div>

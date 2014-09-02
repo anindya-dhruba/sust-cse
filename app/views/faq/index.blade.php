@@ -15,15 +15,15 @@
 			<thead>
 				<tr>
 					<th>Question</th>
-					<th>Url</th>
 					<th>Answer</th>
+					<th>Url</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($faqs as $faq)
 					<tr>
-						<td>{{ Str::limit(strip_tags($faq->question), 80, '...') }}</td>
+						<td>{{ Str::limit(strip_tags($faq->question), 40, '...') }}</td>
 						<td>{{ Str::limit(strip_tags($faq->answer), 80, '...') }}</td>
 						<td>
 							<a href="{{ URL::route('faqs') }}#{{ $faq->url }}">{{ $faq->url }}</a>

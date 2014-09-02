@@ -10,6 +10,8 @@ class EventController extends BaseController {
 	 */
 	public function index()
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		$events = AppEvent::orderBy('created_at', 'desc')->paginate(10);
 
 		return View::make('events.index')
@@ -23,6 +25,8 @@ class EventController extends BaseController {
 	 */
 	public function generateUrl()
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		$url = Str::slug(Input::get('title'));
 		$urlCount = count(AppEvent::where('url', '=', $url)->get());
 		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
@@ -33,6 +37,8 @@ class EventController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		return View::make('events.add')
 						->with('title', 'Add New Event');
 	}
@@ -44,6 +50,8 @@ class EventController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		$rules = array
 		(
 	    	'title' 		=> 'required',
@@ -57,7 +65,7 @@ class EventController extends BaseController {
 
 		
 		if($validation->fails())
-			return Redirect::route('admin.events.add')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 
@@ -76,7 +84,7 @@ class EventController extends BaseController {
 			    return Redirect::route('admin.events.show', array('pageUrl' => $event->url))
 			    					->with('success', "Event '$event->title' has added successfully.");
 			else
-				return Redirect::route('admin.events.add')
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -90,6 +98,8 @@ class EventController extends BaseController {
 	 */
 	public function show($url)
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		try
 		{
 		    $event = AppEvent::where('url', '=', $url)->firstOrFail();
@@ -111,6 +121,8 @@ class EventController extends BaseController {
 	 */
 	public function edit($url)
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		try
 		{
 		    $event = AppEvent::where('url', '=', $url)->firstOrFail();
@@ -132,6 +144,8 @@ class EventController extends BaseController {
 	 */
 	public function doEdit($url)
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		$rules = array
 		(
 	    	'title' 	=> 'required',
@@ -144,7 +158,7 @@ class EventController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.events.edit', array('url' => $url))
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
@@ -161,7 +175,7 @@ class EventController extends BaseController {
 			    return Redirect::route('admin.events.show', array('url' => $event->url))
 			    					->with('success', "Event '$event->title' has updated successfully.");
 			else
-				return Redirect::route('admin.events.edit', array('url' => $url))
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -174,6 +188,8 @@ class EventController extends BaseController {
 	 */
 	public function delete($url)
 	{
+		if(!$this->permission['events']) return Redirect::to('/');
+		
 		$event = AppEvent::where('url', '=', $url);
 		if($event->delete())
 			return Redirect::route('admin.events')

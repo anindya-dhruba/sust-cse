@@ -3,14 +3,16 @@
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class NoticeController extends BaseController {
-	
+
 	/**
 	 * View all notices
 	 * @return void
 	 */
 	public function index()
 	{
-		$notices = Notice::paginate(10);
+		if(!$this->permission['notices']) return Redirect::to('/');
+
+		$notices = Notice::with('user')->orderBy('updated_at', 'desc')->paginate(10);
 
 		return View::make('notices.index')
 						->with('title', 'Viewing All Notices')
@@ -23,6 +25,8 @@ class NoticeController extends BaseController {
 	 */
 	public function generateUrl()
 	{
+		if(!$this->permission['notices']) return Redirect::to('/');
+
 		$url = Str::slug(Input::get('title'));
 		$urlCount = count(Notice::where('url', '=', $url)->get());
 		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
@@ -33,6 +37,8 @@ class NoticeController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['notices']) return Redirect::to('/');
+
 		return View::make('notices.add')
 						->with('title', 'Add New Notice');
 	}
@@ -44,6 +50,8 @@ class NoticeController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['notices']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'title' 	=> 'required',
@@ -55,7 +63,7 @@ class NoticeController extends BaseController {
 
 		
 		if($validation->fails())
-			return Redirect::route('admin.notices.add')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 
@@ -72,7 +80,7 @@ class NoticeController extends BaseController {
 			    return Redirect::route('admin.notices.show', array('pageUrl' => $notice->url))
 			    					->with('success', "Notice '$notice->title' has added successfully.");
 			else
-				return Redirect::route('admin.notices.add')
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -86,6 +94,8 @@ class NoticeController extends BaseController {
 	 */
 	public function show($url)
 	{
+		if(!$this->permission['notices']) return Redirect::to('/');
+
 		try
 		{
 		    $notice = Notice::where('url', '=', $url)->firstOrFail();
@@ -107,6 +117,8 @@ class NoticeController extends BaseController {
 	 */
 	public function edit($url)
 	{
+		if(!$this->permission['notices']) return Redirect::to('/');
+
 		try
 		{
 		    $notice = Notice::where('url', '=', $url)->firstOrFail();
@@ -128,6 +140,8 @@ class NoticeController extends BaseController {
 	 */
 	public function doEdit($url)
 	{
+		if(!$this->permission['notices']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'title' 	=> 'required',
@@ -138,7 +152,7 @@ class NoticeController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.notices.edit', array('url' => $url))
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
@@ -153,7 +167,7 @@ class NoticeController extends BaseController {
 			    return Redirect::route('admin.notices.show', array('url' => $notice->url))
 			    					->with('success', "Notice '$notice->title' has updated successfully.");
 			else
-				return Redirect::route('admin.notices.edit', array('url' => $url))
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -166,6 +180,8 @@ class NoticeController extends BaseController {
 	 */
 	public function delete($url)
 	{
+		if(!$this->permission['notices']) return Redirect::to('/');
+		
 		$notice = Notice::where('url', '=', $url);
 		if($notice->delete())
 			return Redirect::route('admin.notices')

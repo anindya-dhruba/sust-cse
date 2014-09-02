@@ -10,6 +10,8 @@ class PageController extends BaseController {
 	 */
 	public function index()
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		$pages = Page::paginate(10);
 
 		return View::make('pages.index')
@@ -22,6 +24,8 @@ class PageController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		return View::make('pages.add')
 						->with('title', 'Add New Page');
 	}
@@ -32,6 +36,8 @@ class PageController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		$rules = array
 		(
 	    	'title' 	=> 'required',
@@ -76,6 +82,8 @@ class PageController extends BaseController {
 	 */
 	public function generateUrl()
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		$url = Str::slug(Input::get('title'));
 		$urlCount = count(Page::where('url', '=', $url)->get());
 		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
@@ -88,6 +96,8 @@ class PageController extends BaseController {
 	 */
 	public function show($url)
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		try
 		{
 		    $page = Page::where('url', '=', $url)->firstOrFail();
@@ -109,6 +119,8 @@ class PageController extends BaseController {
 	 */
 	public function edit($pageUrl)
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		try
 		{
 		    $page = Page::where('url', '=', $pageUrl)->firstOrFail();
@@ -131,6 +143,8 @@ class PageController extends BaseController {
 	 */
 	public function doEdit($url)
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		$page = Page::where('url', '=', $url)->first();
 
 		// check permission
@@ -147,7 +161,7 @@ class PageController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.pages.edit', array('url' => $url))
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
@@ -171,7 +185,7 @@ class PageController extends BaseController {
 			    					->with('success', "Page '$page->title' has updated successfully.");
 			}
 			else
-				return Redirect::route('admin.pages.edit', array('url' => $url))
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -184,6 +198,8 @@ class PageController extends BaseController {
 	 */
 	public function delete($url)
 	{
+		if(!$this->permission['pages']) return Redirect::to('/');
+		
 		$page = Page::where('url', '=', $url)->first();
 		if($page->can_delete)
 		{

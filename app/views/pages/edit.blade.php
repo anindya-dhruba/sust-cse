@@ -84,13 +84,6 @@
 				    	$('.url').val(slug);
 				});
 			});
-
-
-			CKEDITOR.replace('editor', {
-		    	filebrowserUploadUrl: "{{ URL::to('upload')}}",
-		    	"extraPlugins": "imagebrowser",
-        		"imageBrowser_listUrl": "{{ URL::to('list')}}"
-		    });
 		});
 	</script>
 @stop

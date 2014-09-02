@@ -16,6 +16,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Year</th>
+					<th>#Students</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -24,6 +25,7 @@
 					<tr>
 						<td>{{ $batch->name }}</td>
 						<td>{{ $batch->year }}</td>
+						<td>{{ $batch->users->count() }}</td>
 						<td>
 							<div class="btn-group">
 								<a href="{{ URL::route('admin.batches.show', array('year' => $batch->year)); }}" class='btn btn-default btn-sm'>

@@ -4,8 +4,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SliderController extends BaseController {
 
+	/**
+	 * show all pictures
+	 * @return void
+	 */
 	public function index()
 	{
+		if(!$this->permission['sliders']) return Redirect::to('/');
+
 		$sliders = Slider::orderBy('updated_at', 'desc')->get();
 
 		return View::make('sliders.index')
@@ -13,17 +19,30 @@ class SliderController extends BaseController {
 						->with('sliders', $sliders);
 	}
 
+	/**
+	 * select a picture to crop
+	 * @return void
+	 */
 	public function select()
 	{
-		$pictures = Picture::paginate(10);
+		if(!$this->permission['sliders']) return Redirect::to('/');
+
+		$pictures = Picture::orderBy('updated_at', 'desc')->paginate(10);
 
 		return View::make('sliders.select')
 						->with('title', 'Choose Picture To Home Slider')
 						->with('pictures', $pictures);
 	}
 
+	/**
+	 * show crop picture page
+	 * @param  int $id
+	 * @return void
+	 */
 	public function crop($id)
 	{
+		if(!$this->permission['sliders']) return Redirect::to('/');
+
 		$picture = Picture::find($id);
 
 		return View::make('sliders.crop')
@@ -31,8 +50,15 @@ class SliderController extends BaseController {
 						->with('picture', $picture);
 	}
 
+	/**
+	 * do crop a picture
+	 * @param  int $id
+	 * @return void
+	 */
 	public function doCrop($id)
 	{
+		if(!$this->permission['sliders']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'caption' 	=> 'required'
@@ -42,7 +68,7 @@ class SliderController extends BaseController {
 
 		
 		if($validation->fails())
-			return Redirect::route('admin.slider.crop', ['id' => $id])
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 
@@ -69,7 +95,7 @@ class SliderController extends BaseController {
 			    return Redirect::route('admin.slider')
 			    					->with('success', "Slider image has added successfully.");
 			else
-				return Redirect::route('admin.slider.edit', ['id' => $id])
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}	
@@ -82,6 +108,8 @@ class SliderController extends BaseController {
 	 */
 	public function edit($id)
 	{
+		if(!$this->permission['sliders']) return Redirect::to('/');
+
 		try
 		{
 		    $picture = Slider::findOrFail($id);
@@ -103,6 +131,8 @@ class SliderController extends BaseController {
 	 */
 	public function doEdit($id)
 	{
+		if(!$this->permission['sliders']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'caption' 	=> 'required',
@@ -137,6 +167,8 @@ class SliderController extends BaseController {
 	 */
 	public function delete($id)
 	{
+		if(!$this->permission['sliders']) return Redirect::to('/');
+
 		$slider = Slider::find($id);
 		if($slider->delete())
 			return Redirect::route('admin.slider')

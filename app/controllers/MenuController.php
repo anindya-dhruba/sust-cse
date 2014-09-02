@@ -8,6 +8,8 @@ class MenuController extends BaseController {
 	 */
 	public function buildMenu()
 	{
+		if(!$this->permission['menus']) return Redirect::to('/');
+
 		$menu = new Menu;
 		$allMenus = Helper::getPublicPages();
 		$sideMenus = Helper::getPublicPages('side');
@@ -26,6 +28,8 @@ class MenuController extends BaseController {
 	 */
 	public function doBuildSideMenu()
 	{
+		if(!$this->permission['menus']) return Redirect::to('/');
+
 		$orders = Input::get('orders');
 
 		foreach ($orders as $key => $order)
@@ -44,6 +48,8 @@ class MenuController extends BaseController {
 	 */
 	public function doBuildTopMenu()
 	{
+		if(!$this->permission['menus']) return Redirect::to('/');
+
 		$source       = e(Input::get('source'));
 	    $destination  = e(Input::get('destination',0));
 
@@ -54,22 +60,28 @@ class MenuController extends BaseController {
 	    $ordering       = json_decode(Input::get('order'));
 	    $rootOrdering   = json_decode(Input::get('rootOrder'));
 
-	    if($ordering){
-	      foreach($ordering as $order=>$item_id){
-	        if($itemToOrder = Menu::find($item_id)){
-	            $itemToOrder->order = $order;
-	            $itemToOrder->save();
-	        }
-	      }
-	    } else {
-	      foreach($rootOrdering as $order=>$item_id){
-	        if($itemToOrder = Menu::find($item_id)){
-	            $itemToOrder->order = $order;
-	            $itemToOrder->save();
-	        }
-	      }
-	    }
-
+	    if($ordering)
+	    {
+			foreach($ordering as $order=>$item_id)
+			{
+				if($itemToOrder = Menu::find($item_id))
+				{
+					$itemToOrder->order = $order;
+					$itemToOrder->save();
+				}
+			}
+		}
+		else
+		{
+			foreach($rootOrdering as $order=>$item_id)
+			{
+				if($itemToOrder = Menu::find($item_id))
+				{
+					$itemToOrder->order = $order;
+					$itemToOrder->save();
+				}
+			}
+		}
 	    return 'ok';
 	}
 
@@ -79,6 +91,8 @@ class MenuController extends BaseController {
 	 */
 	public function doSelectIcon()
 	{
+		if(!$this->permission['menus']) return Redirect::to('/');
+
 		$pages = Input::get('pages');
 		$locations = Input::get('locations');
 

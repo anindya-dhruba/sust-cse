@@ -10,6 +10,8 @@ class AlbumController extends BaseController {
 	 */
 	public function albums()
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		$albums = Album::paginate(10);
 
 		return View::make('albums.index')
@@ -23,6 +25,8 @@ class AlbumController extends BaseController {
 	 */
 	public function generateUrl()
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		$url = Str::slug(Input::get('name'));
 		$urlCount = count(Album::where('url', '=', $url)->get());
 		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
@@ -33,6 +37,8 @@ class AlbumController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		return View::make('albums.add')
 						->with('title', 'Add New Album');
 	}
@@ -43,6 +49,8 @@ class AlbumController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'name' 		=> 'required',
@@ -54,7 +62,7 @@ class AlbumController extends BaseController {
 
 		
 		if($validation->fails())
-			return Redirect::route('admin.albums.add')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 
@@ -71,7 +79,7 @@ class AlbumController extends BaseController {
 			    return Redirect::route('admin.albums.show', array('pageUrl' => $album->url))
 			    					->with('success', "Album '$album->name' has added successfully.");
 			else
-				return Redirect::route('admin.albums.add')
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -84,6 +92,8 @@ class AlbumController extends BaseController {
 	 */
 	public function show($url)
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		try
 		{
 		    $album = Album::where('url', '=', $url)->firstOrFail();
@@ -105,6 +115,8 @@ class AlbumController extends BaseController {
 	 */
 	public function edit($url)
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		try
 		{
 		    $album = Album::where('url', '=', $url)->firstOrFail();
@@ -126,6 +138,8 @@ class AlbumController extends BaseController {
 	 */
 	public function doEdit($url)
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'name' 		=> 'required',
@@ -136,7 +150,7 @@ class AlbumController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.albums.edit', array('url' => $url))
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
@@ -148,10 +162,10 @@ class AlbumController extends BaseController {
 			$album->details    	= Input::get('details');
 
 			if($album->save())
-			    return Redirect::route('admin.albums.show', array('url' => $album->url))
+			    return Redirect::route('admin.albums.show', ['url' => $album->url])
 			    					->with('success', "album '$album->name' has updated successfully.");
 			else
-				return Redirect::route('admin.albums.edit', array('url' => $url))
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -164,6 +178,8 @@ class AlbumController extends BaseController {
 	 */
 	public function delete($id)
 	{
+		if(!$this->permission['albums']) return Redirect::to('/');
+
 		$album = Album::find($id);
 		if($album->delete())
 			return Redirect::route('admin.albums')

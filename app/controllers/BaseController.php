@@ -2,6 +2,7 @@
 
 class BaseController extends Controller {
 
+	public $permission = null;
 	/**
 	 * Setup the layout used by the controller.
 	 *
@@ -9,6 +10,17 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
+		if(Auth::check())
+		{
+			$permission = Auth::user()->role;
+			$this->permission = Auth::user()->role->toArray();
+			View::share('permission', $permission);
+		}
+		else
+		{
+			View::share('permission', null);	
+		}
+
 		if ( ! is_null($this->layout))
 		{
 			$this->layout = View::make($this->layout);

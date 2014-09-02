@@ -206,3 +206,7 @@ body
 	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 	min-height: 650px;
 }
+.marker
+{
+	background-color: yellow;
+}

@@ -12,7 +12,7 @@
 			<hr/>
 		</div>
 		
-		<?php $students = $batch->students()->orderBy('reg')->get(); ?>
+		<?php $students = $batch->users()->orderBy('reg')->get(); ?>
 
 		@if(count($students))
 			
@@ -29,8 +29,9 @@
 					<div class="thumbnail text-center">
 						{{ Helper::currentPicture($students[$i]) }}
 						<div class="caption">
-							<h5>{{ $students[$i]->user->full_name}}</h5>
+							<h5>{{ $students[$i]->full_name}}</h5>
 							<p>{{ $students[$i]->reg }}</p>
+							<a class="btn btn-default btn-block" href="{{ URL::route('students.show', [$batch->year, $students[$i]->reg]) }}">More</a>
 						</div>
 					</div>
 				</div>

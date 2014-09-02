@@ -13,7 +13,7 @@
             @if(!Auth::check())
                 <li><a href="{{ URL::route('login') }}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
             @else
-                <li><a href="#">Profile</a></li>
+                <li><a href="{{ URL::route('profile.show') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                 <li><a href="{{ URL::route('logout') }}">Logout</a></li>
             @endif
         </ul>

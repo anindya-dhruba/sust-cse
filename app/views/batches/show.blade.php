@@ -17,6 +17,9 @@
 		<h4>Batch Year:</h4>
 		{{ $batch->year }}
 		<hr/>
+		<h4>Number of Students:</h4>
+		{{ $batch->users->count() }} students
+		<hr/>
 		<a href="{{ URL::route('admin.batches.edit', array('year' => $batch->year)) }}" class='btn btn-warning btn-sm pull-right' style="vertical-align: middle;">
 				<span class="glyphicon glyphicon-edit"></span> Edit this Batch
 			</a>

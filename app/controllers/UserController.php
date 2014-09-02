@@ -26,7 +26,7 @@ class UserController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('login')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else

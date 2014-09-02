@@ -16,6 +16,20 @@ class CreateRolesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 20);
+			$table->boolean('adminMenu')->default(0);
+			$table->boolean('notices')->default(0);
+			$table->boolean('events')->default(0);
+			$table->boolean('pages')->default(0);
+			$table->boolean('faculty')->default(0);
+			$table->boolean('students')->default(0);
+			$table->boolean('stuffs')->default(0);
+			$table->boolean('menus')->default(0);
+			$table->boolean('batches')->default(0);
+			$table->boolean('albums')->default(0);
+			$table->boolean('pictures')->default(0);
+			$table->boolean('sliders')->default(0);
+			$table->boolean('courses')->default(0);
+			$table->boolean('faqs')->default(0);
 		});
 	}
 

@@ -10,7 +10,9 @@ class FacultyController extends BaseController {
 	 */
 	public function index()
 	{
-		$faculty = Faculty::paginate(10);
+		if(!$this->permission['faculty']) return Redirect::to('/');
+
+		$faculty = User::faculty()->paginate(10);
 
 		return View::make('faculty.index')
 						->with('title', 'Viewing All Faculty')
@@ -24,12 +26,14 @@ class FacultyController extends BaseController {
 	 */
 	public function show($tagname)
 	{
+		if(!$this->permission['faculty']) return Redirect::to('/');
+
 		try
 		{
-		    $faculty = faculty::where('tagname', '=', $tagname)->firstOrFail();
+		    $faculty = User::faculty()->where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('faculty.show')
-						->with('title', 'Viewing Faculty')
+						->with('title', $faculty->full_name)
 						->with('faculty', $faculty);
 		}
 		catch(ModelNotFoundException $e)
@@ -43,8 +47,11 @@ class FacultyController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['faculty']) return Redirect::to('/');
+
 		return View::make('faculty.add')
-						->with('title', 'Add New faculty');
+						->with('title', 'Add New faculty')
+						->with('researches', Research::get());
 	}
 
 	/**
@@ -53,13 +60,16 @@ class FacultyController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['faculty']) return Redirect::to('/');
+
 		$rules = array
 		(
 			'full_name'       =>	'required',
 			'designation'	  =>	'required',
-			'tagname'	  	  =>	'required|unique:faculty,tagname',
+			'tagname'	  	  =>	'required|unique:users,tagname',
 			'email'           =>	'required|email|unique:users,email',
-			'alternate_email' =>	'email|unique:students,alt_email',
+			'alternate_email' =>	'email|unique:users,alt_email',
+			'date_of_birth'	  =>	'date',
 			'status'          =>	'required',
 			'picture'         =>	'image|mimes:jpeg,bmp,png',
 			'website'		  =>	'url'
@@ -68,37 +78,45 @@ class FacultyController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.faculty.add')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
 		{
-			$user            = new User();
-			$user->full_name = Input::get('full_name');
-			$user->nick_name = Input::get('nick_name');
-			$user->email     = Input::get('email');
-			$user->role_id   = 3; // faculty
+			$user                      = new User();
+			$user->full_name           = Input::get('full_name');
+			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
+			$user->email               = Input::get('email');
+			$user->role_id             = 3; // faculty
+			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
+			$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
+			$user->mobile              = (Input::get('mobile') == '') ? null : Input::get('mobile');
+			$user->nationality         = (Input::get('nationality') == '') ? null : Input::get('nationality');
+			$user->permanent_address   = (Input::get('permanent_address') == '') ? null : Input::get('permanent_address');
+			$user->present_address     = (Input::get('present_address') == '') ? null : Input::get('present_address');
+			$user->tagname             = (Input::get('tagname') == '') ? null : Str::upper(Input::get('tagname'));
+			$user->status              = (Input::get('status') == '') ? null : Input::get('status');
+			$user->date_of_birth       = (Input::get('date_of_birth') == '') ? null : Input::get('date_of_birth');
+			$user->gender              = (Input::get('gender') == '') ? null : Input::get('gender');
+			$user->religion            = (Input::get('religion') == '') ? null : Input::get('religion');
+			$user->blood_group         = (Input::get('blood_group') == '') ? null : Input::get('blood_group');
+			$user->blood_type          = (Input::get('blood_type') == '') ? null : Input::get('blood_type');
+			$user->website             = (Input::get('website') == '') ? null : Input::get('website');
+			$user->contact_room        = (Input::get('contact_room') == '') ? null : Input::get('contact_room');
+			$user->academic_background = (Input::get('academic_background') == '') ? null :Input::get('academic_background');
+			$user->prof_exp            = (Input::get('professional_experience') == '') ? null :Input::get('professional_experience');
+			$user->awards_and_honors   = (Input::get('awards_and_honors') == '') ? null :Input::get('awards_and_honors');
+			$user->interests           = (Input::get('interests') == '') ? null :Input::get('interests');
+			$user->about               = (Input::get('about') == '') ? null :Input::get('about');
+			$user->publications        = (Input::get('publications') == '') ? null :Input::get('publications');
+			$user->journal_papers      = (Input::get('journal_papers') == '') ? null :Input::get('journal_papers');
+			$user->conference_papers   = (Input::get('conference_papers') == '') ? null :Input::get('conference_papers');
 
 			if($user->save())
 			{
-				$faculty                       = new Faculty();
-				$faculty->designation          = Input::get('designation');
-				$faculty->tagname          	   = Str::upper(Input::get('tagname'));
-				$faculty->alt_email            = Input::get('alternate_email');
-				$faculty->phone                = Input::get('phone');
-				$faculty->mobile               = Input::get('mobile');
-				$faculty->website              = Input::get('website');
-				$faculty->status               = Input::get('status');
-				$faculty->contact_room         = Input::get('contact_room');
-				$faculty->permanent_address    = Input::get('permanent_address');
-				$faculty->present_address      = Input::get('present_address');
-				$faculty->academic_background  = Input::get('academic_background');
-				$faculty->prof_exp  	 	   = Input::get('professional_experience');
-				$faculty->awards_and_honors    = Input::get('awards_and_honors');
-				$faculty->interests   		   = Input::get('interests');
-				$faculty->about                = Input::get('about');
-
-				$user->faculty()->save($faculty);
+				if(Input::has('research'))
+					$user->researches()->attach(Input::get('research'));
 
 				// if picture is uploaded...
 		       	if(Input::hasFile('picture'))
@@ -107,8 +125,8 @@ class FacultyController extends BaseController {
 
 			        $destinationPath = public_path('uploads/user_pictures');
 			        
-			        // generate random unique name [ randomStr + userId + extn ]
-			        $fileName = Str::random(4, 'alpha').$user->id.".".$file->getClientOriginalExtension();
+			        // generate random unique name [ timestamp + userId + extn ]
+			        $fileName = strtotime(date('Y-m-d H:i:s')).$user->id.".".$file->getClientOriginalExtension();
 
 			        // original file starts with original_
 			        $file->move($destinationPath, "original_".$fileName);
@@ -128,14 +146,14 @@ class FacultyController extends BaseController {
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
-					$faculty->user->pictures()->save($picture);
+					$user->pictures()->save($picture);
 			    }
 
 			    return Redirect::route('admin.faculty.show', array('tagname' => Str::upper(Input::get('tagname'))))
 			    					->with('success', "Faculty '$user->full_name' has added successfully.");
 			}
 			else
-				return Redirect::route('admin.faculty.add')
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -148,13 +166,16 @@ class FacultyController extends BaseController {
 	 */
 	public function edit($tagname)
 	{
+		if(!$this->permission['faculty']) return Redirect::to('/');
+
 		try
 		{
-		    $faculty = Faculty::where('tagname', '=', $tagname)->firstOrFail();
+		    $faculty = User::where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('faculty.edit')
-						->with('title', "Editing Faculty Info")
-						->with('faculty', $faculty);
+						->with('title', "Editing $faculty->full_name")
+						->with('faculty', $faculty)
+						->with('researches', Research::get());
 		}
 		catch(ModelNotFoundException $e)
 		{
@@ -168,53 +189,66 @@ class FacultyController extends BaseController {
 	 */
 	public function doEdit($tagname)
 	{
+
+		if(!$this->permission['faculty']) return Redirect::to('/');
+
 		$rules = array
 		(
 			'full_name'       =>	'required',
 			'designation'	  =>	'required',
-			'tagname'         =>	'required|unique:faculty,tagname,'.Input::get('facultyId').',user_id',
+			'tagname'         =>	'required|unique:users,tagname,'.Input::get('facultyId'),
 			'email'           =>	'required|email|unique:users,email,'.Input::get('facultyId'),
-			'alt_email' 	  =>	'email|unique:faculty,alt_email,'.Input::get('facultyId').',user_id',
+			'alternate_email' =>	'email|unique:users,alt_email,'.Input::get('facultyId'),
+			'date_of_birth'	  =>	'date',
 			'status'          =>	'required',
 			'picture'         =>	'image|mimes:jpeg,bmp,png',
 			'website'		  =>	'url'
 		);
 
+
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.faculty.edit', array('tagname' => $tagname))
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
 		{
-			$id = Input::get('facultyId');
-
-			$user            = User::find($id);
-			$user->full_name = Input::get('full_name');
-			$user->nick_name = Input::get('nick_name');
-			$user->email     = Input::get('email');
+			$user                      = User::where('tagname', '=', $tagname)->first();
+			$user->full_name           = Input::get('full_name');
+			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
+			$user->email               = Input::get('email');
+			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
+			$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
+			$user->mobile              = (Input::get('mobile') == '') ? null : Input::get('mobile');
+			$user->nationality         = (Input::get('nationality') == '') ? null : Input::get('nationality');
+			$user->permanent_address   = (Input::get('permanent_address') == '') ? null : Input::get('permanent_address');
+			$user->present_address     = (Input::get('present_address') == '') ? null : Input::get('present_address');
+			$user->tagname             = (Input::get('tagname') == '') ? null : Str::upper(Input::get('tagname'));
+			$user->status              = (Input::get('status') == '') ? null : Input::get('status');
+			$user->date_of_birth       = (Input::get('date_of_birth') == '') ? null : Input::get('date_of_birth');
+			$user->gender              = (Input::get('gender') == '') ? null : Input::get('gender');
+			$user->religion            = (Input::get('religion') == '') ? null : Input::get('religion');
+			$user->blood_group         = (Input::get('blood_group') == '') ? null : Input::get('blood_group');
+			$user->blood_type          = (Input::get('blood_type') == '') ? null : Input::get('blood_type');
+			$user->website             = (Input::get('website') == '') ? null : Input::get('website');
+			$user->contact_room        = (Input::get('contact_room') == '') ? null : Input::get('contact_room');
+			$user->academic_background = (Input::get('academic_background') == '') ? null :Input::get('academic_background');
+			$user->prof_exp            = (Input::get('professional_experience') == '') ? null :Input::get('professional_experience');
+			$user->awards_and_honors   = (Input::get('awards_and_honors') == '') ? null :Input::get('awards_and_honors');
+			$user->interests           = (Input::get('interests') == '') ? null :Input::get('interests');
+			$user->about               = (Input::get('about') == '') ? null :Input::get('about');
+			$user->publications        = (Input::get('publications') == '') ? null :Input::get('publications');
+			$user->journal_papers      = (Input::get('journal_papers') == '') ? null :Input::get('journal_papers');
+			$user->conference_papers   = (Input::get('conference_papers') == '') ? null :Input::get('conference_papers');
 
 			if($user->save())
 			{
-				$faculty                       = Faculty::where('user_id', '=', $id)->first();
-				$faculty->designation          = Input::get('designation');
-				$faculty->tagname          	   = Str::upper(Input::get('tagname'));
-				$faculty->alt_email            = Input::get('alternate_email');
-				$faculty->phone                = Input::get('phone');
-				$faculty->mobile               = Input::get('mobile');
-				$faculty->website              = Input::get('website');
-				$faculty->status               = Input::get('status');
-				$faculty->contact_room         = Input::get('contact_room');
-				$faculty->permanent_address    = Input::get('permanent_address');
-				$faculty->present_address      = Input::get('present_address');
-				$faculty->academic_background  = Input::get('academic_background');
-				$faculty->prof_exp  	 	   = Input::get('professional_experience');
-				$faculty->awards_and_honors    = Input::get('awards_and_honors');
-				$faculty->interests   		   = Input::get('interests');
-				$faculty->about                = Input::get('about');
-
-				$user->faculty()->save($faculty);
+				if(Input::has('research'))
+					$user->researches()->sync(Input::get('research'));
+				else
+					$user->researches()->sync([]);
 
 				// if picture is uploaded...
 		       	if(Input::hasFile('picture'))
@@ -223,8 +257,8 @@ class FacultyController extends BaseController {
 
 			        $destinationPath = public_path('uploads/user_pictures');
 			        
-			        // generate random unique name [ randomStr + userId + extn ]
-			        $fileName = Str::random(4, 'alpha').$user->id.".".$file->getClientOriginalExtension();
+			        // generate random unique name [ timestamp + userId + extn ]
+			        $fileName = strtotime(date('Y-m-d H:i:s')).$user->id.".".$file->getClientOriginalExtension();
 
 			        // original file starts with original_
 			        $file->move($destinationPath, "original_".$fileName);
@@ -244,17 +278,18 @@ class FacultyController extends BaseController {
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
-					$faculty->user->pictures()->save($picture);
+					$user->pictures()->save($picture);
 			    }
 
 			    return Redirect::route('admin.faculty.show', array('tagname' => Str::upper(Input::get('tagname'))))
-			    					->with('success', "Faculty '$user->full_name' has been updated successfully.");
+			    					->with('success', "Faculty '$user->full_name' has added successfully.");
 			}
 			else
-				return Redirect::route('admin.faculty.edit', array('tagname', $faculty->tagname))
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
+
 	}
 
 	/**
@@ -264,6 +299,8 @@ class FacultyController extends BaseController {
 	 */
 	public function delete($user_id)
 	{
+		if(!$this->permission['faculty']) return Redirect::to('/');
+
 		$user = User::find($user_id);
 		if($user->delete())
 			return Redirect::route('admin.faculty')
@@ -271,5 +308,18 @@ class FacultyController extends BaseController {
 		else
 			return Redirect::route('admin.faculty')
 								->with('errors', 'Some error occured. Try again.');
+	}
+
+	/**
+	 * do add a research of ajax req.
+	 * @return json
+	 */
+	public function doAddResearch()
+	{
+		$research = new Research;
+		$research->name = Input::get('name');
+		$research->save();
+
+		return $research;
 	}
 }

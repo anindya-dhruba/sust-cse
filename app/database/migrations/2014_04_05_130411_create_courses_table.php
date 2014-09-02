@@ -15,10 +15,10 @@ class CreateCoursesTable extends Migration {
 		Schema::create('courses', function($table)
 		{
 			$table->increments('id');
-			$table->string('course_no', 20);
+			$table->string('course_code', 20);
+			$table->string('url');
 			$table->string('title');
 			$table->string('credit', 1);
-			$table->boolean('is_visible');
 			$table->integer('prerequisite')->unsigned()->nullable();
 			$table->enum('type', array('Major', 'Minor'));
 			$table->enum('semester', array('1/1', '1/2', '2/1', '2/2', '3/1', '3/2', '4/1', '4/2'));

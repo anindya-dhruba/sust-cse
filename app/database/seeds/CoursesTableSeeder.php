@@ -6,7 +6,8 @@ class CoursesTableSeeder extends Seeder {
 	{
 		$courses = array(
 			array(
-				'course_no'		=>	'CSE 101',
+				'course_code'	=>	'CSE 101',
+				'url'			=>	'cse-101',
 				'title'			=>	'Programming with C',
 				'credit'    	=>	3,
 				'type'			=>	'Major',

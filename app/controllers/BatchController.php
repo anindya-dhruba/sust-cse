@@ -10,6 +10,8 @@ class BatchController extends BaseController {
 	 */
 	public function index()
 	{
+		if(!$this->permission['batches']) return Redirect::to('/');
+
 		$batches = Batch::orderBy('year', 'desc')->paginate(10);
 
 		return View::make('batches.index')
@@ -22,6 +24,8 @@ class BatchController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['batches']) return Redirect::to('/');
+
 		return View::make('batches.add')
 						->with('title', 'Add New Batch');
 	}
@@ -32,6 +36,8 @@ class BatchController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['batches']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'name' 	=> 'required|unique:batches',
@@ -41,7 +47,7 @@ class BatchController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.batches.add')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
@@ -54,7 +60,7 @@ class BatchController extends BaseController {
 			    return Redirect::route('admin.batches.show', array('year' => $batch->year))
 			    					->with('success', "batch '$batch->year' has added successfully.");
 			else
-				return Redirect::route('admin.batches.add')
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -67,6 +73,8 @@ class BatchController extends BaseController {
 	 */
 	public function show($year)
 	{
+		if(!$this->permission['batches']) return Redirect::to('/');
+
 		try
 		{
 		    $batch = Batch::where('year', '=', $year)->firstOrFail();
@@ -88,6 +96,8 @@ class BatchController extends BaseController {
 	 */
 	public function edit($year)
 	{
+		if(!$this->permission['batches']) return Redirect::to('/');
+
 		try
 		{
 		    $batch = Batch::where('year', '=', $year)->firstOrFail();
@@ -109,6 +119,8 @@ class BatchController extends BaseController {
 	 */
 	public function doEdit($year)
 	{
+		if(!$this->permission['batches']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'name' 	=> 'required|unique:batches,name,'.Input::get('batchId'),
@@ -118,7 +130,7 @@ class BatchController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.batches.edit', array('year' => $year))
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
@@ -131,7 +143,7 @@ class BatchController extends BaseController {
 			    return Redirect::route('admin.batches.show', array('year' => $batch->year))
 			    					->with('success', "batch '$batch->year' has updated successfully.");
 			else
-				return Redirect::route('admin.batches.edit', array('year' => $year))
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -144,6 +156,8 @@ class BatchController extends BaseController {
 	 */
 	public function delete($year)
 	{
+		if(!$this->permission['batches']) return Redirect::to('/');
+
 		$batch = Batch::where('year', '=', $year);
 		if($batch->delete())
 			return Redirect::route('admin.batches')

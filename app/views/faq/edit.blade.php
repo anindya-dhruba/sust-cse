@@ -37,7 +37,7 @@
 
 	        <div class="form-group">
 	          	{{ Form::label('answer', 'Answer *') }}
-	          	{{ Form::textarea('answer', $faq->answer, array('class' => 'form-control editor')) }}
+	          	{{ Form::textarea('answer', $faq->answer, array('class' => 'form-control ckeditor')) }}
 	          	{{ Form::error($errors, 'answer') }}
 	        </div>
 

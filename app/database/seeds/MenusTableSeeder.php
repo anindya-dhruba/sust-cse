@@ -36,23 +36,30 @@ class MenusTableSeeder extends Seeder {
 			array(
 				'page_id'  		=>	5,
 				'page_icon'		=>	'fa-question-circle',
-				'page_location'	=>	'top',
+				'page_location'	=>	'side',
 				'parent_id'		=>	0,
 				'order'       	=>	5
 			),
 			array(
 				'page_id'  		=>	6,
 				'page_icon'		=>	'fa-calendar',
-				'page_location'	=>	'top',
+				'page_location'	=>	'side',
 				'parent_id'		=>	0,
 				'order'       	=>	6
 			),
 			array(
 				'page_id'  		=>	7,
 				'page_icon'		=>	'fa-map-marker',
-				'page_location'	=>	'top',
+				'page_location'	=>	'side',
 				'parent_id'		=>	0,
 				'order'       	=>	7
+			),
+			array(
+				'page_id'  		=>	8,
+				'page_icon'		=>	'fa-map-marker',
+				'page_location'	=>	'side',
+				'parent_id'		=>	0,
+				'order'       	=>	8
 			),
 		);
 

@@ -10,6 +10,8 @@ class FaqController extends BaseController {
 	 */
 	public function index()
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		$faqs = Faq::paginate(10);
 
 		return View::make('faq.index')
@@ -22,6 +24,8 @@ class FaqController extends BaseController {
 	 */
 	public function add()
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		return View::make('faq.create')
 						->with('title', 'Add New FAQ');
 	}
@@ -32,6 +36,8 @@ class FaqController extends BaseController {
 	 */
 	public function doAdd()
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'question' 	=> 'required',
@@ -42,21 +48,21 @@ class FaqController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.faqs.add')
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
 		{
-			$faq = new Faq;
-			$faq->url        = Input::get('url');
-			$faq->question    = Input::get('question');
-			$faq->answer    = Input::get('answer');
+			$faq           = new Faq;
+			$faq->url      = Input::get('url');
+			$faq->question = Input::get('question');
+			$faq->answer   = Input::get('answer');
 
 			if($faq->save())
 			    return Redirect::route('admin.faqs.show', array('pageUrl' => $faq->url))
 			    					->with('success', "FAQ '$faq->title' has added successfully.");
 			else
-				return Redirect::route('admin.faqs.add')
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -68,6 +74,8 @@ class FaqController extends BaseController {
 	 */
 	public function slug()
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		$slug = Str::slug(Input::get('title'));
 		$slugCount = count(Faq::where('url', '=', $slug)->get());
 		return ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
@@ -80,6 +88,8 @@ class FaqController extends BaseController {
 	 */
 	public function show($pageUrl)
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		try
 		{
 		    $faq = Faq::where('url', '=', $pageUrl)->firstOrFail();
@@ -101,6 +111,8 @@ class FaqController extends BaseController {
 	 */
 	public function edit($pageUrl)
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		try
 		{
 		    $faq = Faq::where('url', '=', $pageUrl)->firstOrFail();
@@ -122,6 +134,8 @@ class FaqController extends BaseController {
 	 */
 	public function doEdit($pageUrl)
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		$rules = array
 		(
 	    	'question' 	=> 'required',
@@ -132,23 +146,22 @@ class FaqController extends BaseController {
 		$validation = Validator::make(Input::all(), $rules);
 		
 		if($validation->fails())
-			return Redirect::route('admin.faqs.edit', array('pageUrl' => $pageUrl))
+			return Redirect::back()
 								->withInput()
 								->withErrors($validation);
 		else
 		{
 			$faq = Faq::where('url', '=', $pageUrl)->first();
-
-			$faq->url        = Input::get('url');
-			$faq->question    = Input::get('question');
-			$faq->answer    = Input::get('answer');
+			$faq->url      = Input::get('url');
+			$faq->question = Input::get('question');
+			$faq->answer   = Input::get('answer');
 
 
 			if($faq->save())
 			    return Redirect::route('admin.faqs.show', array('pageUrl' => $faq->url))
 			    					->with('success', "Page '$faq->question' has updated successfully.");
 			else
-				return Redirect::route('admin.faqs.edit', array('pageUrl' => $pageUrl))
+				return Redirect::back()
 									->withInput()
 									->with('error', 'Some error occured. Try again.');
 		}
@@ -161,6 +174,8 @@ class FaqController extends BaseController {
 	 */
 	public function delete($pageUrl)
 	{
+		if(!$this->permission['faqs']) return Redirect::to('/');
+
 		$faq = Faq::where('url', '=', $pageUrl);
 		if($faq->delete())
 			return Redirect::route('admin.faqs')

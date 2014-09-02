@@ -38,20 +38,34 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'-ve' =>	'-ve'
 	);
 
-	public function student()
+	public static $statusOptions = array
+	(
+		'Current' 		=> 'Current',
+		'On Leave'		=> 'On Leave',
+		'Not Available'	=> 'Not Available'
+	);
+
+	public static $designations = array
+	(
+		'Lecturer'					=>	'Lecturer',
+		'Professor'					=>	'Professor',
+		'Associate Professor'		=>	'Associate Professor',
+		'Head of the Department'	=>	'Head of the Department'
+	);
+
+	public function scopeFaculty($query)
 	{
-		return $this->hasOne('Student');
+		return $query->whereIn('role_id',  [2,3]);
 	}
 
-	public function faculty()
+	public function scopeStuff($query)
 	{
-		return $this->hasOne('Faculty');
+		return $query->where('role_id', '=', 4);
 	}
 
-	public function notices()
+	public function scopeStudent($query)
 	{
-		return $this->hasMany('Notice')
-						->orderBy('updated_at', 'desc');
+		return $query->where('role_id', '=', 5);
 	}
 
 	public function events()
@@ -65,6 +79,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Download')
 						->where('type', '=', 'Profile Picture')
 						->orderBy('updated_at', 'desc');
+	}
+
+	public function role()
+	{
+		return $this->belongsTo('Role');
+	}
+
+	public function batch()
+	{
+		return $this->belongsTo('Batch');
+	}
+
+	public function researches()
+	{
+		return $this->belongsToMany('Research', 'faculty_research');
 	}
 
 	
