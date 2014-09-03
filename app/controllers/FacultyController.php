@@ -120,7 +120,7 @@ class FacultyController extends BaseController {
 			// email password
 			$data = [
 				'email'    =>	Input::get('email'),
-				'password' =>	Input::get('password')
+				'password' =>	$password
 			];
 
 			Mail::send('emails.faculty.welcome', $data, function($message) use ($user) {

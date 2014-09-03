@@ -89,6 +89,23 @@ class StudentController extends BaseController {
 			$user->present_address     = (Input::get('present_address') == '') ? null : Input::get('present_address');
 			$user->about               = (Input::get('about') == '') ? null : Input::get('about');
 
+			// set password for this user
+			if(!is_null($user->email))
+			{
+				$password = Str::random(8);
+				$user->password = Hash::make($password);
+
+				// email password
+				$data = [
+					'email'    =>	Input::get('email'),
+					'password' =>	$password
+				];
+
+				Mail::send('emails.students.welcome', $data, function($message) use ($user) {
+				    $message->to($user->email, $user->full_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
+				});
+			}
+
 			if($user->save())
 			{
 				// if picture is uploaded...

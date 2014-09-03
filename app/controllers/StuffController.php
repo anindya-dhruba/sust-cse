@@ -106,6 +106,21 @@ class StuffController extends BaseController {
 			$user->academic_background = (Input::get('academic_background') == '') ? null :Input::get('academic_background');
 			$user->about               = (Input::get('about') == '') ? null :Input::get('about');
 
+
+			// set password for this user
+			$password = Str::random(8);
+			$user->password = Hash::make($password);
+
+			// email password
+			$data = [
+				'email'    =>	Input::get('email'),
+				'password' =>	$password
+			];
+
+			Mail::send('emails.stuffs.welcome', $data, function($message) use ($user) {
+			    $message->to($user->email, $user->full_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
+			});
+
 			if($user->save())
 			{
 				// if picture is uploaded...

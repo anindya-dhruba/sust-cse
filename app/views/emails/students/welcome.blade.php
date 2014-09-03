@@ -4,7 +4,7 @@
 	<h2>Welcome to {{ Config::get('myConfig.siteName') }}</h2>
 
 	<div>
-		An faculty member account was created for you at {{ Config::get('myConfig.siteName') }}. You can login with the following credentials:
+		An student account was created for you at {{ Config::get('myConfig.siteName') }}. You can login with the following credentials:
 		<ul>
 			<li>URL: {{ URL::route('login') }}</li>
 			<li>Email Address: {{ $email }}</li>
