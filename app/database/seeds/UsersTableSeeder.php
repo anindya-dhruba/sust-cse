@@ -85,7 +85,7 @@ class UsersTableSeeder extends Seeder {
 				'email'      =>		"user{$i}@sust.edu",
 				'password'   =>		Hash::make("user{$i}"),
 				'role_id'    =>		$role_id,
-				'designation'=>		null,
+				'designation'=>		($role_id == 3) ? "Lecturer" : null,
 				'created_at' =>		date('Y-m-d H-i-s'),
 				'updated_at' =>		date('Y-m-d H-i-s')
 			];

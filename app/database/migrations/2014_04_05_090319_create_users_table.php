@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration {
 			$table->string('full_name', 40);
 			$table->string('nick_name', 20)->nullable();
 			$table->integer('role_id')->unsigned();
-			$table->string('email', 40);
+			$table->string('email', 40)->nullable();
 			$table->string('password');
 			$table->string('reg', 15)->nullable();
 			$table->string('fathers_name', 40)->nullable();

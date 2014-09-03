@@ -101,7 +101,7 @@
 
 					        <div class="form-group">
 					          	{{ Form::label('batch', 'Batch *') }}
-					          	{{ Form::select('batch', $batches, $student->batches, array('class' => 'form-control')) }}
+					          	{{ Form::select('batch', $batches, $student->batch_id, array('class' => 'form-control')) }}
 					          	{{ Form::error($errors, 'batch') }}
 					        </div>
 					        <div class="form-group">

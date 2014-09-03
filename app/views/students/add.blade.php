@@ -29,7 +29,6 @@
 					
 					<div class="row">
 						<div class="col-md-6">
-
 						    <div class="form-group">
 					          	{{ Form::label('full_name', 'Full Name *') }}
 					          	{{ Form::text('full_name', '', array('class' => 'form-control')) }}

@@ -5,6 +5,12 @@ Route::group(array('before' => 'guest'), function()
 {
 	Route::get('login', array('as' => 'login', 'uses' => 'UserController@login'));
 	Route::post('login', array('uses' => 'UserController@doLogin'));
+	Route::get('register', array('as' => 'register', 'uses' => 'UserController@register'));
+	Route::post('register', array('uses' => 'UserController@doRegister'));
+	Route::get('forgot-password', array('as' =>'password.forgot', 'uses' => 'UserController@forgotPassword'));
+	Route::post('forgot-password', array('as' =>'password.forgot', 'uses' => 'UserController@savePasswordToken'));
+	Route::get('reset-password/{token}', array('as' => 'password.reset', 'uses'	=> 'UserController@resetPassword'));
+	Route::post('reset-password/{token}', array('as' => 'password.reset', 'uses' => 'UserController@doResetPassword'));
 });
 
 // for any logged in user
@@ -147,6 +153,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('profile', array('as' => 'profile.show', 'uses' => 'PublicController@profile'));
 	Route::get('profile/edit', array('as' => 'profile.edit', 'uses' => 'PublicController@editProfile'));
 	Route::put('profile/edit', array('as' => 'profile.edit', 'uses' => 'PublicController@doEditProfile'));
+	Route::get('password/edit', array('as' => 'password.edit', 'uses' => 'PublicController@editPassword'));
+	Route::put('password/edit', array('as' => 'password.edit', 'uses' => 'PublicController@doEditPassword'));
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));

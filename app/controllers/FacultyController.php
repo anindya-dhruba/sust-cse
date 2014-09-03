@@ -87,7 +87,7 @@ class FacultyController extends BaseController {
 			$user->full_name           = Input::get('full_name');
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
-			$user->email               = Input::get('email');
+			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->role_id             = 3; // faculty
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
 			$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
@@ -112,6 +112,20 @@ class FacultyController extends BaseController {
 			$user->publications        = (Input::get('publications') == '') ? null :Input::get('publications');
 			$user->journal_papers      = (Input::get('journal_papers') == '') ? null :Input::get('journal_papers');
 			$user->conference_papers   = (Input::get('conference_papers') == '') ? null :Input::get('conference_papers');
+
+			// set password for this user
+			$password = Str::random(8);
+			$user->password = Hash::make($password);
+
+			// email password
+			$data = [
+				'email'    =>	Input::get('email'),
+				'password' =>	Input::get('password')
+			];
+
+			Mail::send('emails.faculty.welcome', $data, function($message) use ($user) {
+			    $message->to($user->email, $user->full_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
+			});
 
 			if($user->save())
 			{
@@ -148,6 +162,8 @@ class FacultyController extends BaseController {
 						
 					$user->pictures()->save($picture);
 			    }
+
+
 
 			    return Redirect::route('admin.faculty.show', array('tagname' => Str::upper(Input::get('tagname'))))
 			    					->with('success', "Faculty '$user->full_name' has added successfully.");
@@ -218,7 +234,7 @@ class FacultyController extends BaseController {
 			$user->full_name           = Input::get('full_name');
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
-			$user->email               = Input::get('email');
+			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
 			$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
 			$user->mobile              = (Input::get('mobile') == '') ? null : Input::get('mobile');

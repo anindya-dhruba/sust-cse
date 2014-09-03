@@ -95,6 +95,7 @@
 			      	<div class="caption">
 			      		@if(Auth::id() == $stuff->id)
 			        		<a href="{{ URL::route('profile.edit') }}" class="btn btn-success btn-block"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a>
+			        		<a href="{{ URL::route('password.edit') }}" class="btn btn-success btn-block"><span class="glyphicon glyphicon-lock"></span> Edit Password</a>
 		        		@endif
 		        	</div>
 				</div>

@@ -344,7 +344,7 @@ class PublicController extends BaseController {
 			{
 				$user->full_name           = Input::get('full_name');
 				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
-				$user->email               = Input::get('email');
+				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				
 				if($user->save())
 				{
@@ -416,7 +416,7 @@ class PublicController extends BaseController {
 				$user->full_name           = Input::get('full_name');
 				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 				$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
-				$user->email               = Input::get('email');
+				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
 				$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
 				$user->mobile              = (Input::get('mobile') == '') ? null : Input::get('mobile');
@@ -516,7 +516,7 @@ class PublicController extends BaseController {
 				$user->full_name           = Input::get('full_name');
 				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 				$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
-				$user->email               = Input::get('email');
+				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
 				$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
 				$user->mobile              = (Input::get('mobile') == '') ? null : Input::get('mobile');
@@ -604,7 +604,7 @@ class PublicController extends BaseController {
 			{
 				$user->full_name           = Input::get('full_name');
 				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
-				$user->email               = Input::get('email');
+				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				$user->reg                 = Input::get('reg');
 				$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 				$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');
@@ -668,6 +668,57 @@ class PublicController extends BaseController {
 					return Redirect::back()
 										->withInput()
 										->with('error', 'Some error occured. Try again.');
+			}
+		}
+	}
+
+	/**
+	 * show edit password
+	 * @return void
+	 */
+	public function editPassword()
+	{
+		return View::make('public.users.editPassword')
+							->with('title', 'Change Password');
+	}
+
+	/**
+	 * do edit password
+	 * @return void
+	 */
+	public function doEditPassword()
+	{
+		$rules = array
+		(
+			'old_password'				=> 'required',
+	    	'new_password' 				=> 'required|confirmed',
+	    	'new_password_confirmation' => 'required'
+		);
+
+		$validation = Validator::make(Input::all(), $rules);
+		
+		if($validation->fails())
+		{
+			return Redirect::back()
+								->withInput()
+								->withErrors($validation);
+		}
+		else
+		{
+			if(Hash::check(Input::get('old_password'), Auth::user()->password))
+			{
+				$user = Auth::user();
+				$user->password = Hash::make(Input::get('new_password'));
+				$user->save();
+
+				return Redirect::route('profile.show')
+										->with('success', 'Your password has been changed.');
+			}
+			else
+			{
+				return Redirect::back()
+								->withInput()
+								->with('error', 'Old Password does not match.');
 			}
 		}
 	}

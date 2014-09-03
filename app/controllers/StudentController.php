@@ -64,7 +64,7 @@ class StudentController extends BaseController {
 			$user                      = new User();
 			$user->full_name           = Input::get('full_name');
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
-			$user->email               = Input::get('email');
+			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->role_id             = 5; // student
 			$user->reg                 = Input::get('reg');
 			$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
@@ -212,7 +212,7 @@ class StudentController extends BaseController {
 			$user                      = User::where('reg', '=', $reg)->first();
 			$user->full_name           = Input::get('full_name');
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
-			$user->email               = Input::get('email');
+			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->reg                 = Input::get('reg');
 			$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 			$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');

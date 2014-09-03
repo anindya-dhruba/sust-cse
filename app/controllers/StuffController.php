@@ -86,7 +86,7 @@ class StuffController extends BaseController {
 			$user->full_name           = Input::get('full_name');
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
-			$user->email               = Input::get('email');
+			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->role_id             = 4; // stuff
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
 			$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
@@ -207,7 +207,7 @@ class StuffController extends BaseController {
 			$user->full_name           = Input::get('full_name');
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
-			$user->email               = Input::get('email');
+			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
 			$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
 			$user->mobile              = (Input::get('mobile') == '') ? null : Input::get('mobile');
