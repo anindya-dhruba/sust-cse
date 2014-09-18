@@ -26,6 +26,9 @@
             @if($permission->courses)
                 <li><a href="{{ URL::route('admin.courses') }}">Courses</a></li>
             @endif
+            @if($permission->researches)
+                <li><a href="{{ URL::route('admin.researches') }}">Research</a></li>
+            @endif
             @if($permission->students || $permission->faculty || $permission->stuffs)
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>

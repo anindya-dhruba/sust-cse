@@ -84,6 +84,16 @@ class PagesTableSeeder extends Seeder {
 				'can_delete'  => 	0,
 				'created_at' => 	date('Y-m-d H-i-s'),
 				'updated_at' => 	date('Y-m-d H-i-s')
+			),
+			array(
+				'title'      =>		'Research',
+				'url'        =>		'researches',
+				'content'    =>		'',
+				'is_public'  => 	1,
+				'can_update'  => 	0,
+				'can_delete'  => 	0,
+				'created_at' => 	date('Y-m-d H-i-s'),
+				'updated_at' => 	date('Y-m-d H-i-s')
 			)
 
 		);

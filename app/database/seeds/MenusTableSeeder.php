@@ -61,6 +61,13 @@ class MenusTableSeeder extends Seeder {
 				'parent_id'		=>	0,
 				'order'       	=>	8
 			),
+			array(
+				'page_id'  		=>	9,
+				'page_icon'		=>	'fa-map-marker',
+				'page_location'	=>	'side',
+				'parent_id'		=>	0,
+				'order'       	=>	9
+			),
 		);
 
 		DB::table('menus')->insert($menus);

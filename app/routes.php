@@ -140,6 +140,16 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('admin/courses/generate-url', array('as' => 'admin.courses.generateUrl', 'uses' => 'CourseController@generateUrl'));
 
+	// researches Done
+	Route::get('admin/researches', array('as' => 'admin.researches', 'uses' => 'ResearchController@index'));
+	Route::get('admin/researches/add', array('as' => 'admin.researches.add', 'uses' => 'ResearchController@add'));
+	Route::post('admin/researches/add', array('uses' => 'ResearchController@doAdd'));
+	Route::get('admin/researches/{url}', array('as' => 'admin.researches.show', 'uses' => 'ResearchController@show'));
+	Route::get('admin/researches/{url}/edit', array('as' => 'admin.researches.edit', 'uses' => 'ResearchController@edit'));
+	Route::put('admin/researches/{url}/edit', array('uses' => 'ResearchController@doEdit'));
+	Route::delete('admin/researches/{id}', array('as' => 'admin.researches.delete', 'uses' => 'ResearchController@delete'));
+	Route::post('admin/researches/generate-url', array('as' => 'admin.researches.generateUrl', 'uses' => 'ResearchController@generateUrl'));
+
 	
 	// Slider
 	Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
@@ -158,8 +168,7 @@ Route::group(array('before' => 'auth'), function()
 
 	// wysiwyg routes
 	Route::post('upload', array('as' => 'upload', 'uses' => 'BaseController@uploadFileFromEditor'));
-	Route::get('list', array('as' => 'list', 'uses' => 'BaseController@fileList'));
-	
+
 });
 
 
@@ -185,6 +194,11 @@ Route::get('stuffs/{tagname}', array('as' => 'stuffs.show', 'uses' => 'PublicCon
 Route::get('batches', array('as' => 'batches', 'uses' => 'PublicController@batches'));
 Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'PublicController@batchesShow'));
 Route::get('batches/{year}/reg/{reg}', array('as' => 'students.show', 'uses' => 'PublicController@studentsShow'));
+
+// researches Done
+Route::get('researches', array('as' => 'researches', 'uses' => 'PublicController@researches'));
+Route::get('researches/{url}', array('as' => 'researches.show', 'uses' => 'PublicController@researchShow'));
+
 
 Route::get('{pageUrl}', array('uses' => 'PublicController@pages'));
 

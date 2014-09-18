@@ -33,7 +33,7 @@
         	
         	<div class="form-group">
 	          	{{ Form::label('answer', 'Answer *') }}
-	          	{{ Form::textarea('answer', '', array('class' => 'form-control ckeditor')) }}
+	          	{{ Form::textarea('answer', '', array('class' => 'form-control summernote')) }}
 	          	{{ Form::error($errors, 'answer') }}
 	        </div>
 
@@ -44,8 +44,12 @@
 		{{ Form::close() }}
 	</div>
 
-
+@stop
 	
+@section('script')
+	{{ HTML::style('summernote/dist/summernote.css') }}
+	{{ HTML::script('summernote/dist/summernote.js') }}
+	{{ HTML::script('js/summernote-init.js') }}
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -59,6 +63,4 @@
 
 		});
 	</script>
-
-
 @stop

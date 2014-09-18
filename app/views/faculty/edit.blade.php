@@ -161,31 +161,31 @@
 					    <div class="col-md-12">
 					    	<div class="form-group">
 					          	{{ Form::label('academic_background', 'Academic Background') }}
-					          	{{ Form::textarea('academic_background', $faculty->academic_background, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('academic_background', $faculty->academic_background, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'academic_background') }}
 					        </div>
 							
 					        <div class="form-group">
 					          	{{ Form::label('professional_experience', 'Professional Experience') }}
-					          	{{ Form::textarea('professional_experience', $faculty->prof_exp, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('professional_experience', $faculty->prof_exp, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'professional_experience') }}
 					        </div>
 
 					        <div class="form-group">
 					          	{{ Form::label('awards_and_honors', 'Award & Honors') }}
-					          	{{ Form::textarea('awards_and_honors', $faculty->awards_and_honors, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('awards_and_honors', $faculty->awards_and_honors, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'awards_and_honors') }}
 					        </div>
 
 					        <div class="form-group">
 					          	{{ Form::label('interests', 'Area of Interests') }}
-					          	{{ Form::textarea('interests', $faculty->interests, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('interests', $faculty->interests, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'interests') }}
 					        </div>
 							
 					        <div class="form-group">
 					          	{{ Form::label('about', 'About') }}
-					          	{{ Form::textarea('about', $faculty->about, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('about', $faculty->about, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'about') }}
 					        </div>
 
@@ -209,19 +209,19 @@
 
 					        <div class="form-group">
 					          	{{ Form::label('publications', 'Publications') }}
-					          	{{ Form::textarea('publications', $faculty->publications, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('publications', $faculty->publications, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'publications') }}
 					        </div>
 
 					        <div class="form-group">
 					          	{{ Form::label('journal_papers', 'Journal Papers') }}
-					          	{{ Form::textarea('journal_papers', $faculty->journal_papers, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('journal_papers', $faculty->journal_papers, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'journal_papers') }}
 					        </div>
 
 					        <div class="form-group">
 					          	{{ Form::label('conference_papers', 'Conference Papers') }}
-					          	{{ Form::textarea('conference_papers', $faculty->conference_papers, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('conference_papers', $faculty->conference_papers, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'conference_papers') }}
 					        </div>
 
@@ -245,11 +245,14 @@
 				</div>
 				<div class="modal-body">
 					{{ Form::label('name', 'Research Area Name*') }}
-					{{ Form::text('name', null, ['class' => 'form-control', 'id' => 'newResearchInput']) }}
+					{{ Form::text('name', null, ['class' => 'form-control', 'id' => 'newResearchName']) }}
+					<br/>
+					{{ Form::label('description', 'Description*') }}
+					{{ Form::textarea('description', null, ['class' => 'form-control', 'id' => 'newResearchDescription']) }}
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					{{ Form::button('Submit', ['class'=>'btn btn-success', 'id' => 'newResearchSubmit']) }}
+					{{ Form::button('Submit', ['class'=>'btn btn-success fade in disabled', 'id' => 'newResearchSubmit', 'disabled' => true]) }}
 				</div>
 			</div>
 		</div>
@@ -257,10 +260,32 @@
 @stop
 
 @section('script')
+	{{ HTML::style('summernote/dist/summernote.css') }}
+	{{ HTML::script('summernote/dist/summernote.js') }}
+	{{ HTML::script('js/summernote-init.js') }}
+
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#newResearchSubmit').click(function(){
-				$.post("{{ URL::route('admin.faculty.research.add') }}", {'name': $('#newResearchInput').val()}, function(data){
+		$(document).ready(function() {
+			// validate
+			$('#newResearchName, #newResearchDescription').on('change', function() {
+				var lengthName = ($('#newResearchName').val().length);
+				var lengthDes = ($('#newResearchDescription').val().length);
+
+				if(lengthName && lengthDes)
+				{
+					$('#newResearchSubmit').removeAttr('disabled');
+					$('#newResearchSubmit').removeClass('disabled');
+				}
+				else
+				{
+					$('#newResearchSubmit').attr('disabled', 'disabled');
+					$('#newResearchSubmit').addClass('disabled');
+				}
+			});
+
+			// submit
+			$('#newResearchSubmit').click(function() {
+				$.post("{{ URL::route('admin.faculty.research.add') }}", {'name': $('#newResearchName').val(), 'description': $('#newResearchDescription').val()}, function(data){
 					var customData = '<div class=\'checkbox\'><label><input name="research[]" type="checkbox" value='+ data.id +' checked=true> '+data.name+'</label></div>';
 	                $('#researchContainer').append(customData);
 	                $('#newResearch').modal('hide');

@@ -9,10 +9,4 @@ $(document).ready(function() {
         var $btn = $(this);
         $btn.button('loading');
     });
-
-    CKEDITOR.replace('editor', {
-    	filebrowserUploadUrl: "/upload",
-    	"extraPlugins": "imagebrowser",
-		"imageBrowser_listUrl": "/list"
-    });
 });

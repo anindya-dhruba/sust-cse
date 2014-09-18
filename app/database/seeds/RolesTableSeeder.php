@@ -20,7 +20,8 @@ class RolesTableSeeder extends Seeder {
 					'pictures' => 	1,
 					'sliders'  => 	1,
 					'faqs'     => 	1,
-					'courses'  =>	1
+					'courses'  =>	1,
+					'researches' =>	1
 				),
 			array(
 					'name' 	   =>	'Head Of Department',
@@ -37,7 +38,8 @@ class RolesTableSeeder extends Seeder {
 					'pictures' => 	1,
 					'sliders'  => 	1,
 					'faqs'     => 	1,
-					'courses'  =>	1
+					'courses'  =>	1,
+					'researches' =>	1
 				),
 			array(
 					'name' 	   =>	'Faculty',
@@ -54,7 +56,8 @@ class RolesTableSeeder extends Seeder {
 					'pictures' => 	0,
 					'sliders'  => 	0,
 					'faqs'     => 	0,
-					'courses'  =>	0
+					'courses'  =>	0,
+					'researches' =>	0
 				),
 			array(
 					'name' 	   =>	'Stuff',
@@ -71,7 +74,8 @@ class RolesTableSeeder extends Seeder {
 					'pictures' => 	1,
 					'sliders'  => 	1,
 					'faqs'     => 	1,
-					'courses'  =>	1
+					'courses'  =>	1,
+					'researches' =>	0
 				),
 			array(
 					'name' 	   =>	'Student',
@@ -88,7 +92,8 @@ class RolesTableSeeder extends Seeder {
 					'pictures' => 	0,
 					'sliders'  => 	0,
 					'faqs'     => 	0,
-					'courses'  =>	0
+					'courses'  =>	0,
+					'researches' =>	0
 				)
 		);
 

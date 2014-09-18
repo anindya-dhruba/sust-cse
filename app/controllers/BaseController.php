@@ -33,32 +33,24 @@ class BaseController extends Controller {
 	 */
 	public function uploadFileFromEditor()
 	{
-		if(Input::hasFile('upload'))
+		if(Input::hasFile('summernotefile'))
 	    {
-	    	$file = Input::file('upload');
+	    	$file = Input::file('summernotefile');
 
-	        $destinationPath = public_path('uploads');
-	        $fileName = Str::random(4, 'alpha').".".$file->getClientOriginalExtension();
-	        $file->move($destinationPath, $fileName);
-	       
-	        return 'Success. Select the file by browsing server';
-	    }
-	}
+	        $destinationPath = public_path('uploads/summernote_images');
+	        $fileName = strtotime(date('Y-m-d H:i:s')).".".$file->getClientOriginalExtension();
+	        if($file->move($destinationPath, $fileName))
+			{
+				echo URL::to("uploads/summernote_images/".$fileName);
+				return;
+			}
+			else
+			{
+				echo "Some error occured to upload image. Try Again!";
+				return;
+			}
 
-	/**
-	 * get list of public/uploads dir files
-	 * @return json
-	 */
-	public function fileList()
-	{
-		$files = array();
-
-		foreach (File::files('public/uploads') as $key => $file)
-		{
-			$file = str_replace('public/', '', $file);
-			$files[] = array('image' => '/'.$file);
 		}
-		return json_encode($files);
 	}
 
 }

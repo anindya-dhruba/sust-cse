@@ -147,13 +147,13 @@
 					    <div class="col-md-12">
 					    	<div class="form-group">
 					          	{{ Form::label('academic_background', 'Academic Background') }}
-					          	{{ Form::textarea('academic_background', $stuff->academic_background, array('class' => 'form-control')) }}
+					          	{{ Form::textarea('academic_background', $stuff->academic_background, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'academic_background') }}
 					        </div>
 												     
 					        <div class="form-group">
 					          	{{ Form::label('about', 'About') }}
-					          	{{ Form::textarea('about', $stuff->about, array('class' => 'form-control')) }}
+					          	{{ Form::textarea('about', $stuff->about, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'about') }}
 					        </div>
 
@@ -164,25 +164,10 @@
 			</div>
 	    {{ Form::close() }}
 	</div>
+@stop
 
-
-	<!-- Modal -->
-	<div class="modal fade" id="newResearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="myModalLabel">New Research Area</h4>
-				</div>
-				<div class="modal-body">
-					{{ Form::label('name', 'Research Area Name*') }}
-					{{ Form::text('name', null, ['class' => 'form-control', 'id' => 'newResearchInput']) }}
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					{{ Form::button('Submit', ['class'=>'btn btn-success', 'id' => 'newResearchSubmit']) }}
-				</div>
-			</div>
-		</div>
-	</div>
+@section('script')
+	{{ HTML::style('summernote/dist/summernote.css') }}
+	{{ HTML::script('summernote/dist/summernote.js') }}
+	{{ HTML::script('js/summernote-init.js') }}
 @stop

@@ -120,7 +120,7 @@
 		        			<dd>{{ $faculty->prof_exp }}</dd>
 		        		</dl>
 		        		<dl>
-		        			<dt>Researchs:</dt>
+		        			<dt>Researches:</dt>
 		        			<dd>
 		        				
 		        				@foreach($faculty->researches as $research)

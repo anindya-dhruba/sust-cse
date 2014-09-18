@@ -174,27 +174,33 @@
 					    <div class="col-md-12">
 					    	<div class="form-group">
 					          	{{ Form::label('academic_background', 'Academic Background') }}
-					          	{{ Form::textarea('academic_background', $student->academic_background, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('academic_background', $student->academic_background, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'academic_background') }}
 					        </div>
 
 					        <div class="form-group">
 					          	{{ Form::label('employment_history', 'Employment History') }}
-					          	{{ Form::textarea('employment_history', $student->employment_history, array('class' => 'form-control ckeditor', 'placeholder' => 'if available')) }}
+					          	{{ Form::textarea('employment_history', $student->employment_history, array('class' => 'form-control summernote', 'placeholder' => 'if available')) }}
 					          	{{ Form::error($errors, 'employment_history') }}
 					        </div>
 
 					        <div class="form-group">
 					          	{{ Form::label('about', 'About') }}
-					          	{{ Form::textarea('about', $student->about, array('class' => 'form-control ckeditor')) }}
+					          	{{ Form::textarea('about', $student->about, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'about') }}
 					        </div>
 
-					        {{ Form::submit('Add Student', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
+					        {{ Form::submit('Update Student', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
 					    </div>
 					</div>
 			    </div>
 			</div>
 	    {{ Form::close() }}
 	</div>
+@stop
+
+@section('script')
+	{{ HTML::style('summernote/dist/summernote.css') }}
+	{{ HTML::script('summernote/dist/summernote.js') }}
+	{{ HTML::script('js/summernote-init.js') }}
 @stop

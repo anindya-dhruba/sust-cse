@@ -334,6 +334,12 @@ class FacultyController extends BaseController {
 	{
 		$research = new Research;
 		$research->name = Input::get('name');
+		
+		$url = Str::slug(Input::get('name'));
+		$urlCount = count(Research::where('url', '=', $url)->get());
+		$research->url = ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
+
+		$research->description = Input::get('description');
 		$research->save();
 
 		return $research;

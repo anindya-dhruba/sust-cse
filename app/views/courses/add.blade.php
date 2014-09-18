@@ -74,7 +74,7 @@
 
 			        <div class="form-group">
 			          	{{ Form::label('details', 'Details') }}
-			          	{{ Form::textarea('details', '', array('class' => 'form-control', 'id' => 'editor')) }}
+			          	{{ Form::textarea('details', '', array('class' => 'form-control summernote')) }}
 			          	{{ Form::error($errors, 'details') }}
 			        </div>
 		        	
@@ -90,6 +90,10 @@
 @stop
 
 @section('script')
+	{{ HTML::style('summernote/dist/summernote.css') }}
+	{{ HTML::script('summernote/dist/summernote.js') }}
+	{{ HTML::script('js/summernote-init.js') }}
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// gets slug/url

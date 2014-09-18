@@ -756,5 +756,39 @@ class PublicController extends BaseController {
 		   return "Page not found.";
 		}
 	}
+
+	/**
+	 * show all research areas
+	 * @return void
+	 */
+	public function researches()
+	{
+		$researches = Research::with('users')->get();
+
+	    return View::make('public.researches.index')
+					->with('title', "Research")
+					->with('researches', $researches);
+	}
+
+	/**
+	 * Show a research
+	 * @param  string $url
+	 * @return void
+	 */
+	public function researchShow($url)
+	{
+		try
+		{
+		    $research = Research::with('users')->where('url', '=', $url)->firstOrFail();
+
+		    return View::make('public.researches.show')
+						->with('title', $research->name)
+						->with('research', $research);
+		}
+		catch(ModelNotFoundException $e)
+		{
+		   return "Page not found.";
+		}
+	}
 	
 }

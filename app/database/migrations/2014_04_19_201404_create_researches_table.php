@@ -16,6 +16,8 @@ class CreateResearchesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('url');
+			$table->longtext('description');
 			$table->timestamps();
 		});
 	}

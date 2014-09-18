@@ -30,6 +30,7 @@ class CreateRolesTable extends Migration {
 			$table->boolean('sliders')->default(0);
 			$table->boolean('courses')->default(0);
 			$table->boolean('faqs')->default(0);
+			$table->boolean('researches')->default(0);
 		});
 	}
 

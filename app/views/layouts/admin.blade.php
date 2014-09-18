@@ -19,7 +19,6 @@
 		{{ HTML::script('js/jquery.min.js') }}
 		{{ HTML::script('js/bootstrap.js') }}
 		{{ HTML::script('js/datepicker.js') }}
-		{{ HTML::script('ckeditor/ckeditor.js') }}
 		{{ HTML::script('js/custom.js') }}
     	@yield('script')
     	
