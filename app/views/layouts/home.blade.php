@@ -13,6 +13,8 @@
 		{{ HTML::style("css/bootstrap-theme.css") }}
 		{{ HTML::style('css/datepicker.css') }}
 		{{ HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css') }}
+		<link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 		{{ HTML::style("css/custom.css") }}
 		@yield('style')
 
@@ -24,29 +26,72 @@
     </head>
 	
 	<body>
+	<div id="bg"></div>
+		@include('includes.slider')
+
 		<div class="container">
 			@include('includes.topNavAdmin')
 			@include('includes.topNav')
 			<div class="row">
+
+				<!-- home page content -->
+	            <div class="col-md-12">
+	            	<div class="row welcome-content">
+	                	@yield('content')
+	                </div>
+	            </div>
+
 				<!-- sidenav -->
-				<div class="col-md-3">
+				<div class="col-md-12">
 					@include('includes.sideNav')
 				</div>
 
 				<!-- main content -->
-				<div class="col-md-9">
+				<div class="col-md-12 home-boxes">
 					<div class="row">
-						<!-- slider -->
-						<div class="col-md-12">
-							@include('includes.slider')
+						
+						<div class="col-md-4">
+							<!-- recent notices -->
+							<div class="panel panel-success vspace">
+								<div class="panel-heading">Lorem Ipsum</div>
+
+								<div class="list-group">
+									@foreach (Helper::recentNotices() as $key => $notice)
+										<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
+											<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
+											<small>
+												{{ Helper::date($notice->created_at) }}
+											</small>
+										</a>
+									@endforeach
+									<a href="{{ URL::route('notices') }}" class="list-group-item">
+										<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View All Notices</h5>
+									</a>
+								</div>
+							</div>
 						</div>
-				
-						<!-- home page content -->
-			            <div class="col-md-8">
-			            	<div class="row">
-			                	@yield('content')
-			                </div>
-			            </div>
+
+
+						<div class="col-md-4">
+							<!-- recent notices -->
+							<div class="panel panel-success vspace">
+								<div class="panel-heading">Recent Notices</div>
+
+								<div class="list-group">
+									@foreach (Helper::recentNotices() as $key => $notice)
+										<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
+											<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
+											<small>
+												{{ Helper::date($notice->created_at) }}
+											</small>
+										</a>
+									@endforeach
+									<a href="{{ URL::route('notices') }}" class="list-group-item">
+										<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View All Notices</h5>
+									</a>
+								</div>
+							</div>
+						</div>
 
 			            <!-- recent events -->
 			            <div class="col-md-4">
@@ -71,8 +116,10 @@
 						</div>
 					</div>
 				</div>
-            	@include('includes.footer')
-            </div>
-        </div>
+				</div>
+				</div>
+		</div>
+		
+        @include('includes.footer')
     </body>
 </html>

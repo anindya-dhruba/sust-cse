@@ -10,9 +10,10 @@
 		<title>{{ $title }} | {{ Config::get('myConfig.siteName') }} - {{ Config::get('myConfig.tagName') }}</title>
 
 		{{ HTML::style("css/bootstrap.css") }}
-		{{ HTML::style("css/bootstrap-theme.css") }}
 		{{ HTML::style('css/datepicker.css') }}
 		{{ HTML::style('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css') }}
+		<link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 		{{ HTML::style("css/custom.css") }}
 		@yield('style')
 
@@ -28,18 +29,20 @@
 	<body>
 		<div class="container">
 			@include('includes.topNavAdmin')
-			@include('includes.topNav')
+			<div style="border-bottom: 1px solid #dadada;margin-bottom: 30px;">
+				@include('includes.topNav')
+			</div>
+			
 			<div class="row">
-				<div class="col-md-3">
-					@include('includes.sideNav')
-				</div>
-	            <div class="col-md-9">
-	            	<div class="row">
+	            <div class="col-md-12">
+	            	<div class="row main-content">
 	                	@yield('content')
 	                </div>
 	            </div>
-            	@include('includes.footer')
-            </div>
-        </div>
+	         </div>
+	    </div>
+        
+        @include('includes.footer')
+        
     </body>
 </html>

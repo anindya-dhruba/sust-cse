@@ -18,7 +18,7 @@
 				</div>
 				<div class="col-md-10">
 					<a href="{{ URL::route('events.show', $event->url) }}">
-						<h4 class="bold">{{ $event->title }}</h4>
+						<h3 style="margin-top:0;" class="bold">{{ $event->title }}</h3 style="margin-top:0;">
 					</a>
 
 					<p>{{ Str::limit($event->event, 300) }}</p>

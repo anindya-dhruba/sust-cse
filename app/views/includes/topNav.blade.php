@@ -1,7 +1,15 @@
+<div class="top-bar clearfix">
+    {{ Config::get('myConfig.tagName') }}
+    <div class="pull-right user-nav">
+        <a href="#">Login</a> / <a href="#">Register</a>
+    </div>
+</div>
 <nav class="navbar navbar-custom" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-        <a class="navbar-brand" href="{{ URL::route('home') }}">{{ Config::get('myConfig.siteName') }}<br/><small>{{ Config::get('myConfig.tagName') }}</small></a>
+        <a class="navbar-brand" href="{{ URL::route('home') }}">
+            <img src="{{URL::to('img/logo.jpg')}}" alt="CSE">
+        </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
