@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.courses.add') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-plus"></span> Add New Course
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.courses.add') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-plus"></span> Add New Course
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		<table class="table table-responsive table-bordered table-striped">
@@ -25,7 +26,11 @@
 				@foreach($courses as $course)
 					<tr>
 						<td>{{ $course->semester }}</td>
-						<td>{{ $course->course_code }} - {{ $course->title }}</td>
+						<td>
+							<a href="{{ URL::route('courses.show', $course->url)}}" target="_blank">
+								{{ $course->course_code }} - {{ $course->title }}
+							</a>
+						</td>
 						<td>{{ $course->credit }}</td>
 						<td>{{ $course->type }}</td>
 						<td>

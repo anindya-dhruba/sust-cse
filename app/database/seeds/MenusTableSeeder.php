@@ -8,7 +8,7 @@ class MenusTableSeeder extends Seeder {
 			array(
 				'page_id'  		=>	1,
 				'page_icon'		=>	'fa-home',
-				'page_location'	=>	'side',
+				'page_location'	=>	'top',
 				'parent_id'		=>	0,
 				'order'       	=>	1
 			),
@@ -36,37 +36,30 @@ class MenusTableSeeder extends Seeder {
 			array(
 				'page_id'  		=>	5,
 				'page_icon'		=>	'fa-question-circle',
-				'page_location'	=>	'side',
+				'page_location'	=>	'top',
 				'parent_id'		=>	0,
 				'order'       	=>	5
 			),
 			array(
-				'page_id'  		=>	6,
-				'page_icon'		=>	'fa-calendar',
-				'page_location'	=>	'side',
-				'parent_id'		=>	0,
-				'order'       	=>	6
-			),
-			array(
-				'page_id'  		=>	7,
-				'page_icon'		=>	'fa-map-marker',
-				'page_location'	=>	'side',
-				'parent_id'		=>	0,
-				'order'       	=>	7
-			),
-			array(
 				'page_id'  		=>	8,
-				'page_icon'		=>	'fa-map-marker',
+				'page_icon'		=>	'fa-book',
 				'page_location'	=>	'side',
 				'parent_id'		=>	0,
 				'order'       	=>	8
 			),
 			array(
 				'page_id'  		=>	9,
-				'page_icon'		=>	'fa-map-marker',
+				'page_icon'		=>	'fa-lightbulb-o',
 				'page_location'	=>	'side',
 				'parent_id'		=>	0,
 				'order'       	=>	9
+			),
+			array(
+				'page_id'  		=>	10,
+				'page_icon'		=>	'fa-picture-o',
+				'page_location'	=>	'side',
+				'parent_id'		=>	0,
+				'order'       	=>	10
 			),
 		);
 

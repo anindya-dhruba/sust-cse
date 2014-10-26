@@ -264,9 +264,9 @@ class PublicController extends BaseController {
 		}
 		else if($user->role_id == 4)
 		{
-			return View::make('public.stuffs.show')
+			return View::make('public.staff.show')
 								->with('title', $user->full_name)
-								->with('stuff', $user);
+								->with('staff', $user);
 		}
 		// student
 		else if($user->role_id == 5)
@@ -300,11 +300,11 @@ class PublicController extends BaseController {
 								->with('faculty', $user)
 								->with('researches', Research::get());
 		}
-		// stuff
+		// staff
 		else if($user->role_id == 4)
-			return View::make('public.stuffs.edit')
+			return View::make('public.staff.edit')
 								->with('title', 'Edit Profile')
-								->with('stuff', $user);
+								->with('staff', $user);
 		
 		// student
 		else if($user->role_id == 5)
@@ -488,7 +488,7 @@ class PublicController extends BaseController {
 										->with('error', 'Some error occured. Try again.');
 			}
 		}
-		// stuff
+		// staff
 		else if($user->role_id == 4)
 		{
 			$rules = array
@@ -724,32 +724,32 @@ class PublicController extends BaseController {
 	}
 
 	/**
-	 * show all stuffs
+	 * show all staff
 	 * @return void
 	 */
-	public function stuffs()
+	public function staff()
 	{
-		$stuffs = User::stuff()->get();
+		$staff = User::staff()->get();
 
-	    return View::make('public.stuffs.index')
-					->with('title', "Stuffs")
-					->with('stuffs', $stuffs);
+	    return View::make('public.staff.index')
+					->with('title', "Staff")
+					->with('staff', $staff);
 	}
 
 	/**
-	 * Show a stuff
+	 * Show a staff
 	 * @param  string $tagname
 	 * @return void
 	 */
-	public function stuffsShow($tagname)
+	public function staffShow($tagname)
 	{
 		try
 		{
-		    $stuff = User::stuff()->where('tagname', '=', $tagname)->firstOrFail();
+		    $staff = User::staff()->where('tagname', '=', $tagname)->firstOrFail();
 
-		    return View::make('public.stuffs.show')
-						->with('title', $stuff->full_name)
-						->with('stuff', $stuff);
+		    return View::make('public.staff.show')
+						->with('title', $staff->full_name)
+						->with('staff', $staff);
 		}
 		catch(ModelNotFoundException $e)
 		{
@@ -790,5 +790,62 @@ class PublicController extends BaseController {
 		   return "Page not found.";
 		}
 	}
+
+	/**
+	 * show all albums
+	 * @return void
+	 */
+	public function albums()
+	{
+		$albums = Album::where('is_public', '=', 1)->with('pictures')->get();
+
+	    return View::make('public.albums.index')
+					->with('title', "Gallery (".(count($albums)) ." albums)")
+					->with('albums', $albums);
+	}
 	
+	/**
+	 * Show a album
+	 * @param  string $url
+	 * @return void
+	 */
+	public function albumShow($url)
+	{
+		try
+		{
+		    $album = Album::where('url', '=', $url)->firstOrFail();
+		    $pictures = Picture::where('album_id', '=', $album->id)->where('is_public', '=', 1)->get();
+
+		    return View::make('public.albums.show')
+						->with('title',"Album: ".$album->name." (".count($pictures)." Pictures)")
+						->with('pictures', $pictures)
+						->with('album', $album);
+		}
+		catch(ModelNotFoundException $e)
+		{
+		   return "Page not found.";
+		}
+	}
+
+	/**
+	 * Show a picture
+	 * @param  string $url, $picUrl
+	 * @return void
+	 */
+	public function pictureShow($url, $picUrl)
+	{
+		try
+		{
+		    $picture = Picture::with('album')->where('url', '=', $picUrl)->firstOrFail();
+
+		    return View::make('public.pictures.show')
+						->with('title', $picture->caption)
+						->with('picture', $picture)
+						->with('albumUrl', $url);
+		}
+		catch(ModelNotFoundException $e)
+		{
+		   return "Page not found.";
+		}
+	}	
 }

@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('content')
-	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.notices.add') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-plus"></span> Add New Notice
-			</a>
-		</h3>
-		<hr/>
-
+	<div class="col-md-12">	
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.notices.add') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-plus"></span> Add New Notice
+				</a>
+			</h3>
+		</div>
 		@include('includes.alert')
 		<table class="table table-responsive table-bordered table-striped">
 			<thead>
@@ -33,7 +33,9 @@
 							@endif
 						</td>
 						<td>{{ Helper::date($notice->updated_at) }}</td>
-						<td>{{ $notice->user->full_name }}</td>
+						<td>
+							{{ $notice->user->full_name }}
+						</td>
 						<td>
 							<a href="{{ URL::route('notices.show', $notice->url) }}" target="_blank">{{ $notice->title }}</a>
 						</td>

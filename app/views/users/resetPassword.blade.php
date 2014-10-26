@@ -1,11 +1,10 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="col-md-5 col-md-offset-3">
+	<div class="col-md-4 col-md-offset-4">
 		{{ Form::open(['route' => ['password.reset', $tokenData->token]]) }}
 			<div class="page-header">
-				<h2>{{ $title }}</h2>
-				<hr/>
+				<h3>{{ $title }}</h3>
 			</div>
 
 			@include('includes.alert')

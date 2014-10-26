@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.faqs') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-chevron-left"></span> View All FAQ's
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.faqs') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-chevron-left"></span> View All FAQ's
+				</a>
+			</h3>
+		</div>
 
 		{{ Form::open(array('route' => 'admin.faqs.add')) }}
 
@@ -39,7 +40,7 @@
 
 
 
-        	{{ Form::submit('Add FAQ', array('class' => 'btn btn-primary', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
+        	{{ Form::submit('Add FAQ', array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
 
 		{{ Form::close() }}
 	</div>

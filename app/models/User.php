@@ -58,7 +58,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $query->whereIn('role_id',  [2,3]);
 	}
 
-	public function scopeStuff($query)
+	public function scopeStaff($query)
 	{
 		return $query->where('role_id', '=', 4);
 	}

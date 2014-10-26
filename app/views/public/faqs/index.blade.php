@@ -2,9 +2,10 @@
 
 @section('content')
 	<div class="col-md-12">
-
+		<div class="page-header">
+			<h3>{{ $title }}</h3>
+		</div>
       	<div class="panel-group" id="accordion">
-
       		@foreach ($faqs as $faq)
 				<div class="panel panel-default">
 					<div class="panel-heading">

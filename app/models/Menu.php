@@ -8,7 +8,7 @@ class Menu extends Eloquent {
 	public static $menuPostions = array
 	(
 		'top'	=>	'At Top Side',
-		'side'	=>	'At Left Side'
+		'side'	=>	'At Bottom Side'
 	);
 
 	public function page()

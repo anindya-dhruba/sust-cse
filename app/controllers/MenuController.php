@@ -77,6 +77,7 @@ class MenuController extends BaseController {
 			{
 				if($itemToOrder = Menu::find($item_id))
 				{
+					echo $order;
 					$itemToOrder->order = $order;
 					$itemToOrder->save();
 				}

@@ -65,7 +65,7 @@ Route::filter('student', function()
 	if (Auth::user()->role_id != 5) return Redirect::to('home');
 });
 
-Route::filter('stuff', function()
+Route::filter('staff', function()
 {
 	if (Auth::user()->role_id != 4) return Redirect::to('home');
 });

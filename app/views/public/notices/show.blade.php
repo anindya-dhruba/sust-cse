@@ -9,10 +9,11 @@
 					<span class="glyphicon glyphicon-chevron-left"></span> Go Back
 				</a>
 			</h3>
-			<hr/>
 		</div>
 		
 		{{ $notice->notice }}
 
+		<hr>
+		<small>Created on {{ Helper::date($notice->created_at, true) }}</small>
     </div>
 @stop

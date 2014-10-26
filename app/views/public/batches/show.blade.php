@@ -31,7 +31,7 @@
 						<div class="caption">
 							<h5>{{ $students[$i]->full_name}}</h5>
 							<p>{{ $students[$i]->reg }}</p>
-							<a class="btn btn-default btn-block" href="{{ URL::route('students.show', [$batch->year, $students[$i]->reg]) }}">More</a>
+							<a class="btn btn-primary btn-block" href="{{ URL::route('students.show', [$batch->year, $students[$i]->reg]) }}">More</a>
 						</div>
 					</div>
 				</div>

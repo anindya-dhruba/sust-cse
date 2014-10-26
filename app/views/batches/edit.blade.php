@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.batches') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-chevron-left"></span> View All Batches
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.batches') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Batches
+				</a>
+			</h3>
+		</div>
 
 		{{ Form::open(array('route' => array('admin.batches.edit',  $batch->year), 'method' => 'put')) }}
 
@@ -29,7 +30,7 @@
 	          	{{ Form::error($errors, 'year') }}
 	        </div>
         	
-        	{{ Form::submit('Update Batch', array('class' => 'btn btn-primary', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
+        	{{ Form::submit('Update Batch', array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
 
 		{{ Form::close() }}
 	</div>

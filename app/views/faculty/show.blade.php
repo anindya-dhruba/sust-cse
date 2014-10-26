@@ -20,13 +20,14 @@
 				</div>
 
 			<div class="col-md-8 border-left">
-				<h3>
-					{{ $title }}
-					<a href="{{ URL::route('admin.faculty') }}" class='btn btn-primary pull-right' >
-						<span class="glyphicon glyphicon-chevron-left"></span> View All Faculty
-					</a>
-				</h3>
-				<hr/>
+				<div class="page-header">
+					<h3>
+						{{ $title }}
+						<a href="{{ URL::route('admin.faculty') }}" class='btn btn-primary pull-right' >
+							<span class="glyphicon glyphicon-chevron-left"></span> View All Faculty
+						</a>
+					</h3>
+				</div>
 
 				<div class="row">
 					<div class="col-md-6">

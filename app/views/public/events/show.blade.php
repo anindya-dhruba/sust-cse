@@ -9,11 +9,14 @@
 					<span class="glyphicon glyphicon-chevron-left"></span> Go Back
 				</a>
 			</h3>
-			{{ Helper::date($event->start_date) }} - {{ Helper::date($event->start_date) }} <mark>({{ Helper::daysDiff($event->start_date, $event->end_date) }} day)</mark>
-			<hr/>
 		</div>
+		{{ Helper::date($event->start_date) }} - {{ Helper::date($event->end_date) }} <mark>({{ Helper::daysDiff($event->start_date, $event->end_date) }} day)</mark>
+			<hr/>
 		
 		{{ $event->event }}
+
+		<hr>
+		<small>Created on {{ Helper::date($event->created_at, true) }}</small>
 
     </div>
 @stop

@@ -2,11 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
+		<div class="page-header">
+			<h3>{{ $title }}</h3>
+		</div>
+
 		@include('includes.alert')
 
-		<div class="page-header">
-			<h4>{{ $hotd->designation }}</h4>
-		</div>
+		
+		<h4>{{ $hotd->designation }}</h4>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="thumbnail text-center">
@@ -31,9 +34,8 @@
 			</div>
 		</div>
 
-		<div class="page-header">
-			<h4>Professors</h4>
-		</div>
+		
+		<h4>Professors</h4>
 		@for($i=0; $i<count($professors); $i++)
 			@if($i == 0)
 				<div class="row">
@@ -67,9 +69,8 @@
 		@endfor
 		</div>
 
-		<div class="page-header">
-			<h4>Associate Professors</h4>
-		</div>
+		
+		<h4>Associate Professors</h4>
 		@for($i=0; $i<count($aProfessors); $i++)
 			@if($i == 0)
 				<div class="row">
@@ -103,9 +104,8 @@
 		@endfor
 		</div>
 
-		<div class="page-header">
-			<h4>Lecturers</h4>
-		</div>
+		
+		<h4>Lecturers</h4>
 		@for($i=0; $i<count($lecturers); $i++)
 			@if($i == 0)
 				<div class="row">

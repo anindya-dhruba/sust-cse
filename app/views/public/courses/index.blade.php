@@ -2,9 +2,12 @@
 
 @section('content')
 	<div class="col-md-12">
+		<div class="page-header">
+			<h3>{{$title}}</h3>
+		</div>
 		@if(count($allCourses) == 0)
 			<div class="alert alert-success">
-				No Event Found.
+				No Courses Found.
 			</div>
 		@endif
 

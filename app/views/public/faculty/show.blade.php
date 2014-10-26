@@ -2,15 +2,16 @@
 
 @section('content')
 	<div class="col-md-12">
+        <div class="page-header">
+            <h3>
+                {{ $title }}<br/>
+                <small>{{ $faculty->designation }}</small>
+                <a href="{{ URL::previous() }}" class='btn btn-primary pull-right'>
+                    <span class="glyphicon glyphicon-chevron-left"></span> Go Back
+                </a>
+            </h3>
+        </div>
 		@include('includes.alert')
-		<h3>
-			{{ $title }}<br/>
-			<small>{{ $faculty->designation }}</small>
-			<a href="{{ URL::previous() }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-chevron-left"></span> Go Back
-			</a>
-		</h3>
-		<hr/>
 
 		<div class="row">
 			<div class="col-md-4">

@@ -47,10 +47,10 @@ class UsersTableSeeder extends Seeder {
 			[
 				'full_name'  =>		'Stuff Name',
 				'nick_name'  =>		'Stuff',
-				'tagname'	 =>		'tag-stuff',
+				'tagname'	 =>		'tag-staff',
 				'reg'		 =>		null,
 				'batch_id'	 =>		null,
-				'email'      =>		'stuff@sust.edu',
+				'email'      =>		'staff@sust.edu',
 				'password'   =>		Hash::make('1'),
 				'role_id'    =>		4,
 				'designation'=>		'Lab Assistant',

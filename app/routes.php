@@ -3,12 +3,19 @@
 // for guest only
 Route::group(array('before' => 'guest'), function()
 {
+	// login
 	Route::get('login', array('as' => 'login', 'uses' => 'UserController@login'));
 	Route::post('login', array('uses' => 'UserController@doLogin'));
+
+	// register
 	Route::get('register', array('as' => 'register', 'uses' => 'UserController@register'));
 	Route::post('register', array('uses' => 'UserController@doRegister'));
+
+	// forgot password
 	Route::get('forgot-password', array('as' =>'password.forgot', 'uses' => 'UserController@forgotPassword'));
 	Route::post('forgot-password', array('as' =>'password.forgot', 'uses' => 'UserController@savePasswordToken'));
+
+	// reset password
 	Route::get('reset-password/{token}', array('as' => 'password.reset', 'uses'	=> 'UserController@resetPassword'));
 	Route::post('reset-password/{token}', array('as' => 'password.reset', 'uses' => 'UserController@doResetPassword'));
 });
@@ -16,9 +23,10 @@ Route::group(array('before' => 'guest'), function()
 // for any logged in user
 Route::group(array('before' => 'auth'), function()
 {
+	// logout
 	Route::get('logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
 	
-	// pages DONE
+	// pages
 	Route::get('admin/pages', array('as' => 'admin.pages', 'uses' => 'PageController@index'));
 	Route::get('admin/pages/add', array('as' => 'admin.pages.add', 'uses' => 'PageController@add'));
 	Route::post('admin/pages/add', array('uses' => 'PageController@doAdd'));
@@ -29,13 +37,13 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('admin/pages/slug', array('as' => 'admin.pages.slug', 'uses' => 'PageController@slug'));
 	Route::post('admin/pages/generateUrl', array('as' => 'admin.pages.generateUrl', 'uses' => 'PageController@generateUrl'));
 
-	// build menu DONE
+	// build menu
 	Route::get('admin/build-menu', array('as' => 'admin.menu.build', 'uses' => 'MenuController@buildMenu'));
 	Route::post('admin/build-side-menu', array('uses' => 'MenuController@doBuildSideMenu'));
 	Route::post('admin/build-top-menu', array('uses' => 'MenuController@doBuildTopMenu'));
 	Route::post('admin/select-icon-location', array('as'=> 'admin.selectIconLocation', 'uses' => 'MenuController@doSelectIcon'));
 
-	// Notices DONE
+	// Notices
 	Route::get('admin/notices', array('as' => 'admin.notices', 'uses' => 'NoticeController@index'));
 	Route::get('admin/notices/add', array('as' => 'admin.notices.add', 'uses' => 'NoticeController@add'));
 	Route::post('admin/notices/add', array('uses' => 'NoticeController@doAdd'));
@@ -46,7 +54,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('admin/notices/generate-url', array('as' => 'admin.notices.generateUrl', 'uses' => 'NoticeController@generateUrl'));
 
-	// Events DONE
+	// Events
 	Route::get('admin/events', array('as' => 'admin.events', 'uses' => 'EventController@index'));
 	Route::get('admin/events/add', array('as' => 'admin.events.add', 'uses' => 'EventController@add'));
 	Route::post('admin/events/add', array('uses' => 'EventController@doAdd'));
@@ -57,7 +65,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('admin/events/generate-url', array('as' => 'admin.events.generateUrl', 'uses' => 'EventController@generateUrl'));
 
-	// faq DONE
+	// faq
 	Route::get('admin/faqs', array('as' => 'admin.faqs', 'uses' => 'FaqController@index'));
 	Route::get('admin/faqs/add', array('as' => 'admin.faqs.add', 'uses' => 'FaqController@add'));
 	Route::post('admin/faqs/add', array('uses' => 'FaqController@doAdd'));
@@ -67,7 +75,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::delete('admin/faqs/{pageUrl}', array('as' => 'admin.faqs.delete', 'uses' => 'FaqController@delete'));
 	Route::post('admin/faqs/slug', array('as' => 'admin.faqs.slug', 'uses' => 'FaqController@slug'));
 
-	// batch DONE
+	// batch
 	Route::get('admin/batches', array('as' => 'admin.batches', 'uses' => 'BatchController@index'));
 	Route::get('admin/batches/add', array('as' => 'admin.batches.add', 'uses' => 'BatchController@add'));
 	Route::post('admin/batches/add', array('uses' => 'BatchController@doAdd'));
@@ -76,7 +84,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::put('admin/batches/{year}/edit', array('uses' => 'BatchController@doEdit'));
 	Route::delete('admin/batches/{year}', array('as' => 'admin.batches.delete', 'uses' => 'BatchController@delete'));
 
-	// students DONE
+	// students
 	Route::get('admin/students', array('as' => 'admin.students', 'uses' => 'StudentController@index'));
 	Route::get('admin/students/add', array('as' => 'admin.students.add', 'uses' => 'StudentController@add'));
 	Route::post('admin/students/add', array('uses' => 'StudentController@doAdd'));
@@ -86,7 +94,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::delete('admin/students/{user_id}', array('as' => 'admin.students.delete', 'uses' => 'StudentController@delete'));
 
 
-	// faculty DONE
+	// faculty
 	Route::get('admin/faculty', array('as' => 'admin.faculty', 'uses' => 'FacultyController@index'));
 	Route::get('admin/faculty/add', array('as' => 'admin.faculty.add', 'uses' => 'FacultyController@add'));
 	Route::post('admin/faculty/add', array('uses' => 'FacultyController@doAdd'));
@@ -96,17 +104,17 @@ Route::group(array('before' => 'auth'), function()
 	Route::delete('admin/faculty/{user_id}', array('as' => 'admin.faculty.delete', 'uses' => 'FacultyController@delete'));
 	Route::post('admin/faculty/research/add', array('as' => 'admin.faculty.research.add', 'uses' => 'FacultyController@doAddResearch'));
 
-	// stuffs DONE
-	Route::get('admin/stuffs', array('as' => 'admin.stuffs', 'uses' => 'StuffController@index'));
-	Route::get('admin/stuffs/add', array('as' => 'admin.stuffs.add', 'uses' => 'StuffController@add'));
-	Route::post('admin/stuffs/add', array('uses' => 'StuffController@doAdd'));
-	Route::get('admin/stuffs/{tagname}', array('as' => 'admin.stuffs.show', 'uses' => 'StuffController@show'));
-	Route::get('admin/stuffs/{tagname}/edit', array('as' => 'admin.stuffs.edit', 'uses' => 'StuffController@edit'));
-	Route::put('admin/stuffs/{tagname}/edit', array('uses' => 'StuffController@doEdit'));
-	Route::delete('admin/stuffs/{user_id}', array('as' => 'admin.stuffs.delete', 'uses' => 'StuffController@delete'));
-	Route::post('admin/stuffs/research/add', array('as' => 'admin.stuffs.research.add', 'uses' => 'FacultyController@doAddResearch'));
+	// staff
+	Route::get('admin/staff', array('as' => 'admin.staff', 'uses' => 'StaffController@index'));
+	Route::get('admin/staff/add', array('as' => 'admin.staff.add', 'uses' => 'StaffController@add'));
+	Route::post('admin/staff/add', array('uses' => 'StaffController@doAdd'));
+	Route::get('admin/staff/{tagname}', array('as' => 'admin.staff.show', 'uses' => 'StaffController@show'));
+	Route::get('admin/staff/{tagname}/edit', array('as' => 'admin.staff.edit', 'uses' => 'StaffController@edit'));
+	Route::put('admin/staff/{tagname}/edit', array('uses' => 'StaffController@doEdit'));
+	Route::delete('admin/staff/{user_id}', array('as' => 'admin.staff.delete', 'uses' => 'StaffController@delete'));
+	Route::post('admin/staff/research/add', array('as' => 'admin.staff.research.add', 'uses' => 'FacultyController@doAddResearch'));
 
-	// gallery DONE
+	// gallery
 	Route::get('admin/albums', array('as' => 'admin.albums', 'uses' => 'AlbumController@albums'));
 	Route::get('admin/albums/add', array('as' => 'admin.albums.add', 'uses' => 'AlbumController@add'));
 	Route::post('admin/albums/add', array('uses' => 'AlbumController@doAdd'));
@@ -117,7 +125,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('admin/albums/generate-url', array('as' => 'admin.albums.generateUrl', 'uses' => 'AlbumController@generateUrl'));
 
-	// pictures Done
+	// pictures
 	Route::get('admin/pictures', array('as' => 'admin.pictures', 'uses' => 'PictureController@index'));
 	Route::get('admin/pictures/add', array('as' => 'admin.pictures.add', 'uses' => 'PictureController@add'));
 	Route::post('admin/pictures/add', array('uses' => 'PictureController@doAdd'));
@@ -129,7 +137,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('admin/pictures/generate-url', array('as' => 'admin.pictures.generateUrl', 'uses' => 'PictureController@generateUrl'));
 
 
-	// courses Done
+	// courses
 	Route::get('admin/courses', array('as' => 'admin.courses', 'uses' => 'CourseController@index'));
 	Route::get('admin/courses/add', array('as' => 'admin.courses.add', 'uses' => 'CourseController@add'));
 	Route::post('admin/courses/add', array('uses' => 'CourseController@doAdd'));
@@ -140,7 +148,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('admin/courses/generate-url', array('as' => 'admin.courses.generateUrl', 'uses' => 'CourseController@generateUrl'));
 
-	// researches Done
+	// research
 	Route::get('admin/researches', array('as' => 'admin.researches', 'uses' => 'ResearchController@index'));
 	Route::get('admin/researches/add', array('as' => 'admin.researches.add', 'uses' => 'ResearchController@add'));
 	Route::post('admin/researches/add', array('uses' => 'ResearchController@doAdd'));
@@ -152,14 +160,15 @@ Route::group(array('before' => 'auth'), function()
 
 	
 	// Slider
-	Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
-	Route::get('admin/slider/select', array('as' => 'admin.slider.select', 'uses' => 'SliderController@select'));
-	Route::get('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@crop'));
-	Route::post('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@doCrop'));
-	Route::get('admin/slider/{id}/edit', array('as' => 'admin.slider.edit', 'uses' => 'SliderController@edit'));
-	Route::put('admin/slider/{id}/edit', array('uses' => 'SliderController@doEdit'));
-	Route::delete('admin/slider/{id}', array('as' => 'admin.slider.delete', 'uses' => 'SliderController@delete'));
+	// Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
+	// Route::get('admin/slider/select', array('as' => 'admin.slider.select', 'uses' => 'SliderController@select'));
+	// Route::get('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@crop'));
+	// Route::post('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@doCrop'));
+	// Route::get('admin/slider/{id}/edit', array('as' => 'admin.slider.edit', 'uses' => 'SliderController@edit'));
+	// Route::put('admin/slider/{id}/edit', array('uses' => 'SliderController@doEdit'));
+	// Route::delete('admin/slider/{id}', array('as' => 'admin.slider.delete', 'uses' => 'SliderController@delete'));
 
+	// profile
 	Route::get('profile', array('as' => 'profile.show', 'uses' => 'PublicController@profile'));
 	Route::get('profile/edit', array('as' => 'profile.edit', 'uses' => 'PublicController@editProfile'));
 	Route::put('profile/edit', array('as' => 'profile.edit', 'uses' => 'PublicController@doEditProfile'));
@@ -175,30 +184,34 @@ Route::group(array('before' => 'auth'), function()
 
 // public pages [ keep them at last]
 Route::get('/', array('as' => 'home', 'uses' => 'PublicController@pages'));
+
 Route::get('faqs', array('as' => 'faqs', 'uses' => 'PublicController@faqs'));
+
 Route::get('notices', array('as' => 'notices', 'uses' => 'PublicController@notices'));
 Route::get('notices/{url}', array('as' => 'notices.show', 'uses' => 'PublicController@noticesShow'));
-Route::get('events', array('as' => 'events', 'uses' => 'PublicController@events'));
-Route::get('events/{url}', array('as' => 'events.show', 'uses' => 'PublicController@noticesShow'));
+
 Route::get('events', array('as' => 'events', 'uses' => 'PublicController@events'));
 Route::get('events/{url}', array('as' => 'events.show', 'uses' => 'PublicController@eventsShow'));
+
 Route::get('courses', array('as' => 'courses', 'uses' => 'PublicController@courses'));
 Route::get('courses/{url}', array('as' => 'courses.show', 'uses' => 'PublicController@coursesShow'));
 
 Route::get('faculty', array('as' => 'faculty', 'uses' => 'PublicController@faculty'));
 Route::get('faculty/{tagname}', array('as' => 'faculty.show', 'uses' => 'PublicController@facultyShow'));
 
-Route::get('stuffs', array('as' => 'stuffs', 'uses' => 'PublicController@stuffs'));
-Route::get('stuffs/{tagname}', array('as' => 'stuffs.show', 'uses' => 'PublicController@stuffsShow'));
+Route::get('staff', array('as' => 'staff', 'uses' => 'PublicController@staff'));
+Route::get('staff/{tagname}', array('as' => 'staff.show', 'uses' => 'PublicController@staffShow'));
 
 Route::get('batches', array('as' => 'batches', 'uses' => 'PublicController@batches'));
 Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'PublicController@batchesShow'));
 Route::get('batches/{year}/reg/{reg}', array('as' => 'students.show', 'uses' => 'PublicController@studentsShow'));
 
-// researches Done
 Route::get('researches', array('as' => 'researches', 'uses' => 'PublicController@researches'));
 Route::get('researches/{url}', array('as' => 'researches.show', 'uses' => 'PublicController@researchShow'));
 
+Route::get('albums', array('as' => 'albums', 'uses' => 'PublicController@albums'));
+Route::get('albums/{url}', array('as' => 'albums.show', 'uses' => 'PublicController@albumShow'));
+Route::get('albums/{url}/pictures/{picUrl}', array('as' => 'pictures.show', 'uses' => 'PublicController@pictureShow'));
 
 Route::get('{pageUrl}', array('uses' => 'PublicController@pages'));
 

@@ -22,7 +22,7 @@ class CreateRolesTable extends Migration {
 			$table->boolean('pages')->default(0);
 			$table->boolean('faculty')->default(0);
 			$table->boolean('students')->default(0);
-			$table->boolean('stuffs')->default(0);
+			$table->boolean('staff')->default(0);
 			$table->boolean('menus')->default(0);
 			$table->boolean('batches')->default(0);
 			$table->boolean('albums')->default(0);

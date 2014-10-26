@@ -2,7 +2,9 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>Current Batches</h3>
+		<div class="page-header">
+			<h3>Current Batches</h3>
+		</div>
 		<div class="list-group">
 			@for($i=0; $i<5; $i++)
 				<a href="{{ URL::route('batches.show', $batches[$i]->year) }}" class="list-group-item">
@@ -14,7 +16,9 @@
 			@endfor
 		</div>
 
-		<h3>Past Batches</h3>
+		<div class="page-header">
+			<h3>Past Batches</h3>
+		</div>
 		<div class="list-group">
 			@for($i=5; $i<count($batches); $i++)
 				<a href="{{ URL::route('batches.show', $batches[$i]->year) }}" class="list-group-item">

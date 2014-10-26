@@ -20,7 +20,6 @@
 		{{ HTML::script('js/jquery.min.js') }}
 		{{ HTML::script('js/bootstrap.js') }}
 		{{ HTML::script('js/datepicker.js') }}
-		{{ HTML::script('ckeditor/ckeditor.js') }}
 		{{ HTML::script('js/custom.js') }}
     	@yield('script')
     	
@@ -29,9 +28,9 @@
 	<body>
 		<div class="container">
 			@include('includes.topNavAdmin')
-			<div style="border-bottom: 1px solid #dadada;margin-bottom: 30px;">
+			<!-- <div style="border-bottom: 1px solid #dadada;margin-bottom: 5px;"> -->
 				@include('includes.topNav')
-			</div>
+			<!-- </div> -->
 			
 			<div class="row">
 	            <div class="col-md-12">

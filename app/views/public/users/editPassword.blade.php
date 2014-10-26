@@ -2,20 +2,18 @@
 
 
 @section('content')
-	
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('profile.show') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-chevron-left"></span> Profile
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('profile.show') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-chevron-left"></span> Profile
+				</a>
+			</h3>
+		</div>
+		@include('includes.alert')
 
 		{{ Form::open(['route' => 'password.edit', 'method' => 'put']) }}
-
-			@include('includes.alert')
-
 	  		<div class="form-group">
 				{{ Form::label('old_password', 'Old Password *') }}
 				{{ Form::password('old_password', ['class' => 'form-control', 'placeholder' => 'Old Password']) }}

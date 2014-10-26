@@ -1,16 +1,15 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="col-md-5 col-md-offset-3">
+	<div class="col-md-4 col-md-offset-4">
 		{{ Form::open(['route' => 'password.forgot']) }}
 			<div class="page-header">
-				<h2>{{ $title }}</h2>
-				<hr/>
+				<h3>{{ $title }}</h3>
 			</div>
 
 			@include('includes.alert')
 			<div class="form-group">
-				{{ Form::text('email', '', ['class' => 'form-control', 'placeholder' => 'Email Address']) }}
+				{{ Form::text('email', '', ['class' => 'form-control', 'placeholder' => 'Email Address of the account', 'autofocus' => true]) }}
 	        	{{ Form::error($errors, 'email') }}
 	        </div>
 
@@ -19,8 +18,8 @@
 		{{ Form::close() }}
 
 		<br/>
-      	Remembered your password? <a href="{{ URL::route('login') }}" class="btn btn-success btn-xs">Login Here</a>
-      	<br/>
-      	<br/>
+		<p class="text-center small">
+      		Remembered your password? <br/><a href="{{ URL::route('login') }}" class="btn btn-warning btn-sm">Login Here</a>
+      	</p>
 	</div>
 @stop

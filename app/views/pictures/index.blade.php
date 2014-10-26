@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.pictures.add') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-plus"></span> Add New Picture
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.pictures.add') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-plus"></span> Add New Picture
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		<table class="table table-responsive table-bordered table-striped">
@@ -35,7 +36,7 @@
 						</td>
 						<td>{{ $picture->user->full_name }}</td>
 						<td>
-							<a href="{{ URL::route('admin.pictures.show', $picture->url) }}" target="_blank">{{ $picture->caption }}</a>
+							<a href="{{ URL::route('pictures.show', [$picture->album->url, $picture->url]) }}" target="_blank">{{ $picture->caption }}</a>
 						</td>
 						<td>{{ HTML::link(URL::route('admin.albums.show', $picture->album->url), $picture->album->name) }}</td>
 						<td>

@@ -2,39 +2,39 @@
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class StuffController extends BaseController {
+class StaffController extends BaseController {
 
 	/**
-	 * View all stuff
+	 * View all staff
 	 * @return void
 	 */
 	public function index()
 	{
-		if(!$this->permission['stuffs']) return Redirect::to('/');
+		if(!$this->permission['staff']) return Redirect::to('/');
 
-		$stuffs = User::stuff()->paginate(10);
+		$staff = User::staff()->paginate(10);
 
-		return View::make('stuffs.index')
-						->with('title', 'Viewing All Stuff')
-						->with('stuffs', $stuffs);
+		return View::make('staff.index')
+						->with('title', 'Viewing All Staff')
+						->with('staffCollection', $staff);
 	}
 
 	/**
-	 * Show a stuff
+	 * Show a staff
 	 * @param  string $tagname
 	 * @return void
 	 */
 	public function show($tagname)
 	{
-		if(!$this->permission['stuffs']) return Redirect::to('/');
+		if(!$this->permission['staff']) return Redirect::to('/');
 
 		try
 		{
-		    $stuff = User::stuff()->where('tagname', '=', $tagname)->firstOrFail();
+		    $staff = User::staff()->where('tagname', '=', $tagname)->firstOrFail();
 
-		    return View::make('stuffs.show')
-						->with('title', $stuff->full_name)
-						->with('stuff', $stuff);
+		    return View::make('staff.show')
+						->with('title', $staff->full_name)
+						->with('staff', $staff);
 		}
 		catch(ModelNotFoundException $e)
 		{
@@ -43,23 +43,23 @@ class StuffController extends BaseController {
 	}
 
 	/**
-	 * Add new stuff
+	 * Add new staff
 	 */
 	public function add()
 	{
-		if(!$this->permission['stuffs']) return Redirect::to('/');
+		if(!$this->permission['staff']) return Redirect::to('/');
 
-		return View::make('stuffs.add')
-						->with('title', 'Add New Stuff');
+		return View::make('staff.add')
+						->with('title', 'Add New Staff');
 	}
 
 	/**
-	 * Do Add a stuff
+	 * Do Add a staff
 	 * @return void
 	 */
 	public function doAdd()
 	{
-		if(!$this->permission['stuffs']) return Redirect::to('/');
+		if(!$this->permission['staff']) return Redirect::to('/');
 
 		$rules = array
 		(
@@ -87,7 +87,7 @@ class StuffController extends BaseController {
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
-			$user->role_id             = 4; // stuff
+			$user->role_id             = 4; // staff
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
 			$user->phone               = (Input::get('phone') == '') ? null : Input::get('phone');
 			$user->mobile              = (Input::get('mobile') == '') ? null : Input::get('mobile');
@@ -117,7 +117,7 @@ class StuffController extends BaseController {
 				'password' =>	$password
 			];
 
-			Mail::send('emails.stuffs.welcome', $data, function($message) use ($user) {
+			Mail::send('emails.staff.welcome', $data, function($message) use ($user) {
 			    $message->to($user->email, $user->full_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
 			});
 
@@ -154,8 +154,8 @@ class StuffController extends BaseController {
 					$user->pictures()->save($picture);
 			    }
 
-			    return Redirect::route('admin.stuff.show', array('tagname' => Str::upper(Input::get('tagname'))))
-			    					->with('success', "Stuff '$user->full_name' has added successfully.");
+			    return Redirect::route('admin.staff.show', array('tagname' => Str::upper(Input::get('tagname'))))
+			    					->with('success', "Staff '$user->full_name' has added successfully.");
 			}
 			else
 				return Redirect::back()
@@ -165,21 +165,21 @@ class StuffController extends BaseController {
 	}
 
 	/**
-	 * Edit a stuff
+	 * Edit a staff
 	 * @param  string $tagname
 	 * @return void
 	 */
 	public function edit($tagname)
 	{
-		if(!$this->permission['stuffs']) return Redirect::to('/');
+		if(!$this->permission['staff']) return Redirect::to('/');
 
 		try
 		{
-		    $stuff = User::stuff()->where('tagname', '=', $tagname)->firstOrFail();
+		    $staff = User::staff()->where('tagname', '=', $tagname)->firstOrFail();
 
-		    return View::make('stuffs.edit')
-						->with('title', "Editing $stuff->full_name")
-						->with('stuff', $stuff);
+		    return View::make('staff.edit')
+						->with('title', "Editing $staff->full_name")
+						->with('staff', $staff);
 		}
 		catch(ModelNotFoundException $e)
 		{
@@ -188,13 +188,13 @@ class StuffController extends BaseController {
 	}
 
 	/**
-	 * Do Edit a stuff
+	 * Do Edit a staff
 	 * @return void
 	 */
 	public function doEdit($tagname)
 	{
 
-		if(!$this->permission['stuffs']) return Redirect::to('/');
+		if(!$this->permission['staff']) return Redirect::to('/');
 
 		$rules = array
 		(
@@ -218,7 +218,7 @@ class StuffController extends BaseController {
 								->withErrors($validation);
 		else
 		{
-			$user                      = User::stuff()->where('tagname', '=', $tagname)->first();
+			$user                      = User::staff()->where('tagname', '=', $tagname)->first();
 			$user->full_name           = Input::get('full_name');
 			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
@@ -274,8 +274,8 @@ class StuffController extends BaseController {
 					$user->pictures()->save($picture);
 			    }
 
-			    return Redirect::route('admin.stuffs.show', array('tagname' => Str::upper(Input::get('tagname'))))
-			    					->with('success', "Stuff '$user->full_name' has added successfully.");
+			    return Redirect::route('admin.staff.show', array('tagname' => Str::upper(Input::get('tagname'))))
+			    					->with('success', "Staff '$user->full_name' has added successfully.");
 			}
 			else
 				return Redirect::back()
@@ -286,20 +286,20 @@ class StuffController extends BaseController {
 	}
 
 	/**
-	 * Delete a stuff
+	 * Delete a staff
 	 * @param  string $user_id
 	 * @return void
 	 */
 	public function delete($user_id)
 	{
-		if(!$this->permission['stuffs']) return Redirect::to('/');
+		if(!$this->permission['staff']) return Redirect::to('/');
 
 		$user = User::find($user_id);
 		if($user->delete())
-			return Redirect::route('admin.stuffs')
-								->with('success', 'The stuff has been deleted.');
+			return Redirect::route('admin.staff')
+								->with('success', 'The staff has been deleted.');
 		else
-			return Redirect::route('admin.stuffs')
+			return Redirect::route('admin.staff')
 								->with('errors', 'Some error occured. Try again.');
 	}
 

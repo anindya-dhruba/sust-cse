@@ -1,9 +1,9 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="col-md-5 col-md-offset-3">
+	<div class="col-md-4 col-md-offset-4">
 		<div class="page-header">
-			<h2>{{ $title }}</h2>
+			<h3>{{ $title }}</h3>
 		</div>
 
       	{{ Form::open(array('route' => 'login')) }}
@@ -25,7 +25,9 @@
       	
       	{{ Form::close() }}
       	<br/>
-
-      	Are you a student of SUST CSE &amp; don't have an account? <a href="{{ URL::route('register') }}" class="btn btn-success btn-xs">Register Here</a>
+      	<p class="text-center small">
+	      	Are you a student of SUST CSE &amp; don't have an account?<br/>
+	      	<a href="{{ URL::route('register') }}" class="btn btn-warning btn-sm">Click here to create a free account</a>
+		</p>
     </div>
 @stop

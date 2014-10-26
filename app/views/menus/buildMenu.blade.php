@@ -13,106 +13,120 @@
 
 		@include('includes.alert')
 
-	<ul id="myTab" class="nav nav-tabs">
-		<li class="active"><a href="#icon_and_position" data-toggle="tab">Manage Icon &amp; Position</a></li>
-		<li><a href="#side_menu" data-toggle="tab">Manage Side Menu</a></li>
-		<li><a href="#top_menu" data-toggle="tab">Manage Top Menu</a></li>
-	</ul>
-	
-	<div id="myTabContent" class="tab-content">
+		<ul id="myTab" class="nav nav-tabs">
+			<li class="active"><a href="#icon_and_position" data-toggle="tab">Manage Icon &amp; Position</a></li>
+			<li><a href="#side_menu" data-toggle="tab">Manage Bottom Menu</a></li>
+			<li><a href="#top_menu" data-toggle="tab">Manage Top Menu</a></li>
+		</ul>
+		
+		<div id="myTabContent" class="tab-content">
 
-
-		<div class="tab-pane fade active in" id="icon_and_position">
-			<div class="row">
-				<div class="col-md-4">
-					<br/>
-					<div class="alert alert-warning">
-						<h4>Instructions:</h4>
-						<ol>
-							<li>Select <b>icon</b> for each menu item</li>
-							<li>Select <b>position</b> for each menu item</li>
-							<li>Click <b>update icons and position</b> when you are done</li>
-						</ol>
+			<div class="tab-pane fade active in" id="icon_and_position">
+				<div class="row">
+					<div class="col-md-4">
+						<br/>
+						<div class="alert alert-warning">
+							<h4>Instructions:</h4>
+							<ol>
+								<li>Select <b>icon</b> for each menu item</li>
+								<li>Select <b>position</b> for each menu item</li>
+								<li>Click <b>update icons and position</b> when you are done</li>
+							</ol>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
-				{{ Form::open(array('route' => 'admin.selectIconLocation')) }}
-					<br/>
-					<table class="table table-bordered">
-						<tr>
-							<th>Page Name</th>
-							<th>Select Icon</th>
-							<th>Select Position</th>
-						</tr>
-						 @foreach ($allMenus as $key => $menu)
-						 	<tr>
-						 		<td>
-									{{ $menu->page->title }}
-								</td>
-								<td>
-									<button name="pages[{{ $menu->id }}]" class="btn btn-default" role="iconpicker" data-cols="6" data-icon="{{ $menu->page_icon }}" data-iconset="fontawesome"></button>
-								</td>
-								<td>
-									@foreach (Menu::$menuPostions as $key => $position)
-										<label class="checkbox-inline">
-											{{ Form::radio("locations[$menu->id]", $key, ($menu->page_location == $key)) }}
-											{{ $position }}
-										</label>
-									@endforeach
-								</td>
+					<div class="col-md-6">
+					{{ Form::open(array('route' => 'admin.selectIconLocation')) }}
+						<br/>
+						<table class="table table-bordered">
+							<tr>
+								<th>Page Name</th>
+								<th>Select Icon</th>
+								<th>Select Position</th>
 							</tr>
-				         @endforeach
-			        </table>
-					{{ Form::submit('Update Icon & Postion', array('class'=>'btn btn-success', 'data-loading-text'=>'Updating...', 'type' => 'button')) }}
-				{{ Form::close() }}
-				</div>
-			</div>
-		</div>
-
-
-		<div class="tab-pane fade" id="side_menu">
-			<div class="row">
-				<div class="col-md-4">
-					<br/>
-					<div class="alert alert-warning">
-						<h4>Instructions:</h4>
-						<ol>
-							<li><b>Drag and drop</b> the menu items to reposition them</li>
-							<li><b>View the website</b> to see updated side navigation</li>
-						</ol>
+							 @foreach ($allMenus as $key => $menu)
+							 	<tr>
+							 		<td>
+										{{ $menu->page->title }}
+									</td>
+									<td>
+										<button name="pages[{{ $menu->id }}]" class="btn btn-default" role="iconpicker" data-cols="6" data-icon="{{ $menu->page_icon }}" data-iconset="fontawesome"></button>
+									</td>
+									<td>
+										@foreach (Menu::$menuPostions as $key => $position)
+											<label class="checkbox-inline">
+												{{ Form::radio("locations[$menu->id]", $key, ($menu->page_location == $key)) }}
+												{{ $position }}
+											</label>
+										@endforeach
+									</td>
+								</tr>
+					         @endforeach
+				        </table>
+						{{ Form::submit('Update Icon & Postion', array('class'=>'btn btn-success btn-lg', 'data-loading-text'=>'Updating...', 'type' => 'button')) }}
+					{{ Form::close() }}
 					</div>
 				</div>
-				<div class="col-md-6 sideNav">
-					<br/>
-					<div id="side_menus">
-						@foreach ($sideMenus as $key => $menu)
-							<div class="col-md-6" id="orders_{{ $menu->id }}">
-								<span class="icon fa {{ $menu->page_icon }}"></span><br/>
-			    				{{ $menu->page->title }}
-						    </div>
-				        @endforeach
+			</div>
+
+			<div class="tab-pane fade" id="side_menu">
+				<div class="row">
+					<div class="col-md-4">
+						<br/>
+						<div class="alert alert-warning">
+							<h4>Instructions:</h4>
+							<ol>
+								<li><b>Drag and drop</b> the menu items to reposition them</li>
+								<li><b>View the website</b> to see updated side navigation</li>
+							</ol>
+						</div>
+					</div>
+					<div class="col-md-6 sideNav">
+						<br/>
+						<div id="side_menus">
+							@foreach ($sideMenus as $key => $menu)
+								<div class="col-md-6" id="orders_{{ $menu->id }}">
+									<span class="icon fa {{ $menu->page_icon }}"></span><br/>
+				    				{{ $menu->page->title }}
+							    </div>
+					        @endforeach
+					    </div>
+					    <p id="success-indicator-side" style="display:none; margin-right: 10px;">
+			          		<span class="glyphicon glyphicon-ok"></span> Bottom Menu order has been saved
+			        	</p>
 				    </div>
-				    <p id="success-indicator-side" style="display:none; margin-right: 10px;">
-		          		<span class="glyphicon glyphicon-ok"></span> Side Menu order has been saved
-		        	</p>
-			    </div>
-			</div>
-		</div>
-
-
-		<div class="tab-pane fade" id="top_menu">
-			<div class="row">
-				<div class="col-md-4">
-					<br/>
-					<div class="alert alert-warning">
-						<h4>Instructions:</h4>
-						<ol>
-							<li><b>Drag and drop</b> the menu items to reposition them</li>
-							<li>Only <b>1 level depth</b> of submenu is supported.</li>
-							<li><b>View the website</b> to see updated top navigation</li>
-						</ol>
-					</div>
 				</div>
+			</div>
+
+			<div class="tab-pane fade" id="top_menu">
+				<div class="row">
+					<div class="col-md-4">
+						<br/>
+						<div class="alert alert-warning">
+							<h4>Instructions:</h4>
+							<ol>
+								<li><b>Drag and drop</b> the menu items to reposition them</li>
+								<li>Only <b>1 level depth</b> of submenu is supported.</li>
+								<li><b>View the website</b> to see updated top navigation</li>
+							</ol>
+						</div>
+					</div>
+					<div class="col-md-6">
+				    	<br/>
+				    	<div id="all_menus">
+				        	<div class="dd" id="nestable">
+				          		{{ $topMenus }}
+				        	</div>
+
+				        	<p id="success-indicator-top" style="display:none; margin-right: 10px;">
+				          		<span class="glyphicon glyphicon-ok"></span> Top Menu order has been saved
+				        	</p>
+					    </div>
+				    </div>
+				</div>
+			</div>
+
+
+			<div class="tab-pane fade" id="top_menu">
 				<div class="col-md-6">
 			    	<br/>
 			    	<div id="all_menus">
@@ -128,24 +142,7 @@
 			</div>
 		</div>
 
-
-		<div class="tab-pane fade" id="top_menu">
-			<div class="col-md-6">
-			    	<br/>
-			    	<div id="all_menus">
-			        	<div class="dd" id="nestable">
-			          		{{ $topMenus }}
-			        	</div>
-
-			        	<p id="success-indicator-top" style="display:none; margin-right: 10px;">
-			          		<span class="glyphicon glyphicon-ok"></span> Top Menu order has been saved
-			        	</p>
-				    </div>
-			    </div>
-		</div>
 	</div>
-
-
 	{{ HTML::script('js/icon-picker.min.js') }}
 
 @stop
@@ -180,7 +177,6 @@
 					cursor: 'move',
 					update: function() {
 						var order = $(this).sortable("serialize");
-						console.log(order);
 
 						$.post("{{ URL::to('admin/build-side-menu') }}", order, function(response) {
 							$("#msg").html(response);

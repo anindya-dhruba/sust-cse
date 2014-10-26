@@ -26,14 +26,13 @@
     </head>
 	
 	<body>
-	<div id="bg"></div>
+		<div id="bg"></div>
 		@include('includes.slider')
 
 		<div class="container">
 			@include('includes.topNavAdmin')
 			@include('includes.topNav')
 			<div class="row">
-
 				<!-- home page content -->
 	            <div class="col-md-12">
 	            	<div class="row welcome-content">
@@ -49,33 +48,14 @@
 				<!-- main content -->
 				<div class="col-md-12 home-boxes">
 					<div class="row">
-						
+					
+						<!-- recent notices -->
 						<div class="col-md-4">
-							<!-- recent notices -->
 							<div class="panel panel-success vspace">
-								<div class="panel-heading">Lorem Ipsum</div>
-
-								<div class="list-group">
-									@foreach (Helper::recentNotices() as $key => $notice)
-										<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
-											<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
-											<small>
-												{{ Helper::date($notice->created_at) }}
-											</small>
-										</a>
-									@endforeach
-									<a href="{{ URL::route('notices') }}" class="list-group-item">
-										<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View All Notices</h5>
-									</a>
+								<div class="panel-heading">
+									<i class="fa fa-thumb-tack"></i>
+									Recent Notices
 								</div>
-							</div>
-						</div>
-
-
-						<div class="col-md-4">
-							<!-- recent notices -->
-							<div class="panel panel-success vspace">
-								<div class="panel-heading">Recent Notices</div>
 
 								<div class="list-group">
 									@foreach (Helper::recentNotices() as $key => $notice)
@@ -96,7 +76,10 @@
 			            <!-- recent events -->
 			            <div class="col-md-4">
 							<div class="panel panel-success vspace">
-								<div class="panel-heading">Recent Events</div>
+								<div class="panel-heading">
+									<i class="fa fa-map-marker"></i>
+									Recent Events
+								</div>
 
 								<div class="list-group">
 									@foreach (Helper::recentEvents() as $key => $event)
@@ -114,10 +97,33 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- recent events -->
+			            <div class="col-md-4">
+							<div class="panel panel-success vspace">
+								<div class="panel-heading">
+									<i class="fa fa-lightbulb-o"></i>
+									New Research Areas
+								</div>
+
+								<div class="list-group">
+									@foreach (Helper::recentResearch() as $key => $research)
+										<a href="{{ URL::route('researches.show', $research->url) }}" class="list-group-item">
+											<h5 class="list-group-item-heading"><strong>{{ $research->name }}</strong></h5>
+											<small>
+												{{ count($research->users) }} user(s) researched
+											</small>
+										</a>
+									@endforeach
+									<a href="{{ URL::route('researches') }}" class="list-group-item">
+										<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View all Research Areas</h5>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				</div>
-				</div>
+			</div>
 		</div>
 		
         @include('includes.footer')

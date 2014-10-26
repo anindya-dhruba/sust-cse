@@ -3,9 +3,12 @@
 @section('content')
 	<div class="col-md-6 col-md-offset-3">
 		<div class="page-header">
-			<h2>{{ $title }} - Student Account</h2>
-			<hr/>
+			<h3>{{ $title }} - Student Account</h3>
 		</div>
+
+		<div class="alert alert-warning">
+      		<strong>Are you a faculty member or staff of SUST CSE?</strong><br/>If yes, Please contact us so that we can create a free account for you.
+      	</div>
 
       	{{ Form::open(array('route' => 'register')) }}
 	        
@@ -13,7 +16,7 @@
 			
 			<div class="form-group">
 	          	{{ Form::label('reg', 'Registration No *') }}
-	          	{{ Form::text('reg', '', array('class' => 'form-control')) }}
+	          	{{ Form::text('reg', '', array('class' => 'form-control', 'autofocus' => true)) }}
 	          	{{ Form::error($errors, 'reg') }}
 	        </div>
 
@@ -46,12 +49,9 @@
       	{{ Form::close() }}
 
       	<br/>
-      	Already have an account? <a href="{{ URL::route('login') }}" class="btn btn-success btn-xs">Login Here</a>
-      	<br/>
-      	<br/>
-
-      	<div class="alert alert-warning">
-      		<strong>Are you a faculty member or stuff of SUST CSE?</strong><br/>Please contact us so that we can provide you an account.
-      	</div>
+      	<p class="text-center small">
+	      	Already have an account?<br/><a href="{{ URL::route('login') }}" class="btn btn-warning btn-sm">Login Here</a>
+		</p>
+      	
     </div>
 @stop

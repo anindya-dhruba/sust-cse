@@ -2,6 +2,15 @@
 
 @section('content')
 	<div class="col-md-12">
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::previous() }}" class='btn btn-primary btn-sm pull-right' style="vertical-align: middle;">
+					<span class="glyphicon glyphicon-chevron-left"></span> Go Back
+				</a>
+			</h3>
+		</div>
+		
 		@if(count($notices) == 0)
 			<div class="alert alert-success">
 				No Notice Found.

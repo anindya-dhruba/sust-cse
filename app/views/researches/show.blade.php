@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.researches') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-chevron-left"></span> View All Research
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.researches') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Research
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		
@@ -26,7 +27,11 @@
 			<div class="col-md-3">
 				<dl>
 					<dt>URL:</dt>
-					<dd>{{ HTML::link($research->url, URL::to($research->url)) }}</dd>
+					<dd>
+						<a href="{{ URL::route('researches.show', $research->url) }}">
+							{{ URL::route('researches.show', $research->url) }}
+						</a>
+					</dd>
 				</dl>
 
 				<dl>

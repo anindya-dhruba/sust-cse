@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.albums.add') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-plus"></span> Add New Album
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.albums.add') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-plus"></span> Add New Album
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		<table class="table table-responsive table-bordered table-striped">
@@ -34,7 +35,7 @@
 						</td>
 						<td>{{ $album->user->full_name }}</td>
 						<td>
-							<a href="{{ URL::route('admin.albums.show', $album->url) }}" target="_blank">{{ $album->name }}</a>
+							<a href="{{ URL::route('albums.show', $album->url) }}" target="_blank">{{ $album->name }}</a>
 						</td>
 						<td>{{ Str::limit(strip_tags($album->details), 50, '...') }}</td>
 						<td>{{ $album->pictures->count() }}</td>

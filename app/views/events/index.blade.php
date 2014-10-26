@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.events.add') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-plus"></span> Add New Event
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.events.add') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-plus"></span> Add New Event
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		<table class="table table-responsive table-bordered table-striped">

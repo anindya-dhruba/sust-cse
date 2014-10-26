@@ -2,10 +2,9 @@
 
 @section('content')
 	<div class="col-md-12">
-
 		@if($layout == 'layouts.default')
 			<div class="page-header">
-				<h2>{{ $title }}</h2>
+				<h3>{{ $title }}</h3>
 			</div>
 		@endif
       	<p>{{ $page->content }}</p>

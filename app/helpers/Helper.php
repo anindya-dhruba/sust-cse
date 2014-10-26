@@ -95,6 +95,21 @@ class Helper
 						->get();
 	}
 
+
+	/**
+	 * Recent Research Areas
+	 * @param  integer $limit
+	 * @return array
+	 */
+	public static function recentResearch($limit = 5)
+	{
+		return Research::with('users')
+						->limit($limit)
+						->orderBy('created_at', 'desc')
+						->orderBy('updated_at', 'desc')
+						->get();
+	}
+
 	/**
 	 * Slider images
 	 * @return array

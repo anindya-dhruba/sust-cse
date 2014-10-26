@@ -1,10 +1,9 @@
-
 body{
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 h1, h2, h3, h4{
-	font-family: 'Patua One', cursive;
+    font-family: 'Patua One', cursive;
 }
 .navbar-header {
     padding-left: 15px;
@@ -18,77 +17,80 @@ h1, h2, h3, h4{
     padding: 5px 15px;
 }
 .navbar-default
-{	
-	background-color: #f8f8f8;
-	border-color: #e7e7e7;
+{   
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
 }
 
 .navbar-custom .navbar-nav>li>a:hover, .navbar-nav>li>a:focus
 {
-	color: white;
-	background-color: #209b60;
+    color: white;
+    background-color: #209b60;
 }
 .navbar-custom .navbar-nav>li>a
 {
-	color: #777;
+    color: #777;
 }
 .navbar-custom .navbar-brand
 {
-	color: #777;
+    color: #777;
 }
 .navbar-custom .navbar-brand:hover, .navbar-brand:focus
 {
-	color: #000;
-	background-color: transparent;
+    color: #000;
+    background-color: transparent;
 }
 .btn-lg, .btn-group-lg > .btn
 {
-	padding: 12px 30px;
+    padding: 12px 30px;
 }
 a
 {
-	color: #202020;
+    color: #202020;
 }
 a:hover
 {
-	color: #000;
+    color: #000;
 }
 .page-header
 {
-	margin: 5px 0px;
-	border-bottom: 0px;
+    margin: 5px 0px;
+    border-bottom: 0px;
+    padding: 0px;
+    border-right: 15px solid #eee;
 }
 .page-header h3
 {
-	font-size: 30px;
-	margin-top: 0px;
-	border-left: 10px solid #209b60;
-	padding: 20px 0px 20px 20px;
-	margin-bottom: 30px;
+    font-size: 30px;
+    margin-top: 0px;
+    border-left: 10px solid #209b60;
+    padding: 20px 0px 20px 20px;
+    margin-bottom: 20px;
+    background: #eee;
 }
 .table th, .table td
 {
-	text-align: center;
+    text-align: center;
 }
 .navbar-custom .navbar
 {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .no_border th, .no_border td
 {
-	border: none!important;
+    border: none!important;
 }
 
 .fa-avatar
 {
-	font-size: 135px;
-	color: #999;
+    font-size: 135px;
+    color: #999;
 }
 legend
 {
-	width: auto;
-	border-bottom: none;
-	padding: 4px 10px;
+    width: auto;
+    border-bottom: none;
+    padding: 4px 10px;
 }
 fieldset.scheduler-border
 {
@@ -99,97 +101,97 @@ fieldset.scheduler-border
 
 .sideNav > a > div
 {
-	background: rgb(2, 196, 103);
-	color: #fff;
-	padding: 20px 0px;
-	font-size: 18px;
-	border: 1px solid #fff;
-	text-align: center;
+    background: rgb(2, 196, 103);
+    color: #fff;
+    padding: 20px 0px;
+    font-size: 18px;
+    border: 1px solid #fff;
+    text-align: center;
 }
 .sideNav > a > div:hover
 {
-	background: rgb(3, 151, 80);
+    background: rgb(3, 151, 80);
 }
 
 .sideNav > .active > div
 {
-	background: rgb(3, 151, 80);
+    background: rgb(3, 151, 80);
 }
 
 .sideNav .icon
 {
-	font-size: 32px;
-	background: rgba(0, 0, 0, 0.2);
-	padding: 0;
-	border-radius: 100%;
-	height: 50px;
-	width: 50px;
-	line-height: 50px;
+    font-size: 32px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0;
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
 }
 .navbar-custom
 {
-	background: white;
-	border: none;
-	margin-bottom: 0px;
+    background: white;
+    border: none;
+    margin-bottom: 0px;
 }
 .navbar-custom .navbar-brand
 {
-	font-size: 20px;
-	padding: 0px;
-	line-height: 23px;
+    font-size: 20px;
+    padding: 0px;
+    line-height: 23px;
 }
 .navbar-custom .navbar
 {
-	min-height: 85px;
+    min-height: 85px;
 }
 .navbar-custom .navbar-nav > li > a
 {
-	padding-top: 30px;
-	padding-bottom: 26px;
-	transition: all 0.2s;
+    padding-top: 30px;
+    padding-bottom: 26px;
+    transition: all 0.2s;
 }
 
 .navbar-custom .navbar-nav > li > a:focus, .navbar-nav > li > a:hover
 {
-	background: #eee;
-	color: #000;
+    background: #eee;
+    color: #000;
 }
 
 .bold
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 .date_helper
 {
-	background: #eee;
-	padding: 20px 0px;
+    background: #eee;
+    padding: 20px 0px;
 }
 .date_helper .big
 {
-	font-size: 30px;
+    font-size: 30px;
 }
 
 .date_helper .small
 {
-	font-size: 20px;
+    font-size: 20px;
 }
 blockquote
 {
-	font-size: 15px;
-	background: #eee;
-	border-left: 5px solid #999;
+    font-size: 15px;
+    background: #eee;
+    border-left: 5px solid #999;
 }
 
 .table-icons tbody .btn
 {
-	padding: 6px 12px!important;
-	margin: 1px;
+    padding: 6px 12px!important;
+    margin: 1px;
 }
 
 .navbar-custom .navbar-nav > .active > a, .navbar-custom .navbar-nav > .active > a:hover, .navbar-custom .navbar-nav > .active > a:focus
 {
-	color: #555;
-	background-color: #e7e7e7;
+    color: #555;
+    background-color: #e7e7e7;
 }
 ul.nav li.dropdown:hover ul.dropdown-menu
 {
@@ -197,53 +199,52 @@ ul.nav li.dropdown:hover ul.dropdown-menu
 }
 .navbar-nav > li:hover
 {
-	background: #eee;
+    background: #eee;
 }
 .navbar
 {
-	border-radius: 0px;
-	padding: 20px 0;
+    border-radius: 0px;
+    padding: 15px 0;
 }
 .border-left
 {
-	border-left: 1px solid #ccc;
+    border-left: 1px solid #ccc;
 }
 .border-right
 {
-	border-right: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 .border-bottom
 {
-	border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 .cke_dialog_ui_input_file
 {
-	height: auto!important;
+    height: auto!important;
 }
 hr
 {
-	border-top: 1px solid #ddd;
+    border-top: 1px solid #ddd;
 }
 .vspace
 {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 body
 {
-	background: white;
+    background: white;
 }
 .marker
 {
-	background-color: yellow;
+    background-color: yellow;
 }
 
 
 .alert {
-	border-radius: 0px;
+    border-radius: 0px;
 }
 .panel-group .panel {
     border-radius: 0px;
-    margin-bottom: 20px;
 }
 
 .panel-default > .panel-heading {
@@ -261,13 +262,13 @@ body
 }
 
 #bg {
-	background-size: cover;
-	background-position: center;
-	background-image: url('../img/header_img.jpg');
-	background-repeat: no-repeat;
-	position: absolute;
-	width: 100%;
-	height: 715px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../img/header_img.jpg');
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 715px;
 }
 
 
@@ -380,8 +381,8 @@ footer a {
     padding-bottom: 40px;
 }
 .footer-img{
-	width: 80%;
-	margin-top: 70px;
+    width: 80%;
+    margin-top: 70px;
 }
 footer a:hover {
     color: white;
@@ -389,7 +390,6 @@ footer a:hover {
 }
 .main-content {
     margin-bottom: 80px;
-    margin-top: 20px;
     min-height: 400px;
 }
 .btn-primary, .btn-success {
@@ -431,4 +431,14 @@ select.form-control {
 }
 .user-nav a {
     color: white;
+}
+
+.navbar-admin
+{
+    padding: 0px;
+    margin-bottom: 0px;
+}
+.form-control[type="file"]
+{
+    padding: 5px;
 }

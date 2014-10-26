@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.courses') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-chevron-left"></span> View All Courses
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.courses') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-chevron-left"></span> View All Courses
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		

@@ -2,13 +2,12 @@
 
 @section('content')
 	<div class="col-md-12">
-
 		<div class="page-header">
-			<h2>{{ $title }}</h2>
+			<h3>{{ $title }}</h3>
 		</div>
 
       	<p>{{ $research->description }}</p>
-
+        <br/>
       	<p>
       		<h4>The following users researched on this topic:</h4>
       		<ul>

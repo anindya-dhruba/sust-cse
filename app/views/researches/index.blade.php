@@ -2,13 +2,14 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.researches.add') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-plus"></span> Add New Research
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.researches.add') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-plus"></span> Add New Research
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		<table class="table table-responsive table-bordered table-striped">
@@ -24,7 +25,11 @@
 				@foreach($researches as $research)
 					<tr>
 						<td>{{ $research->name }}</td>
-						<td>{{ $research->url }}</td>
+						<td>
+							<a href="{{ URL::route('researches.show', $research->url) }}">
+								{{ $research->url }}
+							</a>
+						</td>
 						<td>{{ Str::limit(strip_tags($research->description), 70, '...') }}</td>
 						<td>
 							<div class="btn-group">

@@ -1,5 +1,5 @@
 @if(Auth::check() && $permission->adminMenu)
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-admin" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -8,12 +8,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ URL::route('home') }}">{{ Auth::user()->full_name }}</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ URL::route('home') }}">SUST CSE Home</a></li>
             @if($permission->notices)
                 <li><a href="{{ URL::route('admin.notices') }}">Notices</a></li>
             @endif
@@ -29,15 +29,18 @@
             @if($permission->researches)
                 <li><a href="{{ URL::route('admin.researches') }}">Research</a></li>
             @endif
-            @if($permission->students || $permission->faculty || $permission->stuffs)
+            @if($permission->batches)
+            <li><a href="{{ URL::route('admin.batches') }}">Batches</a></li>
+            @endif
+            @if($permission->students || $permission->faculty || $permission->staff)
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     @if($permission->faculty)
                         <li><a href="{{ URL::route('admin.faculty') }}">Faculty</a></li>
                     @endif
-                    @if($permission->stuffs)
-                        <li><a href="{{ URL::route('admin.stuffs') }}">Stuffs</a></li>
+                    @if($permission->staff)
+                        <li><a href="{{ URL::route('admin.staff') }}">Staff</a></li>
                     @endif
                     @if($permission->students)
                         <li><a href="{{ URL::route('admin.students') }}">Students</a></li>
@@ -47,9 +50,6 @@
             @endif
             @if($permission->menus)
             <li><a href="{{ URL::route('admin.menu.build') }}">Menus</a></li>
-            @endif
-            @if($permission->batches)
-            <li><a href="{{ URL::route('admin.batches') }}">Batches</a></li>
             @endif
             @if($permission->albums || $permission->pictures || $permission->sliders)
             <li class="dropdown">
@@ -62,7 +62,7 @@
                     <li><a href="{{ URL::route('admin.pictures') }}">Pictures</a></li>
                     @endif
                     @if($permission->sliders)
-                    <li><a href="{{ URL::route('admin.slider') }}">Home Slider</a></li>
+                    <!-- <li><a href="{{-- URL::route('admin.slider') --}}">Home Slider</a></li> -->
                     @endif
                 </ul>
             </li>
@@ -70,6 +70,9 @@
             @if($permission->faqs)
             <li><a href="{{ URL::route('admin.faqs') }}">FAQ's</a></li>
             @endif
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="{{ URL::route('logout') }}">Logout</a></li>
         </ul>
     </div>
 </nav>
