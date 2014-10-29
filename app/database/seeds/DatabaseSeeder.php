@@ -14,16 +14,17 @@ class DatabaseSeeder extends Seeder {
 		$this->call('RolesTableSeeder');
 		$this->call('BatchesTableSeeder');
 		$this->call('UsersTableSeeder');
-		$this->call('NoticesTableSeeder');
-		$this->call('AlbumsTableSeeder');
-		$this->call('PicturesTableSeeder');
+		
+		// $this->call('NoticesTableSeeder');
+		// $this->call('AlbumsTableSeeder');
+		// $this->call('PicturesTableSeeder');
 		$this->call('PagesTableSeeder');
-		$this->call('FaqTableSeeder');
-		$this->call('CoursesTableSeeder');
-		$this->call('DownloadsTableSeeder');
+		// $this->call('FaqTableSeeder');
+		// $this->call('CoursesTableSeeder');
+		// $this->call('DownloadsTableSeeder');
 		$this->call('MenusTableSeeder');
-		$this->call('EventsTableSeeder');
-		$this->call('ResearchesTableSeeder');
+		// $this->call('EventsTableSeeder');
+		// $this->call('ResearchesTableSeeder');
 	}
 
 }

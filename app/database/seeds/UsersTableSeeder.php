@@ -19,9 +19,9 @@ class UsersTableSeeder extends Seeder {
 				'updated_at' =>		date('Y-m-d H-i-s')
 			],
 			[
-				'full_name'  =>		'Head of Department',
-				'nick_name'  =>		'Head of Department',
-				'tagname'	 =>		'HEAD',
+				'full_name'  =>		'Dr. Shohidur Rahman',
+				'nick_name'  =>		'',
+				'tagname'	 =>		'SR',
 				'reg'		 =>		null,
 				'batch_id'	 =>		null,
 				'email'      =>		'head@sust.edu',
@@ -32,9 +32,9 @@ class UsersTableSeeder extends Seeder {
 				'updated_at' =>		date('Y-m-d H-i-s')
 			],
 			[
-				'full_name'  =>		'Faculty Member',
-				'nick_name'  =>		'Faculty',
-				'tagname'	 =>		'tag-faculty',
+				'full_name'  =>		'Mr. Saiful Islam Khan',
+				'nick_name'  =>		'Saif',
+				'tagname'	 =>		'SIK',
 				'reg'		 =>		null,
 				'batch_id'	 =>		null,
 				'email'      =>		'faculty@sust.edu',
@@ -73,23 +73,23 @@ class UsersTableSeeder extends Seeder {
 
 		];
 
-		for ($i=6; $i <=100 ; $i++)
-		{
-			$role_id = rand(3, 5);
-			$users[] = [
-				'full_name'  =>		"User $i",
-				'nick_name'  =>		"User{$i}",
-				'tagname' 	 =>		(($role_id == 3) || ($role_id == 4)) ? Str::random(3) : null,
-				'reg' 	     =>		($role_id == 5) ? "20103310{$i}" : null,
-				'batch_id'	 =>		($role_id == 5) ? 1 : null,
-				'email'      =>		"user{$i}@sust.edu",
-				'password'   =>		Hash::make("user{$i}"),
-				'role_id'    =>		$role_id,
-				'designation'=>		($role_id == 3) ? "Lecturer" : null,
-				'created_at' =>		date('Y-m-d H-i-s'),
-				'updated_at' =>		date('Y-m-d H-i-s')
-			];
-		}
+		// for ($i=6; $i <=100 ; $i++)
+		// {
+		// 	$role_id = rand(3, 5);
+		// 	$users[] = [
+		// 		'full_name'  =>		"User $i",
+		// 		'nick_name'  =>		"User{$i}",
+		// 		'tagname' 	 =>		(($role_id == 3) || ($role_id == 4)) ? Str::random(3) : null,
+		// 		'reg' 	     =>		($role_id == 5) ? "20103310{$i}" : null,
+		// 		'batch_id'	 =>		($role_id == 5) ? 1 : null,
+		// 		'email'      =>		"user{$i}@sust.edu",
+		// 		'password'   =>		Hash::make("user{$i}"),
+		// 		'role_id'    =>		$role_id,
+		// 		'designation'=>		($role_id == 3) ? "Lecturer" : null,
+		// 		'created_at' =>		date('Y-m-d H-i-s'),
+		// 		'updated_at' =>		date('Y-m-d H-i-s')
+		// 	];
+		// }
 
 		DB::table('users')->insert($users);
 	}

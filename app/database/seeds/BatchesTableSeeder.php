@@ -6,6 +6,58 @@ class BatchesTableSeeder extends Seeder {
 	{
 		$batches = array(
 			array(
+				'name'  =>	'1st',
+				'Year'  =>	'1992'
+			),
+			array(
+				'name'  =>	'2nd',
+				'Year'  =>	'1993'
+			),
+			array(
+				'name'  =>	'3rd',
+				'Year'  =>	'1994'
+			),
+			array(
+				'name'  =>	'4th',
+				'Year'  =>	'1995'
+			),
+			array(
+				'name'  =>	'5th',
+				'Year'  =>	'1996'
+			),
+			array(
+				'name'  =>	'6th',
+				'Year'  =>	'1997'
+			),
+			array(
+				'name'  =>	'7th',
+				'Year'  =>	'1998'
+			),
+			array(
+				'name'  =>	'8th',
+				'Year'  =>	'1999'
+			),
+			array(
+				'name'  =>	'9th',
+				'Year'  =>	'2000'
+			),
+			array(
+				'name'  =>	'10th',
+				'Year'  =>	'2001'
+			),
+			array(
+				'name'  =>	'11th',
+				'Year'  =>	'2002'
+			),
+			array(
+				'name'  =>	'12th',
+				'Year'  =>	'2003'
+			),
+			array(
+				'name'  =>	'13th',
+				'Year'  =>	'2004'
+			),
+			array(
 				'name'  =>	'14th',
 				'Year'  =>	'2005'
 			),
@@ -36,6 +88,10 @@ class BatchesTableSeeder extends Seeder {
 			array(
 				'name'  =>	'21th',
 				'Year'  =>	'2012'
+			),
+			array(
+				'name'  =>	'22th',
+				'Year'  =>	'2013'
 			)
 		);
 
