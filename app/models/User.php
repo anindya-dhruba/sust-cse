@@ -50,6 +50,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'Lecturer'					=>	'Lecturer',
 		'Professor'					=>	'Professor',
 		'Associate Professor'		=>	'Associate Professor',
+		'Assistant Professor'		=>	'Assistant Professor',
 		'Head of the Department'	=>	'Head of the Department'
 	);
 
