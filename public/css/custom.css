@@ -442,3 +442,9 @@ select.form-control {
 {
     padding: 5px;
 }
+
+select.form-control
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
