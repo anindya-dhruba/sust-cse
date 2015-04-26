@@ -70,16 +70,16 @@
 	</div>
 
 	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		// delete a batch
-		$('.deleteBtn').click(function() {
-			var deleteBatchYear = $(this).attr('deleteBatchYear');
-			var url = "<?php echo URL::route('admin.batches'); ?>";
-			$(".deleteForm").attr("action", url+'/'+deleteBatchYear);
-		});
+		$(document).ready(function() {
 
-	});
+			// delete a batch
+			$('.deleteBtn').click(function() {
+				var deleteBatchYear = $(this).attr('deleteBatchYear');
+				var url = "<?php echo URL::route('admin.batches'); ?>";
+				$(".deleteForm").attr("action", url+'/'+deleteBatchYear);
+			});
+
+		});
 	</script>
 
 @stop

@@ -12,7 +12,7 @@ class CourseController extends BaseController {
 	{
 		if(!$this->permission['courses']) return Redirect::to('/');
 
-		$courses = Course::orderBy('semester')->paginate(10);
+		$courses = Course::with('taking_by')->orderBy('semester')->paginate(10);
 
 		return View::make('courses.index')
 						->with('title', 'Viewing All Courses')
@@ -43,7 +43,7 @@ class CourseController extends BaseController {
 		
 		try
 		{
-		    $course = Course::where('url', '=', $url)->firstOrFail();
+		    $course = Course::with('taking_by')->where('url', '=', $url)->firstOrFail();
 
 		    return View::make('courses.show')
 						->with('title', $course->course_code)
@@ -99,6 +99,7 @@ class CourseController extends BaseController {
 			$course->semester     = Input::get('semester');
 			$course->prerequisite = (Input::get('prerequisite') == '') ? null : Input::get('prerequisite');
 			$course->details      = Input::get('details');
+			$course->faculty_id   = (Input::get('course_taken_by') == '') ? null : Input::get('course_taken_by');
 
 			if($course->save())
 			{
@@ -169,6 +170,7 @@ class CourseController extends BaseController {
 			$course->semester     = Input::get('semester');
 			$course->prerequisite = (Input::get('prerequisite') == '') ? null : Input::get('prerequisite');
 			$course->details      = Input::get('details');
+			$course->faculty_id   = (Input::get('course_taken_by') == '') ? null : Input::get('course_taken_by');
 
 			if($course->save())
 			{

@@ -23,12 +23,18 @@ class CreateCoursesTable extends Migration {
 			$table->enum('type', array('Major', 'Minor'));
 			$table->enum('semester', array('1/1', '1/2', '2/1', '2/2', '3/1', '3/2', '4/1', '4/2'));
 			$table->longtext('details');
+			$table->integer('faculty_id')->unsigned()->nullable();
 			$table->timestamps();
 
 			$table->foreign('prerequisite')
 					->references('id')->on('courses')
 					->onUpdate('cascade')
 					->onDelete('cascade');
+
+			$table->foreign('faculty_id')
+				->references('id')->on('users')
+				->onUpdate('cascade')
+				->onDelete('cascade');
 		});
 	}
 

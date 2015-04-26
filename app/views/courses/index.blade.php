@@ -19,6 +19,7 @@
 					<th>Course Code - Title</th>
 					<th>Credit</th>
 					<th>Type</th>
+					<th>Taken By</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -33,6 +34,15 @@
 						</td>
 						<td>{{ $course->credit }}</td>
 						<td>{{ $course->type }}</td>
+						<td>
+							@if(is_null($course->taking_by))
+								None
+							@else
+								<a href="{{ URL::route('faculty.show', $course->taking_by->tagname) }}">
+									{{ $course->taking_by->last_name }}, {{ $course->taking_by->first_name }} {{ $course->taking_by->middle_name }}
+								</a>
+							@endif
+						</td>
 						<td>
 							<div class="btn-group">
 								<a href="{{ URL::route('admin.courses.show', array('url' => $course->url)); }}" class='btn btn-default btn-sm'>

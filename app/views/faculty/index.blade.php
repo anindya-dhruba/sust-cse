@@ -17,7 +17,7 @@
 				<tr>
 					<th>Photo</th>
 					<th>Designation</th>
-					<th>Full Name</th>
+					<th>Name</th>
 					<th>Email</th>
 					<th>Mobile</th>
 					<th>Status</th>
@@ -29,7 +29,7 @@
 					<tr>
 						<td>{{ Helper::currentPicture($teacher, 'thumbnail') }}</td>
 						<td>{{ $teacher->designation }}</td>
-						<td>{{ $teacher->full_name}}</td>
+						<td>{{ $teacher->last_name}}, {{ $teacher->first_name}} {{ $teacher->middle_name}}</td>
 						<td>
 							<a href="mailto:{{ $teacher->email }}">{{ $teacher->email }}</a>
 						</td>
@@ -81,7 +81,7 @@
 
 @section('script')
 	<script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(`nction() {
 		
 		// delete a student
 		$('.deleteBtn').click(function() {

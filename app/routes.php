@@ -43,16 +43,16 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('admin/build-top-menu', array('uses' => 'MenuController@doBuildTopMenu'));
 	Route::post('admin/select-icon-location', array('as'=> 'admin.selectIconLocation', 'uses' => 'MenuController@doSelectIcon'));
 
-	// Notices
-	Route::get('admin/notices', array('as' => 'admin.notices', 'uses' => 'NoticeController@index'));
-	Route::get('admin/notices/add', array('as' => 'admin.notices.add', 'uses' => 'NoticeController@add'));
-	Route::post('admin/notices/add', array('uses' => 'NoticeController@doAdd'));
-	Route::get('admin/notices/{url}', array('as' => 'admin.notices.show', 'uses' => 'NoticeController@show'));
-	Route::get('admin/notices/{url}/edit', array('as' => 'admin.notices.edit', 'uses' => 'NoticeController@edit'));
-	Route::put('admin/notices/{url}/edit', array('uses' => 'NoticeController@doEdit'));
-	Route::delete('admin/notices/{url}', array('as' => 'admin.notices.delete', 'uses' => 'NoticeController@delete'));
+	// News
+	Route::get('admin/news', array('as' => 'admin.news', 'uses' => 'NewsController@index'));
+	Route::get('admin/news/add', array('as' => 'admin.news.add', 'uses' => 'NewsController@add'));
+	Route::post('admin/news/add', array('uses' => 'NewsController@doAdd'));
+	Route::get('admin/news/{url}', array('as' => 'admin.news.show', 'uses' => 'NewsController@show'));
+	Route::get('admin/news/{url}/edit', array('as' => 'admin.news.edit', 'uses' => 'NewsController@edit'));
+	Route::put('admin/news/{url}/edit', array('uses' => 'NewsController@doEdit'));
+	Route::delete('admin/news/{url}', array('as' => 'admin.news.delete', 'uses' => 'NewsController@delete'));
 
-	Route::post('admin/notices/generate-url', array('as' => 'admin.notices.generateUrl', 'uses' => 'NoticeController@generateUrl'));
+	Route::post('admin/news/generate-url', array('as' => 'admin.news.generateUrl', 'uses' => 'NewsController@generateUrl'));
 
 	// Events
 	Route::get('admin/events', array('as' => 'admin.events', 'uses' => 'EventController@index'));
@@ -160,13 +160,13 @@ Route::group(array('before' => 'auth'), function()
 
 	
 	// Slider
-	// Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
-	// Route::get('admin/slider/select', array('as' => 'admin.slider.select', 'uses' => 'SliderController@select'));
-	// Route::get('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@crop'));
-	// Route::post('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@doCrop'));
-	// Route::get('admin/slider/{id}/edit', array('as' => 'admin.slider.edit', 'uses' => 'SliderController@edit'));
-	// Route::put('admin/slider/{id}/edit', array('uses' => 'SliderController@doEdit'));
-	// Route::delete('admin/slider/{id}', array('as' => 'admin.slider.delete', 'uses' => 'SliderController@delete'));
+	 Route::get('admin/slider', array('as' => 'admin.slider', 'uses' => 'SliderController@index'));
+	 Route::get('admin/slider/select', array('as' => 'admin.slider.select', 'uses' => 'SliderController@select'));
+	 Route::get('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@crop'));
+	 Route::post('admin/slider/{id}/crop', array('as' => 'admin.slider.crop', 'uses' => 'SliderController@doCrop'));
+	 Route::get('admin/slider/{id}/edit', array('as' => 'admin.slider.edit', 'uses' => 'SliderController@edit'));
+	 Route::put('admin/slider/{id}/edit', array('uses' => 'SliderController@doEdit'));
+	 Route::delete('admin/slider/{id}', array('as' => 'admin.slider.delete', 'uses' => 'SliderController@delete'));
 
 	// profile
 	Route::get('profile', array('as' => 'profile.show', 'uses' => 'PublicController@profile'));
@@ -180,6 +180,16 @@ Route::group(array('before' => 'auth'), function()
 
 });
 
+Route::group(array('before' => 'auth|facultyOrHead'), function()
+{
+	Route::post('notices/generate-url', array('as' => 'notices.generateUrl', 'uses' => 'PublicController@noticeGenerateUrl'));
+	Route::get('courses/{url}/notices/add', array('as' => 'notices.add', 'uses' => 'PublicController@noticeAdd'));
+	Route::post('courses/{url}/notices/add', array('as' => 'notices.add', 'uses' => 'PublicController@noticeDoAdd'));
+	Route::get('courses/{url}/notices/{noticeUrl}/edit', array('as' => 'notices.edit', 'uses' => 'PublicController@noticeEdit'));
+	Route::put('courses/{url}/notices/{noticeUrl}/edit', array('as' => 'notices.edit', 'uses' => 'PublicController@noticeDoEdit'));
+	Route::delete('courses/{url}/notices/{noticeId}', array('as' => 'notices.delete', 'uses' => 'PublicController@noticeDelete'));
+});
+
 
 
 // public pages [ keep them at last]
@@ -187,14 +197,15 @@ Route::get('/', array('as' => 'home', 'uses' => 'PublicController@pages'));
 
 Route::get('faqs', array('as' => 'faqs', 'uses' => 'PublicController@faqs'));
 
-Route::get('notices', array('as' => 'notices', 'uses' => 'PublicController@notices'));
-Route::get('notices/{url}', array('as' => 'notices.show', 'uses' => 'PublicController@noticesShow'));
+Route::get('news', array('as' => 'news', 'uses' => 'PublicController@news'));
+Route::get('news/{url}', array('as' => 'news.show', 'uses' => 'PublicController@newsShow'));
 
 Route::get('events', array('as' => 'events', 'uses' => 'PublicController@events'));
 Route::get('events/{url}', array('as' => 'events.show', 'uses' => 'PublicController@eventsShow'));
 
 Route::get('courses', array('as' => 'courses', 'uses' => 'PublicController@courses'));
 Route::get('courses/{url}', array('as' => 'courses.show', 'uses' => 'PublicController@coursesShow'));
+Route::get('courses/{url}/notices/{noticeUrl}', array('as' => 'notices.show', 'uses' => 'PublicController@noticeShow'));
 
 Route::get('faculty', array('as' => 'faculty', 'uses' => 'PublicController@faculty'));
 Route::get('faculty/{tagname}', array('as' => 'faculty.show', 'uses' => 'PublicController@facultyShow'));
@@ -212,6 +223,10 @@ Route::get('researches/{url}', array('as' => 'researches.show', 'uses' => 'Publi
 Route::get('albums', array('as' => 'albums', 'uses' => 'PublicController@albums'));
 Route::get('albums/{url}', array('as' => 'albums.show', 'uses' => 'PublicController@albumShow'));
 Route::get('albums/{url}/pictures/{picUrl}', array('as' => 'pictures.show', 'uses' => 'PublicController@pictureShow'));
+
+Route::get('students', array('as' => 'students', 'uses' => 'PublicController@students'));
+Route::get('students/undergraduate', array('as' => 'students.undergraduate', 'uses' => 'PublicController@undergraduate'));
+Route::get('students/graduate', array('as' => 'students.graduate', 'uses' => 'PublicController@graduate'));
 
 Route::get('{pageUrl}', array('uses' => 'PublicController@pages'));
 

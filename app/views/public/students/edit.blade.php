@@ -20,17 +20,21 @@
 					{{ Form::hidden('id', $student->id) }}
 
 				    <div class="form-group">
-			          	{{ Form::label('full_name', 'Full Name *') }}
-			          	{{ Form::text('full_name', $student->full_name, array('class' => 'form-control')) }}
-			          	{{ Form::error($errors, 'full_name') }}
+			          	{{ Form::label('first_name', 'First Name *') }}
+			          	{{ Form::text('first_name', $student->first_name, array('class' => 'form-control')) }}
+			          	{{ Form::error($errors, 'first_name') }}
 			        </div>
 
 			        <div class="form-group">
-			          	{{ Form::label('nick_name', 'Nick Name') }}
-			          	{{ Form::text('nick_name', $student->nick_name, array('class' => 'form-control')) }}
-			          	{{ Form::error($errors, 'nick_name') }}
-			        </div>
-
+						{{ Form::label('middle_name', 'Middle Name ') }}
+						{{ Form::text('middle_name', $student->middle_name, array('class' => 'form-control')) }}
+						{{ Form::error($errors, 'middle_name') }}
+					</div>
+					<div class="form-group">
+						{{ Form::label('last_name', 'Last Name *') }}
+						{{ Form::text('last_name', $student->last_name, array('class' => 'form-control')) }}
+						{{ Form::error($errors, 'last_name') }}
+					</div>
 			        <div class="form-group">
 			          	{{ Form::label('fathers_name', 'Father Name') }}
 			          	{{ Form::text('fathers_name', $student->fathers_name, array('class' => 'form-control')) }}
@@ -94,9 +98,15 @@
 					</div>
 					<div class="form-group">
 			          	{{ Form::label('reg', 'Registration No *') }}
-			          	{{ Form::text('reg', $student->reg, array('class' => 'form-control')) }}
+			          	{{ Form::text('reg', $student->reg, array('class' => 'form-control', 'readonly')) }}
 			          	{{ Form::error($errors, 'reg') }}
 			        </div>
+
+			        <div class="form-group">
+						{{ Form::label('degree', 'Degree') }}
+						{{ Form::select('degree', ['Undergraduate'=>'Undergraduate', 'Graduate'=>'Graduate'], $student->degree, array('class' => 'form-control')) }}
+						{{ Form::error($errors, 'degree') }}
+					</div>
 
 			        <div class="form-group">
 			          	{{ Form::label('batch', 'Batch *') }}

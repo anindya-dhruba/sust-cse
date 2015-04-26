@@ -26,14 +26,26 @@
     </head>
 	
 	<body>
+		@include('includes.topNavAdmin')
+			@include('includes.topNav')
 		<div class="container">
-			@include('includes.topNavAdmin')
-			<!-- <div style="border-bottom: 1px solid #dadada;margin-bottom: 5px;"> -->
-				@include('includes.topNav')
-			<!-- </div> -->
+			<div style="padding: 10px;">
+			</div>
 			
 			<div class="row">
-	            <div class="col-md-12">
+				<div class="col-md-2 sideNav">
+					<div class="list-group">
+						@foreach (Helper::getPublicPages('side') as $key => $menu)
+							<div class="nav-item-left">
+								<a href="{{ URL::to($menu->page->url) }}" class=" text-center">
+									<span class="icon fa {{ $menu->page_icon }}"></span><br/>
+									{{ $menu->page->title }}
+								</a>
+							</div>
+						@endforeach
+					</div>
+				</div>
+	            <div class="col-md-10">
 	            	<div class="row main-content">
 	                	@yield('content')
 	                </div>

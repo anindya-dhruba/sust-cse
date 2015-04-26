@@ -82,7 +82,8 @@ class UserController extends BaseController {
 		$rules = array
 		(
 			'reg'             => 	'required|numeric',
-			'full_name'       =>	'required',
+			'first_name'      =>	'required',
+			'last_name'       =>	'required',
 			'email'           =>	'required|email',
 			'batch'           =>	'required',
 			'password'		  =>	'required'
@@ -117,7 +118,9 @@ class UserController extends BaseController {
 								->with('error', "This Email Address is already registered.");
 				}
 
-				$user->full_name           = Input::get('full_name');
+				$user->first_name          = Input::get('first_name');
+				$user->middle_name         = Input::get('middle_name');
+				$user->last_name           = Input::get('last_name');
 				$user->email               = Input::get('email');
 				$user->reg                 = Input::get('reg');
 				$user->batch_id            = Input::get('batch');
@@ -147,7 +150,9 @@ class UserController extends BaseController {
 				}
 
 				$user 					   = new User;
-				$user->full_name           = Input::get('full_name');
+				$user->first_name          = Input::get('first_name');
+				$user->middle_name         = Input::get('middle_name');
+				$user->last_name           = Input::get('last_name');
 				$user->email               = Input::get('email');
 				$user->reg                 = Input::get('reg');
 				$user->role_id             = 5; // student

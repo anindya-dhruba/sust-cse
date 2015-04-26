@@ -19,6 +19,7 @@
 					<th>Credit</th>
 					<th>Type</th>
 					<th>Prerequisite Course</th>
+					<th>Taken by</th>
 				</tr>
   				@foreach($courses as $course)
 					<tr>
@@ -35,6 +36,15 @@
 							@else
 								<a href="{{ URL::route('courses.show', $course['prerequisite_course']['url']) }}">
 									{{ $course['prerequisite_course']['course_code'] }} - {{ $course['prerequisite_course']['title'] }}
+								</a>
+							@endif
+						</td>
+						<td>
+							@if(is_null($course['taking_by']))
+								None
+							@else
+								<a href="{{ URL::route('faculty.show', $course['taking_by']['tagname']) }}">
+									{{ $course['taking_by']['last_name'] }}, {{ $course['taking_by']['first_name'] }} {{ $course['taking_by']['middle_name'] }}
 								</a>
 							@endif
 						</td>

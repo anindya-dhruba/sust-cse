@@ -92,7 +92,11 @@ class BatchesTableSeeder extends Seeder {
 			array(
 				'name'  =>	'22th',
 				'Year'  =>	'2013'
-			)
+			),
+			array(
+				'name'  =>	'23th',
+				'Year'  =>	'2014'
+			),
 		);
 
 		DB::table('batches')->insert($batches);

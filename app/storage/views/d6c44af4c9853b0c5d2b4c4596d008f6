@@ -1,4 +1,0 @@
-<hr/>
-    <div class="footer text-right">
-        &copy;copyright <?php echo date('Y'); ?>
-    </div>

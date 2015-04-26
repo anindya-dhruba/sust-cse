@@ -15,12 +15,14 @@ class CreateUsersTable extends Migration {
 		Schema::create('users', function($table)
 		{
 			$table->increments('id');
-			$table->string('full_name', 40);
-			$table->string('nick_name', 20)->nullable();
+			$table->string('first_name', 40);
+			$table->string('middle_name', 40);
+			$table->string('last_name', 40);
 			$table->integer('role_id')->unsigned();
 			$table->string('email', 40)->nullable();
 			$table->string('password');
 			$table->string('reg', 15)->nullable();
+			$table->enum('degree', ['Undergraduate', 'Graduate'])->nullable();
 			$table->string('fathers_name', 40)->nullable();
 			$table->string('mothers_name', 40)->nullable();
 			$table->integer('batch_id')->unsigned()->nullable();
@@ -50,8 +52,6 @@ class CreateUsersTable extends Migration {
 			$table->text('interests')->nullable();
 			$table->enum('status', ['Current', 'On Leave', 'Not Available'])->nullable();
 			$table->longtext('publications')->nullable();
-			$table->longtext('journal_papers')->nullable();
-			$table->longtext('conference_papers')->nullable();
 			$table->string('remember_token');
 			$table->timestamps();
 

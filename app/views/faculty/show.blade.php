@@ -7,7 +7,7 @@
 			<div class="col-md-4">
 			      	<p class="text-center">{{ Helper::currentPicture($faculty) }}</p>
 		        	
-		        	<h4 class="text-center">{{ $faculty->full_name }} {{ $faculty->nick_name }}</h4>
+		        	<h4 class="text-center">{{ $faculty->last_name}}, {{ $faculty->first_name}} {{ $faculty->middle_name}}</h4>
 		        	<p class="text-center">
 		        		{{ $faculty->tagname }}<br/>
 		        		{{ $faculty->designation }}<br/>
@@ -32,13 +32,17 @@
 				<div class="row">
 					<div class="col-md-6">
 						<dl>
-		        			<dt>Full Name:</dt>
-		        			<dd>{{ $faculty->full_name }}</dd>
+		        			<dt>First Name:</dt>
+		        			<dd>{{ $faculty->first_name }}</dd>
 		        		</dl>
 		        		<dl>
-		        			<dt>Nick Name:</dt>
-		        			<dd>{{ $faculty->nick_name }}</dd>
-		        		</dl>
+							<dt>Middle Name:</dt>
+							<dd>{{ $faculty->middle_name }}</dd>
+						</dl>
+						<dl>
+							<dt>Last Name:</dt>
+							<dd>{{ $faculty->last_name }}</dd>
+						</dl>
 		        		<dl>
 		        			<dt>Designation:</dt>
 		        			<dd>{{ $faculty->designation }}</dd>
@@ -141,17 +145,9 @@
 		        			<dt>Publications:</dt>
 		        			<dd>{{ $faculty->publications }}</dd>
 		        		</dl>
-		        		<dl>
-		        			<dt>Journal Papers:</dt>
-		        			<dd>{{ $faculty->journal_papers }}</dd>
-		        		</dl>
-		        		<dl>
-		        			<dt>Conference Papers:</dt>
-		        			<dd>{{ $faculty->conference_papers }}</dd>
-		        		</dl>
 
 						<hr/>
-						The account was created on {{ Helper::date($faculty->created_at) }}
+						The accouict was created on {{ Helper::date($faculty->created_at) }}
 						<hr/>
 					</div>
 				</div>

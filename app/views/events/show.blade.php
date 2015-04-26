@@ -53,7 +53,7 @@
 
 				<dl>
 					<dt>Created By:</dt>
-					<dd>{{ $event->user->full_name }}</dd>
+					<dd>{{ $event->user->last_name }}, {{ $event->user->first_name }} {{ $event->user->middle_name }}</dd>
 				</dl>
 
 				<dl>

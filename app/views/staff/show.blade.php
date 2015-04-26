@@ -7,7 +7,7 @@
 			<div class="col-md-4">
 		      	<p class="text-center">{{ Helper::currentPicture($staff) }}</p>
 	        	
-	        	<h4 class="text-center">{{ $staff->full_name }} {{ $staff->nick_name }}</h4>
+	        	<h4 class="text-center">{{ $staff->last_name }}, {{ $staff->first_name }} {{ $staff->middle_name }}</h4>
 	        	<p class="text-center">
 	        		{{ $staff->tagname }}<br/>
 	        		{{ $staff->designation }}<br/>
@@ -32,12 +32,16 @@
 				<div class="row">
 					<div class="col-md-6">
 						<dl>
-		        			<dt>Full Name:</dt>
-		        			<dd>{{ $staff->full_name }}</dd>
+		        			<dt>First Name:</dt>
+		        			<dd>{{ $staff->first_name }}</dd>
 		        		</dl>
 		        		<dl>
-		        			<dt>Nick Name:</dt>
-		        			<dd>{{ $staff->nick_name }}</dd>
+		        			<dt>Middle Name:</dt>
+		        			<dd>{{ $staff->middle_name }}</dd>
+		        		</dl>
+		        		<dl>
+		        			<dt>Last Name:</dt>
+		        			<dd>{{ $staff->last_name }}</dd>
 		        		</dl>
 		        		<dl>
 		        			<dt>Designation:</dt>

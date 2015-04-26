@@ -1,19 +1,22 @@
 <?php
 
+use Faker\Factory as Faker;
+
 class PagesTableSeeder extends Seeder {
 
 	public function run()
 	{
+		$faker = Faker::create();
 		$pages = array(
 			array(
 				'title'      =>		'Home',
 				'url'        =>		'home',
-				'content'    =>		'<h2>Welcome to <br/>SUST CSE</h2>',
+				'content'    =>		'',
 				'is_public'  => 	1,
-				'can_update'  => 	1,
+				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'Faculty',
@@ -22,8 +25,8 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'Staff',
@@ -32,18 +35,18 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
-				'title'      =>		'Students',
+				'title'      =>		'Batches',
 				'url'        =>		'batches',
 				'content'    =>		'',
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'FAQ',
@@ -52,8 +55,8 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'Notices',
@@ -62,8 +65,8 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'Events',
@@ -72,8 +75,8 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'Courses',
@@ -82,8 +85,8 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'Research',
@@ -92,8 +95,8 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			),
 			array(
 				'title'      =>		'Gallery',
@@ -102,8 +105,38 @@ class PagesTableSeeder extends Seeder {
 				'is_public'  => 	1,
 				'can_update'  => 	0,
 				'can_delete'  => 	0,
-				'created_at' => 	date('Y-m-d H-i-s'),
-				'updated_at' => 	date('Y-m-d H-i-s')
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
+			),
+			array(
+				'title'      =>		'Students',
+				'url'        =>		'students',
+				'content'    =>		'',
+				'is_public'  => 	1,
+				'can_update'  => 	0,
+				'can_delete'  => 	0,
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
+			),
+			array(
+				'title'      =>		'Students - Graduate',
+				'url'        =>		'students/graduate',
+				'content'    =>		'',
+				'is_public'  => 	1,
+				'can_update'  => 	0,
+				'can_delete'  => 	0,
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
+			),
+			array(
+				'title'      =>		'Students - Undergraduate',
+				'url'        =>		'students/undergraduate',
+				'content'    =>		'',
+				'is_public'  => 	1,
+				'can_update'  => 	0,
+				'can_delete'  => 	0,
+				'created_at' => 	$faker->dateTimeBetween('-2 years'),
+				'updated_at' => 	$faker->dateTimeBetween('-2 years')
 			)
 
 		);

@@ -13,7 +13,7 @@
       		<ul>
       			@foreach($research->users as $user)
       				<li>
-      					<a href="{{ URL::route('faculty.show', $user->tagname) }}">{{ $user->full_name }}</a>
+      					<a href="{{ URL::route('faculty.show', $user->tagname) }}">{{ $user->last_name }}, {{ $user->first_name }} {{ $user->middle_name }}</a>
       				</li>
       			@endforeach
       		</ul>

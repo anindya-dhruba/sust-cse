@@ -52,6 +52,17 @@
 				<h4>Course Details:</h4>
 				{{ $course->details }}
 				<br/>
+
+				<h4>Taking By:</h4>
+					@if(is_null($course->taking_by))
+						None
+					@else
+						<a href="{{ URL::route('faculty.show', $course->taking_by->tagname) }}">
+							{{ $course->taking_by->last_name }}, {{ $course->taking_by->first_name }} {{ $course->taking_by->middle_name }}, 
+						</a>
+					@endif
+				<br/>
+
 				
 			</div>
 

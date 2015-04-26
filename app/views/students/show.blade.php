@@ -7,7 +7,7 @@
 			<div class="col-md-4">
 		      	<p class="text-center">{{ Helper::currentPicture($student) }}</p>
 	        	
-	        	<h4 class="text-center">{{ $student->full_name }} {{ $student->nick_name }}</h4>
+	        	<h4 class="text-center">{{ $student->last_name }}, {{ $student->first_name }} {{ $student->middle_name }}</h4>
 	        	<p class="text-center">
 	        		{{ $student->reg }}<br/>
 	        		{{ $student->email }}<br/>
@@ -31,17 +31,25 @@
 				<div class="row">
 					<div class="col-md-6">
 						<dl>
-		        			<dt>Full Name:</dt>
-		        			<dd>{{ $student->full_name }}</dd>
+		        			<dt>First Name:</dt>
+		        			<dd>{{ $student->first_name }}</dd>
 		        		</dl>
 		        		<dl>
-		        			<dt>Nick Name:</dt>
-		        			<dd>{{ $student->nick_name }}</dd>
-		        		</dl>
+							<dt>Middle Name:</dt>
+							<dd>{{ $student->middle_name }}</dd>
+						</dl>
+						<dl>
+							<dt>Last Name:</dt>
+							<dd>{{ $student->last_name }}</dd>
+						</dl>
 		        		<dl>
 		        			<dt>Registration No:</dt>
 		        			<dd>{{ $student->reg }}</dd>
 		        		</dl>
+		        		<dl>
+							<dt>Degree:</dt>
+							<dd>{{ $student->degree }}</dd>
+						</dl>
 		        		<dl>
 		        			<dt>Batch:</dt>
 		        			<dd>{{ HTML::linkRoute('admin.batches.show', $student->batch->year." - ".$student->batch->name." batch", $student->batch->year) }}</dd>

@@ -29,7 +29,7 @@
 					<div class="thumbnail text-center">
 						{{ Helper::currentPicture($students[$i]) }}
 						<div class="caption">
-							<h5>{{ $students[$i]->full_name}}</h5>
+							<h5>{{ $students[$i]->last_name}}, {{ $students[$i]->first_name}} {{ $students[$i]->middle_name}}</h5>
 							<p>{{ $students[$i]->reg }}</p>
 							<a class="btn btn-primary btn-block" href="{{ URL::route('students.show', [$batch->year, $students[$i]->reg]) }}">More</a>
 						</div>

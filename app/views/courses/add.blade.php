@@ -65,6 +65,12 @@
 	          	{{ Form::textarea('details', '', array('class' => 'form-control summernote')) }}
 	          	{{ Form::error($errors, 'details') }}
 	        </div>
+
+	        <div class="form-group">
+				{{ Form::label('course_taken_by', 'Course Taken By *') }}
+				{{ Form::select('course_taken_by', ['' => 'None']+User::faculty()->lists('first_name', 'id'), '', array('class' => 'form-control prerequisite')) }}
+				{{ Form::error($errors, 'course_taken_by') }}
+			</div>
         	
         	{{ Form::submit('Add Course', array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
 

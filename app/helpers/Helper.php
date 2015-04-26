@@ -70,13 +70,13 @@ class Helper
 	}
 
 	/**
-	 * Recent Notices
+	 * Recent News
 	 * @param  integer $limit
 	 * @return array
 	 */
-	public static function recentNotices($limit = 5)
+	public static function recentNews($limit = 5)
 	{
-		return Notice::where('is_public', '=', 1)
+		return News::where('is_public', '=', 1)
 						->limit($limit)
 						->orderBy('created_at', 'desc')
 						->get();

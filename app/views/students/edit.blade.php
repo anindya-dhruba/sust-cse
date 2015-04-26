@@ -9,7 +9,7 @@
 				<div class="col-md-4">
 			      	<p class="text-center">{{ Helper::currentPicture($student) }}</p>
 		        	
-		        	<h4 class="text-center">{{ $student->full_name }} ({{ $student->nick_name }})</h4>
+		        	<h4 class="text-center"><td>{{ $student->last_name}}, {{ $student->first_name}} {{ $student->middle_name}}</td></h4>
 		        	<p class="text-center">
 		        		{{ $student->reg }}<br/>
 		        		{{ $student->email }}<br/>
@@ -36,16 +36,22 @@
 							{{ Form::hidden('studentId', $student->id) }}
 
 						    <div class="form-group">
-					          	{{ Form::label('full_name', 'Full Name *') }}
-					          	{{ Form::text('full_name', $student->full_name, array('class' => 'form-control')) }}
-					          	{{ Form::error($errors, 'full_name') }}
+					          	{{ Form::label('first_name', 'First Name *') }}
+					          	{{ Form::text('first_name', $student->first_name, array('class' => 'form-control')) }}
+					          	{{ Form::error($errors, 'first_name') }}
 					        </div>
 
 					        <div class="form-group">
-					          	{{ Form::label('nick_name', 'Nick Name') }}
-					          	{{ Form::text('nick_name', $student->nick_name, array('class' => 'form-control')) }}
-					          	{{ Form::error($errors, 'nick_name') }}
-					        </div>
+								{{ Form::label('middle_name', 'Middle Name') }}
+								{{ Form::text('middle_name', $student->middle_name, array('class' => 'form-control')) }}
+								{{ Form::error($errors, 'middle_name') }}
+							</div>
+
+							<div class="form-group">
+								{{ Form::label('last_name', 'Last Name *') }}
+								{{ Form::text('last_name', $student->last_name, array('class' => 'form-control')) }}
+								{{ Form::error($errors, 'last_name') }}
+							</div>
 
 					        <div class="form-group">
 					          	{{ Form::label('fathers_name', 'Father Name') }}
@@ -113,6 +119,11 @@
 					          	{{ Form::text('reg', $student->reg, array('class' => 'form-control')) }}
 					          	{{ Form::error($errors, 'reg') }}
 					        </div>
+					        <div class="form-group">
+								{{ Form::label('degree', 'Degree') }}
+								{{ Form::select('degree', ['Undergraduate'=>'Undergraduate', 'Graduate'=>'Graduate'], $student->degree, array('class' => 'form-control')) }}
+								{{ Form::error($errors, 'degree') }}
+							</div>
 
 					        <div class="form-group">
 					          	{{ Form::label('batch', 'Batch *') }}

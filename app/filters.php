@@ -70,6 +70,11 @@ Route::filter('staff', function()
 	if (Auth::user()->role_id != 4) return Redirect::to('home');
 });
 
+Route::filter('facultyOrHead', function()
+{
+	if (Auth::user()->role_id != 2 && Auth::user()->role_id != 3) return Redirect::to('home');
+});
+
 Route::filter('faculty', function()
 {
 	if (Auth::user()->role_id != 3) return Redirect::to('home');

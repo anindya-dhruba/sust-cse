@@ -44,7 +44,8 @@ class StudentController extends BaseController {
 		$rules = array
 		(
 			'reg'             => 	'required|numeric|unique:users,reg',
-			'full_name'       =>	'required',
+			'first_name'       =>	'required',
+			'last_name'       =>	'required',
 			'email'           =>	'email|unique:users,email',
 			'alternate_email' =>	'email|unique:users,alt_email',
 			'batch'           =>	'required',
@@ -62,11 +63,13 @@ class StudentController extends BaseController {
 		else
 		{
 			$user                      = new User();
-			$user->full_name           = Input::get('full_name');
-			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->first_name          = Input::get('first_name');
+			$user->middle_name         = Input::get('middle_name');
+			$user->last_name           = Input::get('last_name');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->role_id             = 5; // student
 			$user->reg                 = Input::get('reg');
+			$user->degree              = (Input::get('degree') == '') ? null : Input::get('degree');
 			$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 			$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -102,7 +105,7 @@ class StudentController extends BaseController {
 				];
 
 				Mail::send('emails.students.welcome', $data, function($message) use ($user) {
-				    $message->to($user->email, $user->full_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
+				    $message->to($user->email, $user->last_name.', '.$user->first_name.' '.$user->middle_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
 				});
 			}
 
@@ -132,7 +135,7 @@ class StudentController extends BaseController {
 					        		->save($destinationPath."/thumbnail_".$fileName);
 
 					$picture = new Download();
-					$picture->caption = $user->full_name;
+					$picture->caption = $user->last_name.', '.$user->first_name.' '.$user->middle_name;
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
@@ -140,7 +143,7 @@ class StudentController extends BaseController {
 			    }
 
 			    return Redirect::route('admin.students.show', array('reg' => Input::get('reg')))
-			    					->with('success', "Student '$user->full_name' has added successfully.");
+			    					->with('success', "Student '$user->first_name' has added successfully.");
 			}
 			else
 				return Redirect::back()
@@ -207,7 +210,8 @@ class StudentController extends BaseController {
 		$rules = array
 		(
 			'reg'                  => 	'required|numeric|unique:users,reg,'.Input::get('studentId'),
-			'full_name'            =>	'required',
+			'first_name'           =>	'required',
+			'last_name'            =>	'required',
 			'email'                =>	'email|unique:users,email,'.Input::get('studentId'),
 			'alternate_email'      =>	'email|unique:users,alt_email,'.Input::get('studentId'),
 			'batch'                =>	'required',
@@ -227,10 +231,12 @@ class StudentController extends BaseController {
 		else
 		{
 			$user                      = User::where('reg', '=', $reg)->first();
-			$user->full_name           = Input::get('full_name');
-			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->first_name          = Input::get('first_name');
+			$user->middle_name         = Input::get('middle_name');
+			$user->last_name           = Input::get('last_name');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->reg                 = Input::get('reg');
+			$user->degree              = (Input::get('degree') == '') ? null : Input::get('degree');
 			$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 			$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -279,7 +285,7 @@ class StudentController extends BaseController {
 					        		->save($destinationPath."/thumbnail_".$fileName);
 
 					$picture = new Download();
-					$picture->caption = $user->full_name;
+					$picture->caption = $user->first_name." ".$user->last_name;
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
@@ -287,7 +293,7 @@ class StudentController extends BaseController {
 			    }
 
 			    return Redirect::route('admin.students.show', array('reg' => Input::get('reg')))
-			    					->with('success', "Student '$user->full_name' has updated successfully.");
+			    					->with('success', "Student '$user->first_name' has updated successfully.");
 			}
 			else
 				return Redirect::back()

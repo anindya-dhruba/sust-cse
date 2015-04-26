@@ -26,16 +26,15 @@
     </head>
 	
 	<body>
-		<div id="bg"></div>
 		@include('includes.slider')
 
+		@include('includes.topNavAdmin')
+		@include('includes.topNav')
 		<div class="container">
-			@include('includes.topNavAdmin')
-			@include('includes.topNav')
 			<div class="row">
 				<!-- home page content -->
-	            <div class="col-md-12">
-	            	<div class="row welcome-content">
+	            <div class="col-md-12 space">
+	            	<div class="row">
 	                	@yield('content')
 	                </div>
 	            </div>
@@ -49,25 +48,25 @@
 				<div class="col-md-12 home-boxes">
 					<div class="row">
 					
-						<!-- recent notices -->
+						<!-- recent news -->
 						<div class="col-md-4">
 							<div class="panel panel-success vspace">
 								<div class="panel-heading">
 									<i class="fa fa-thumb-tack"></i>
-									Recent Notices
+									Recent News
 								</div>
 
 								<div class="list-group">
-									@foreach (Helper::recentNotices() as $key => $notice)
-										<a href="{{ URL::route('notices.show', $notice->url) }}" class="list-group-item">
-											<h5 class="list-group-item-heading"><strong>{{ $notice->title }}</strong></h5>
+									@foreach (Helper::recentNews() as $key => $news)
+										<a href="{{ URL::route('news.show', $news->url) }}" class="list-group-item">
+											<h5 class="list-group-item-heading"><strong>{{ $news->title }}</strong></h5>
 											<small>
-												{{ Helper::date($notice->created_at) }}
+												{{ Helper::date($news->created_at) }}
 											</small>
 										</a>
 									@endforeach
-									<a href="{{ URL::route('notices') }}" class="list-group-item">
-										<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View All Notices</h5>
+									<a href="{{ URL::route('news') }}" class="list-group-item">
+										<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-chevron-right"></span> View All News</h5>
 									</a>
 								</div>
 							</div>
@@ -98,7 +97,7 @@
 							</div>
 						</div>
 
-						<!-- recent events -->
+						<!-- recent researches -->
 			            <div class="col-md-4">
 							<div class="panel panel-success vspace">
 								<div class="panel-heading">

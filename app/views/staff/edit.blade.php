@@ -7,7 +7,7 @@
 				<div class="col-md-4">
 		      	<p class="text-center">{{ Helper::currentPicture($staff) }}</p>
 	        	
-	        	<h4 class="text-center">{{ $staff->full_name }} {{ $staff->nick_name }}</h4>
+	        	<h4 class="text-center">{{ $staff->last_name }}, {{ $staff->first_name }} {{ $staff->middle_name }}</h4>
 	        	<p class="text-center">
 	        		{{ $staff->tagname }}<br/>
 	        		{{ $staff->designation }}<br/>
@@ -36,15 +36,21 @@
 							{{ Form::hidden('id', $staff->id) }}
 
 						    <div class="form-group">
-					          	{{ Form::label('full_name', 'Full Name *') }}
-					          	{{ Form::text('full_name', $staff->full_name, array('class' => 'form-control')) }}
-					          	{{ Form::error($errors, 'full_name') }}
+					          	{{ Form::label('first_name', 'First Name *') }}
+					          	{{ Form::text('first_name', $staff->first_name, array('class' => 'form-control')) }}
+					          	{{ Form::error($errors, 'first_name') }}
 					        </div>
 
 					        <div class="form-group">
-					          	{{ Form::label('nick_name', 'Nick Name') }}
-					          	{{ Form::text('nick_name', $staff->nick_name, array('class' => 'form-control')) }}
-					          	{{ Form::error($errors, 'nick_name') }}
+					          	{{ Form::label('middle_name', 'Middle Name') }}
+					          	{{ Form::text('middle_name', $staff->middle_name, array('class' => 'form-control')) }}
+					          	{{ Form::error($errors, 'middle_name') }}
+					        </div>
+
+					        <div class="form-group">
+					          	{{ Form::label('last_name', 'Last Name *') }}
+					          	{{ Form::text('last_name', $staff->last_name, array('class' => 'form-control')) }}
+					          	{{ Form::error($errors, 'last_name') }}
 					        </div>
 
 					        <div class="form-group">

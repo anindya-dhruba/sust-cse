@@ -15,17 +15,24 @@
 		{{ Form::open(array('route' => array('admin.faculty.add'), 'files' => true)) }}
 			<div class="row">
 				<div class="col-md-6">
+
 				    <div class="form-group">
-			          	{{ Form::label('full_name', 'Full Name *') }}
-			          	{{ Form::text('full_name', '', array('class' => 'form-control')) }}
-			          	{{ Form::error($errors, 'full_name') }}
+			          	{{ Form::label('first_name', 'First Name *') }}
+			          	{{ Form::text('first_name', '', array('class' => 'form-control')) }}
+			          	{{ Form::error($errors, 'first_name') }}
 			        </div>
 
 			        <div class="form-group">
-			          	{{ Form::label('nick_name', 'Nick Name') }}
-			          	{{ Form::text('nick_name', '', array('class' => 'form-control')) }}
-			          	{{ Form::error($errors, 'nick_name') }}
-			        </div>
+						{{ Form::label('middle_name', 'Middle Name') }}
+						{{ Form::text('middle_name', '', array('class' => 'form-control')) }}
+						{{ Form::error($errors, 'middle_name') }}
+					</div>
+
+					<div class="form-group">
+						{{ Form::label('last_name', 'Last Name *') }}
+						{{ Form::text('last_name', '', array('class' => 'form-control')) }}
+						{{ Form::error($errors, 'last_name') }}
+					</div>
 
 			        <div class="form-group">
 			          	{{ Form::label('designation', 'Designation *') }}
@@ -193,19 +200,6 @@
 			          	{{ Form::textarea('publications', '', array('class' => 'form-control summernote')) }}
 			          	{{ Form::error($errors, 'publications') }}
 			        </div>
-
-			        <div class="form-group">
-			          	{{ Form::label('journal_papers', 'Journal Papers') }}
-			          	{{ Form::textarea('journal_papers', '', array('class' => 'form-control summernote')) }}
-			          	{{ Form::error($errors, 'journal_papers') }}
-			        </div>
-
-			        <div class="form-group">
-			          	{{ Form::label('conference_papers', 'Conference Papers') }}
-			          	{{ Form::textarea('conference_papers', '', array('class' => 'form-control summernote')) }}
-			          	{{ Form::error($errors, 'conference_papers') }}
-			        </div>
-
 
 			        {{ Form::submit('Add Faculty', array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Adding...', 'type' => 'button')) }}
 			    </div>

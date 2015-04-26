@@ -33,7 +33,7 @@ class FacultyController extends BaseController {
 		    $faculty = User::faculty()->where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('faculty.show')
-						->with('title', $faculty->full_name)
+						->with('title', $faculty->last_name.", ".$faculty->first_name." ".$faculty->middle_name)
 						->with('faculty', $faculty);
 		}
 		catch(ModelNotFoundException $e)
@@ -64,7 +64,8 @@ class FacultyController extends BaseController {
 
 		$rules = array
 		(
-			'full_name'       =>	'required',
+			'first_name'      =>	'required',
+			'last_name'	      =>	'required',
 			'designation'	  =>	'required',
 			'tagname'	  	  =>	'required|unique:users,tagname',
 			'email'           =>	'required|email|unique:users,email',
@@ -84,8 +85,9 @@ class FacultyController extends BaseController {
 		else
 		{
 			$user                      = new User();
-			$user->full_name           = Input::get('full_name');
-			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->first_name          = Input::get('first_name');
+			$user->middle_name         = Input::get('middle_name');
+			$user->last_name           = Input::get('last_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->role_id             = 3; // faculty
@@ -110,8 +112,6 @@ class FacultyController extends BaseController {
 			$user->interests           = (Input::get('interests') == '') ? null :Input::get('interests');
 			$user->about               = (Input::get('about') == '') ? null :Input::get('about');
 			$user->publications        = (Input::get('publications') == '') ? null :Input::get('publications');
-			$user->journal_papers      = (Input::get('journal_papers') == '') ? null :Input::get('journal_papers');
-			$user->conference_papers   = (Input::get('conference_papers') == '') ? null :Input::get('conference_papers');
 
 			// set password for this user
 			$password = Str::random(8);
@@ -124,7 +124,7 @@ class FacultyController extends BaseController {
 			];
 
 			Mail::send('emails.faculty.welcome', $data, function($message) use ($user) {
-			    $message->to($user->email, $user->full_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
+			    $message->to($user->email, $user->last_name.", ".$user->first_name." ".$user->middle_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
 			});
 
 			if($user->save())
@@ -156,7 +156,7 @@ class FacultyController extends BaseController {
 					        		->save($destinationPath."/thumbnail_".$fileName);
 
 					$picture = new Download();
-					$picture->caption = $user->full_name;
+					$picture->caption = "{$user->last_name}, {$user->first_name} {$user->middle_name}";
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
@@ -166,7 +166,7 @@ class FacultyController extends BaseController {
 
 
 			    return Redirect::route('admin.faculty.show', array('tagname' => Str::upper(Input::get('tagname'))))
-			    					->with('success', "Faculty '$user->full_name' has added successfully.");
+			    					->with('success', "Faculty member has added successfully.");
 			}
 			else
 				return Redirect::back()
@@ -189,7 +189,7 @@ class FacultyController extends BaseController {
 		    $faculty = User::where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('faculty.edit')
-						->with('title', "Editing $faculty->full_name")
+						->with('title', "Editing {$faculty->last_name}, {$faculty->first_name} {$faculty->middle_name}")
 						->with('faculty', $faculty)
 						->with('researches', Research::get());
 		}
@@ -210,7 +210,8 @@ class FacultyController extends BaseController {
 
 		$rules = array
 		(
-			'full_name'       =>	'required',
+			'first_name'      =>	'required',
+			'last_name'       =>	'required',
 			'designation'	  =>	'required',
 			'tagname'         =>	'required|unique:users,tagname,'.Input::get('facultyId'),
 			'email'           =>	'required|email|unique:users,email,'.Input::get('facultyId'),
@@ -231,8 +232,9 @@ class FacultyController extends BaseController {
 		else
 		{
 			$user                      = User::where('tagname', '=', $tagname)->first();
-			$user->full_name           = Input::get('full_name');
-			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->first_name          = Input::get('first_name');
+			$user->middle_name         = Input::get('middle_name');
+			$user->last_name           = Input::get('last_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -256,8 +258,6 @@ class FacultyController extends BaseController {
 			$user->interests           = (Input::get('interests') == '') ? null :Input::get('interests');
 			$user->about               = (Input::get('about') == '') ? null :Input::get('about');
 			$user->publications        = (Input::get('publications') == '') ? null :Input::get('publications');
-			$user->journal_papers      = (Input::get('journal_papers') == '') ? null :Input::get('journal_papers');
-			$user->conference_papers   = (Input::get('conference_papers') == '') ? null :Input::get('conference_papers');
 
 			if($user->save())
 			{
@@ -290,7 +290,7 @@ class FacultyController extends BaseController {
 					        		->save($destinationPath."/thumbnail_".$fileName);
 
 					$picture = new Download();
-					$picture->caption = $user->full_name;
+					$picture->caption = "{$user->last_name}, {$user->first_name} {$user->middle_name}";
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
@@ -298,7 +298,7 @@ class FacultyController extends BaseController {
 			    }
 
 			    return Redirect::route('admin.faculty.show', array('tagname' => Str::upper(Input::get('tagname'))))
-			    					->with('success', "Faculty '$user->full_name' has added successfully.");
+			    					->with('success', "Faculty member has added successfully.");
 			}
 			else
 				return Redirect::back()

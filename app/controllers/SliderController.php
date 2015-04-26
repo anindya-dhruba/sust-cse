@@ -57,6 +57,7 @@ class SliderController extends BaseController {
 	 */
 	public function doCrop($id)
 	{
+
 		if(!$this->permission['sliders']) return Redirect::to('/');
 
 		$rules = array
@@ -79,7 +80,8 @@ class SliderController extends BaseController {
 			$fileName = strtotime(date('Y-m-d H:i:s')).".jpg";
 
 			Image::make(public_path($file))
-						->crop(Input::get('w'), Input::get('h'), Input::get('x'), Input::get('y'))
+						->resize(1280, null, true)
+						->crop(1280, 700, 0, 0)
 						->save($destinationPath."/".$fileName);
 
 			Image::make($destinationPath."/".$fileName)

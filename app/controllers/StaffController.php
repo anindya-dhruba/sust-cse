@@ -33,7 +33,7 @@ class StaffController extends BaseController {
 		    $staff = User::staff()->where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('staff.show')
-						->with('title', $staff->full_name)
+						->with('title', $staff->last_name.', '.$staff->first_name.' '.$staff->middle_name)
 						->with('staff', $staff);
 		}
 		catch(ModelNotFoundException $e)
@@ -63,7 +63,8 @@ class StaffController extends BaseController {
 
 		$rules = array
 		(
-			'full_name'       =>	'required',
+			'first_name'      =>	'required',
+			'last_name'       =>	'required',
 			'designation'	  =>	'required',
 			'tagname'	  	  =>	'required|unique:users,tagname',
 			'email'           =>	'required|email|unique:users,email',
@@ -83,8 +84,9 @@ class StaffController extends BaseController {
 		else
 		{
 			$user                      = new User();
-			$user->full_name           = Input::get('full_name');
-			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->first_name          = Input::get('first_name');
+			$user->middle_name         = Input::get('middle_name');
+			$user->last_name           = Input::get('last_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->role_id             = 4; // staff
@@ -118,7 +120,7 @@ class StaffController extends BaseController {
 			];
 
 			Mail::send('emails.staff.welcome', $data, function($message) use ($user) {
-			    $message->to($user->email, $user->full_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
+			    $message->to($user->email, $user->last_name.', '.$user->first_name.' '.$user->middle_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
 			});
 
 			if($user->save())
@@ -147,7 +149,7 @@ class StaffController extends BaseController {
 					        		->save($destinationPath."/thumbnail_".$fileName);
 
 					$picture = new Download();
-					$picture->caption = $user->full_name;
+					$picture->caption = $user->last_name.', '.$user->first_name.' '.$user->middle_name;
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
@@ -155,7 +157,7 @@ class StaffController extends BaseController {
 			    }
 
 			    return Redirect::route('admin.staff.show', array('tagname' => Str::upper(Input::get('tagname'))))
-			    					->with('success', "Staff '$user->full_name' has added successfully.");
+			    					->with('success', "Staff '$user->first_name' has added successfully.");
 			}
 			else
 				return Redirect::back()
@@ -178,7 +180,7 @@ class StaffController extends BaseController {
 		    $staff = User::staff()->where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('staff.edit')
-						->with('title', "Editing $staff->full_name")
+						->with('title', "Editing ".$staff->last_name.', '.$staff->first_name.' '.$staff->middle_name)
 						->with('staff', $staff);
 		}
 		catch(ModelNotFoundException $e)
@@ -198,7 +200,8 @@ class StaffController extends BaseController {
 
 		$rules = array
 		(
-			'full_name'       =>	'required',
+			'first_name'      =>	'required',
+			'last_name'       =>	'required',
 			'designation'	  =>	'required',
 			'tagname'         =>	'required|unique:users,tagname,'.Input::get('id'),
 			'email'           =>	'required|email|unique:users,email,'.Input::get('id'),
@@ -219,8 +222,9 @@ class StaffController extends BaseController {
 		else
 		{
 			$user                      = User::staff()->where('tagname', '=', $tagname)->first();
-			$user->full_name           = Input::get('full_name');
-			$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+			$user->first_name          = Input::get('first_name');
+			$user->middle_name         = Input::get('middle_name');
+			$user->last_name           = Input::get('last_name');
 			$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -267,7 +271,7 @@ class StaffController extends BaseController {
 					        		->save($destinationPath."/thumbnail_".$fileName);
 
 					$picture = new Download();
-					$picture->caption = $user->full_name;
+					$picture->caption = $user->last_name.', '.$user->first_name.' '.$user->middle_name;
 					$picture->type = 'Profile Picture';
 					$picture->url = $fileName;
 						
@@ -275,7 +279,7 @@ class StaffController extends BaseController {
 			    }
 
 			    return Redirect::route('admin.staff.show', array('tagname' => Str::upper(Input::get('tagname'))))
-			    					->with('success', "Staff '$user->full_name' has added successfully.");
+			    					->with('success', "Staff '$user->first_name' has added successfully.");
 			}
 			else
 				return Redirect::back()

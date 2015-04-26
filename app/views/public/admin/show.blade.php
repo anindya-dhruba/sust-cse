@@ -16,11 +16,7 @@
 				<table class="table table-bordered table-striped">
 					<tr>
 						<th>Full Name</th>
-						<td>{{ $admin->full_name }}</td>
-					</tr>
-					<tr>
-						<th>Nick Name</th>
-						<td>{{ $admin->nick_name }}</td>
+						<td>{{ $admin->last_name }}, {{ $admin->first_name }} {{ $admin->middle_name }}</td>
 					</tr>
 					<tr>
 						<th>Email Address</th>

@@ -39,4 +39,14 @@ class Course extends Eloquent {
 
 	}
 
+	public function taking_by()
+	{
+		return $this->belongsTo('User', 'faculty_id');
+	}
+
+	public function notices()
+	{
+		return $this->hasMany('CourseNotice');
+	}
+
 }

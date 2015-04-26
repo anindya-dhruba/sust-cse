@@ -51,7 +51,7 @@
 
 				<dl>
 					<dt>Created By:</dt>
-					<dd>{{ $picture->user->full_name }}</dd>
+					<dd>{{ $picture->user->last_name }}, {{ $picture->user->first_name }} {{ $picture->user->middle_name }}</dd>
 				</dl>
 
 				<dl>

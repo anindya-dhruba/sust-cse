@@ -17,7 +17,7 @@ class CreateMenusTable extends Migration {
 			$table->increments('id');
 			$table->integer('page_id')->unsigned()->nullable();
 			$table->string('page_icon')->default('fa-th-large');
-			$table->enum('page_location', array('top', 'side'));
+			$table->enum('page_location', array('top', 'side', 'none'));
 			$table->integer('parent_id');
 			$table->integer('order');
 

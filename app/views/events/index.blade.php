@@ -36,7 +36,7 @@
 						</td>
 						<td>{{ Helper::date($event->start_date) }}</td>
 						<td>{{ Helper::daysDiff($event->start_date, $event->end_date) }} day</td>
-						<td>{{ $event->user->full_name }}</td>
+						<td>{{ $event->user->last_name }}, {{ $event->user->first_name }} {{ $event->user->middle_name }}</td>
 						<td>
 							<a href="{{ URL::route('events.show', $event->url) }}" target="_blank">{{ $event->title }}</a>
 						</td>

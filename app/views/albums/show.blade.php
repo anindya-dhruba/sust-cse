@@ -50,7 +50,7 @@
 
 				<dl>
 					<dt>Created By:</dt>
-					<dd>{{ $album->user->full_name }}</dd>
+					<dd>{{ $album->user->last_name.", ".$album->user->first_name." ".$album->user->middle_name }}</dd>
 				</dl>
 
 				<dl>

@@ -33,7 +33,7 @@
 								<span class="glyphicon glyphicon-remove text-danger"></span>
 							@endif
 						</td>
-						<td>{{ $album->user->full_name }}</td>
+						<td>{{ $album->user->last_name.", ".$album->user->first_name." ".$album->user->middle_name }}</td>
 						<td>
 							<a href="{{ URL::route('albums.show', $album->url) }}" target="_blank">{{ $album->name }}</a>
 						</td>

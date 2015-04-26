@@ -24,7 +24,7 @@
 				<div class="thumbnail text-center">
 					{{ Helper::currentPicture($staff[$i]) }}
 					<div class="caption">
-						<h4>{{ $staff[$i]->full_name}}</h4>
+						<h4>{{ $staff[$i]->last_name}}, {{ $staff[$i]->first_name}} {{ $staff[$i]->middle_name}}</h4>
 						<p>
 							{{ $staff[$i]->designation }}
 

@@ -7,7 +7,7 @@
 				<div class="col-md-4">
 			      	<p class="text-center">{{ Helper::currentPicture($faculty) }}</p>
 		        	
-		        	<h4 class="text-center">{{ $faculty->full_name }} {{ $faculty->nick_name }}</h4>
+		        	<h4 class="text-center">{{ $faculty->last_name }}, {{ $faculty->first_name }} {{ $faculty->middle_name }}</h4>
 		        	<p class="text-center">
 		        		{{ $faculty->tagname }}<br/>
 		        		{{ $faculty->designation }}<br/>
@@ -35,16 +35,22 @@
 							{{ Form::hidden('facultyId', $faculty->id) }}
 
 						    <div class="form-group">
-					          	{{ Form::label('full_name', 'Full Name *') }}
-					          	{{ Form::text('full_name', $faculty->full_name, array('class' => 'form-control')) }}
-					          	{{ Form::error($errors, 'full_name') }}
-					        </div>
+								{{ Form::label('first_name', 'First Name *') }}
+								{{ Form::text('first_name', $faculty->first_name, array('class' => 'form-control')) }}
+								{{ Form::error($errors, 'first_name') }}
+							</div>
 
-					        <div class="form-group">
-					          	{{ Form::label('nick_name', 'Nick Name') }}
-					          	{{ Form::text('nick_name', $faculty->nick_name, array('class' => 'form-control')) }}
-					          	{{ Form::error($errors, 'nick_name') }}
-					        </div>
+							<div class="form-group">
+								{{ Form::label('middle_name', 'Middle Name') }}
+								{{ Form::text('middle_name', $faculty->middle_name, array('class' => 'form-control')) }}
+								{{ Form::error($errors, 'middle_name') }}
+							</div>
+
+							<div class="form-group">
+								{{ Form::label('last_name', 'Last Name *') }}
+								{{ Form::text('last_name', $faculty->last_name, array('class' => 'form-control')) }}
+								{{ Form::error($errors, 'last_name') }}
+							</div>
 
 					        <div class="form-group">
 					          	{{ Form::label('designation', 'Designation *') }}
@@ -213,19 +219,6 @@
 					          	{{ Form::textarea('publications', $faculty->publications, array('class' => 'form-control summernote')) }}
 					          	{{ Form::error($errors, 'publications') }}
 					        </div>
-
-					        <div class="form-group">
-					          	{{ Form::label('journal_papers', 'Journal Papers') }}
-					          	{{ Form::textarea('journal_papers', $faculty->journal_papers, array('class' => 'form-control summernote')) }}
-					          	{{ Form::error($errors, 'journal_papers') }}
-					        </div>
-
-					        <div class="form-group">
-					          	{{ Form::label('conference_papers', 'Conference Papers') }}
-					          	{{ Form::textarea('conference_papers', $faculty->conference_papers, array('class' => 'form-control summernote')) }}
-					          	{{ Form::error($errors, 'conference_papers') }}
-					        </div>
-
 
 					        {{ Form::submit('Update Faculty Information', array('class' => 'btn btn-primary btn-lg', 'data-loading-text' => 'Updating...', 'type' => 'button')) }}
 					    </div>

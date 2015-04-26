@@ -27,7 +27,7 @@ class MenusTableSeeder extends Seeder {
 				'order'       	=>	3
 			),
 			array(
-				'page_id'  		=>	4,
+				'page_id'  		=>	11,
 				'page_icon'		=>	'fa-user',
 				'page_location'	=>	'side',
 				'parent_id'		=>	0,

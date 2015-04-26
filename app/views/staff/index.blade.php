@@ -27,7 +27,7 @@
 				@foreach($staffCollection as $staff)
 					<tr>
 						<td>{{ Helper::currentPicture($staff, 'thumbnail') }}</td>
-						<td>{{ $staff->full_name}}</td>
+						<td>{{ $staff->last_name}}, {{ $staff->first_name}} {{ $staff->middle_name}}</td>
 						<td>
 							<a href="mailto:{{ $staff->email }}">{{ $staff->email }}</a>
 						</td>

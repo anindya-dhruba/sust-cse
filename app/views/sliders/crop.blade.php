@@ -2,19 +2,22 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h3>
-			{{ $title }}
-			<a href="{{ URL::route('admin.slider') }}" class='btn btn-primary pull-right'>
-				<span class="glyphicon glyphicon-chevron-left"></span> View Slider Images
-			</a>
-		</h3>
-		<hr/>
+		<div class="page-header">
+			<h3>
+				{{ $title }}
+				<a href="{{ URL::route('admin.slider') }}" class='btn btn-primary pull-right'>
+					<span class="glyphicon glyphicon-chevron-left"></span> View Slider Images
+				</a>
+			</h3>
+		</div>
 
 		@include('includes.alert')
 		
 		<div class="row">
-			<div class="col-md-11 col-md-offset-1">
-				<img id="target" src="{{ URL::to('uploads/album_pictures/slider_'.$picture->file_url) }}">
+			<div class="col-md-12">
+				<div class="thumbnail">
+					<img src="{{ URL::to('uploads/album_pictures/original_'.$picture->file_url) }}">
+				</div>
 			</div>
 			<div class="col-md-6 col-md-offset-3 vspace">
 				{{ Form::open(['route' => ['admin.slider.crop', 'id' => $picture->id]]) }}
@@ -56,23 +59,23 @@
 @stop
 
 @section('script')
-	{{ HTML::script('js/jquery.Jcrop.min.js') }}
-	<script type="text/javascript">
-		jQuery(function($){
-			$('#target').Jcrop({
-				allowResize: false,
-				setSelect:[10, 10, 900, 400],
-				minSize: [900, 450],
-				onSelect: updateCoords
-			});
+	{{--{{ HTML::script('js/jquery.Jcrop.min.js') }}--}}
+	{{--<script type="text/javascript">--}}
+		{{--jQuery(function($){--}}
+			{{--$('#target').Jcrop({--}}
+				{{--allowResize: true,--}}
+				{{--setSelect:[10, 10, 900, 400],--}}
+				{{--minSize: [1280, 890],--}}
+				{{--onSelect: updateCoords--}}
+			{{--});--}}
 
-			function updateCoords(c) {
-				$('#x').val(c.x);
-				$('#y').val(c.y);
-				$('#w').val(c.w);
-				$('#h').val(c.h);
-			};
-		});
-	</script>
+			{{--function updateCoords(c) {--}}
+				{{--$('#x').val(c.x);--}}
+				{{--$('#y').val(c.y);--}}
+				{{--$('#w').val(c.w);--}}
+				{{--$('#h').val(c.h);--}}
+			{{--};--}}
+		{{--});--}}
+	{{--</script>--}}
 
 @stop

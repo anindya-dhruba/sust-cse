@@ -34,7 +34,7 @@
 								<span class="glyphicon glyphicon-remove text-danger"></span>
 							@endif
 						</td>
-						<td>{{ $picture->user->full_name }}</td>
+						<td>{{ $picture->user->last_name }}, {{ $picture->user->first_name }} {{ $picture->user->middle_name }}</td>
 						<td>
 							<a href="{{ URL::route('pictures.show', [$picture->album->url, $picture->url]) }}" target="_blank">{{ $picture->caption }}</a>
 						</td>

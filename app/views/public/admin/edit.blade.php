@@ -17,15 +17,21 @@
 			{{ Form::hidden('id', $admin->id) }}
 
 		    <div class="form-group">
-	          	{{ Form::label('full_name', 'Full Name *') }}
-	          	{{ Form::text('full_name', $admin->full_name, array('class' => 'form-control')) }}
-	          	{{ Form::error($errors, 'full_name') }}
+	          	{{ Form::label('first_name', 'First Name *') }}
+	          	{{ Form::text('first_name', $admin->first_name, array('class' => 'form-control')) }}
+	          	{{ Form::error($errors, 'first_name') }}
 	        </div>
 
 	        <div class="form-group">
-	          	{{ Form::label('nick_name', 'Nick Name') }}
-	          	{{ Form::text('nick_name', $admin->nick_name, array('class' => 'form-control')) }}
-	          	{{ Form::error($errors, 'nick_name') }}
+	          	{{ Form::label('middle_name', 'Middle Name') }}
+	          	{{ Form::text('middle_name', $admin->middle_name, array('class' => 'form-control')) }}
+	          	{{ Form::error($errors, 'middle_name') }}
+	        </div>
+
+	        <div class="form-group">
+	          	{{ Form::label('last_name', 'Last Name *') }}
+	          	{{ Form::text('last_name', $admin->last_name, array('class' => 'form-control')) }}
+	          	{{ Form::error($errors, 'last_name') }}
 	        </div>
 
 			<div class="form-group">

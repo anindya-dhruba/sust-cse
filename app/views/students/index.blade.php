@@ -17,7 +17,7 @@
 				<tr>
 					<th>Photo</th>
 					<th>Reg.</th>
-					<th>Full Name</th>
+					<th>Name</th>
 					<th>Email Address</th>
 					<th>Mobile</th>
 					<th>Action</th>
@@ -28,7 +28,7 @@
 					<tr>
 						<td>{{ Helper::currentPicture($student, 'thumbnail') }}</td>
 						<td>{{ $student->reg }}</td>
-						<td>{{ $student->full_name}}</td>
+						<td>{{ $student->last_name}}, {{ $student->first_name}} {{ $student->middle_name}}</td>
 						<td>
 							<a href="mailto:{{ $student->email }}">{{ $student->email }}</a>
 						</td>

@@ -43,34 +43,34 @@ class PublicController extends BaseController {
 	}
 
 	/**
-	 * show all notices 
+	 * show all news
 	 * @return void
 	 */
-	public function notices()
+	public function news()
 	{
-	    $notices = Notice::where('is_public', '=', 1)
+	    $news = News::where('is_public', '=', 1)
 	    					->orderBy('created_at', 'desc')
 	    					->paginate(5);
 
-	    return View::make('public.notices.index')
-					->with('title', "All Notices")
-					->with('notices', $notices);
+	    return View::make('public.news.index')
+					->with('title', "All News")
+					->with('news', $news);
 	}
 
 	/**
-	 * show one notice
+	 * show one news
 	 * @param  string $url
 	 * @return void
 	 */
-	public function noticesShow($url)
+	public function newsShow($url)
 	{
 		try
 		{
-		    $notice = Notice::where('url', '=', $url)->firstOrFail();
+		    $news = News::where('url', '=', $url)->firstOrFail();
 
-		    return View::make('public.notices.show')
-						->with('title', "$notice->title")
-						->with('notice', $notice);
+		    return View::make('public.news.show')
+						->with('title', "$news->title")
+						->with('news', $news);
 		}
 		catch(ModelNotFoundException $e)
 		{
@@ -116,7 +116,7 @@ class PublicController extends BaseController {
 		$student = User::where('reg', '=', $reg)->first();
 
 	    return View::make('public.students.show')
-					->with('title', $student->full_name)
+					->with('title', "{$student->last_name}, {$student->first_name} {$student->middle_name}")
 					->with('student', $student);
 	}
 
@@ -127,15 +127,17 @@ class PublicController extends BaseController {
 	public function faculty()
 	{
 		$hotd = User::faculty()->where('designation', '=', 'Head of the Department')->first();
-		$professors = User::faculty()->where('designation', '=', 'Professor')->get();
-		$aProfessors = User::faculty()->where('designation', '=', 'Associate Professor')->get();
-		$lecturers = User::faculty()->where('designation', '=', 'Lecturer')->get();
+		$professors = User::faculty()->where('designation', '=', 'Professor')->orderBy('last_name')->get();
+		$aProfessors = User::faculty()->where('designation', '=', 'Associate Professor')->orderBy('last_name')->get();
+		$assisProfessors = User::faculty()->where('designation', '=', 'Assistant Professor')->orderBy('last_name')->get();
+		$lecturers = User::faculty()->where('designation', '=', 'Lecturer')->orderBy('last_name')->get();
 
 	    return View::make('public.faculty.index')
 					->with('title', "Faculty")
 					->with('hotd', $hotd)
 					->with('professors', $professors)
 					->with('aProfessors', $aProfessors)
+					->with('assisProfessors', $assisProfessors)
 					->with('lecturers', $lecturers)
 					->with('faculty', $lecturers);
 	}
@@ -152,7 +154,7 @@ class PublicController extends BaseController {
 		    $faculty = User::where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('public.faculty.show')
-						->with('title', $faculty->full_name)
+						->with('title', "{$faculty->last_name}, {$faculty->first_name} {$faculty->middle_name}")
 						->with('faculty', $faculty);
 		}
 		catch(ModelNotFoundException $e)
@@ -209,11 +211,13 @@ class PublicController extends BaseController {
 	    foreach ($semesters as $key => $semester)
 	    {
 	    	$courses[$key] = Course::where('semester', '=', $semester)
-	    								->with('prerequisiteCourse')
+	    								->with('prerequisiteCourse', 'taking_by')
 	    								->orderBy('prerequisite')
 	    								->get()
 	    								->toArray();
 	    }
+
+//		return $courses;
 
 	    return View::make('public.courses.index')
 					->with('title', "Courses")
@@ -229,11 +233,17 @@ class PublicController extends BaseController {
 	{
 		try
 		{
-		    $course = Course::where('url', '=', $url)->firstOrFail();
+		    $course = Course::with('taking_by')->where('url', '=', $url)->firstOrFail();
+
+			$notices = CourseNotice::where('course_id', '=', $course->id)
+									->where('user_id', '=', $course->faculty_id)
+									->orderBy('created_at', 'desc')
+									->paginate(10);
 
 		    return View::make('public.courses.show')
 						->with('title', "$course->title")
-						->with('course', $course);
+						->with('course', $course)
+						->with('notices', $notices);
 		}
 		catch(ModelNotFoundException $e)
 		{
@@ -247,33 +257,38 @@ class PublicController extends BaseController {
 	 */
 	public function profile()
 	{
-		$user = Auth::user();
-
-		if($user->role_id == 1)
+		if(Auth::user()->role_id == 1)
 		{
+			$user = Auth::user();
 			return View::make('public.admin.show')
-								->with('title', $user->full_name)
+								->with('title', "{$user->last_name}, {$user->first_name} {$user->middle_name}")
 								->with('admin', $user);
 		}
 		// head / faculty
-		else if($user->role_id == 2 || $user->role_id == 3)
+		else if(Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
 		{
+			$user = User::with('coursesTaking')->where('id', '=', Auth::id())->first();
+
+
 			return View::make('public.faculty.show')
-								->with('title', $user->full_name)
+								->with('title', "{$user->last_name}, {$user->first_name} {$user->middle_name}")
 								->with('faculty', $user);
 		}
-		else if($user->role_id == 4)
+		// staff
+		else if(Auth::user()->role_id == 4)
 		{
+			$user = Auth::user();
 			return View::make('public.staff.show')
-								->with('title', $user->full_name)
+								->with('title', "{$user->last_name}, {$user->first_name} {$user->middle_name}")
 								->with('staff', $user);
 		}
 		// student
-		else if($user->role_id == 5)
+		else if(Auth::user()->role_id == 5)
 		{
+			$user = Auth::user();
 			return View::make('public.students.show')
-							->with('student', $user)
-							->with('title', $user->full_name);
+							->with('title', "{$user->last_name}, {$user->first_name} {$user->middle_name}")
+							->with('student', $user);
 		}
 	}
 
@@ -329,7 +344,8 @@ class PublicController extends BaseController {
 		{
 			$rules = array
 			(
-				'full_name'            =>	'required',
+				'first_name'           =>	'required',
+				'last_name'            =>	'required',
 				'email'                =>	'email|unique:users,email,'.Input::get('id'),
 				'picture'              =>	'image|mimes:jpeg,bmp,png'
 			);
@@ -342,8 +358,8 @@ class PublicController extends BaseController {
 									->withErrors($validation);
 			else
 			{
-				$user->full_name           = Input::get('full_name');
-				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+				$user->first_name          = Input::get('first_name');
+				$user->last_name           = Input::get('last_name');
 				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				
 				if($user->save())
@@ -372,7 +388,7 @@ class PublicController extends BaseController {
 						        		->save($destinationPath."/thumbnail_".$fileName);
 
 						$picture = new Download();
-						$picture->caption = $user->full_name;
+						$picture->caption = "{$user->last_name}, {$user->first_name} {$user->middle_name}";
 						$picture->type = 'Profile Picture';
 						$picture->url = $fileName;
 							
@@ -393,7 +409,8 @@ class PublicController extends BaseController {
 		{
 			$rules = array
 			(
-				'full_name'       =>	'required',
+				'first_name'      =>	'required',
+				'last_name'       =>	'required',
 				'designation'	  =>	'required',
 				'tagname'         =>	'required|unique:users,tagname,'.Input::get('id'),
 				'email'           =>	'required|email|unique:users,email,'.Input::get('id'),
@@ -413,8 +430,9 @@ class PublicController extends BaseController {
 									->withErrors($validation);
 			else
 			{
-				$user->full_name           = Input::get('full_name');
-				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+				$user->first_name          = Input::get('first_name');
+				$user->middle_name         = Input::get('middle_name');
+				$user->last_name           = Input::get('last_name');
 				$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
 				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -438,8 +456,6 @@ class PublicController extends BaseController {
 				$user->interests           = (Input::get('interests') == '') ? null :Input::get('interests');
 				$user->about               = (Input::get('about') == '') ? null :Input::get('about');
 				$user->publications        = (Input::get('publications') == '') ? null :Input::get('publications');
-				$user->journal_papers      = (Input::get('journal_papers') == '') ? null :Input::get('journal_papers');
-				$user->conference_papers   = (Input::get('conference_papers') == '') ? null :Input::get('conference_papers');
 
 				if($user->save())
 				{
@@ -472,7 +488,7 @@ class PublicController extends BaseController {
 						        		->save($destinationPath."/thumbnail_".$fileName);
 
 						$picture = new Download();
-						$picture->caption = $user->full_name;
+						$picture->caption = "{$user->last_name}, {$user->first_name} {$user->middle_name}";
 						$picture->type = 'Profile Picture';
 						$picture->url = $fileName;
 							
@@ -493,7 +509,8 @@ class PublicController extends BaseController {
 		{
 			$rules = array
 			(
-				'full_name'       =>	'required',
+				'first_name'      =>	'required',
+				'last_name'       =>	'required',
 				'designation'	  =>	'required',
 				'tagname'         =>	'required|unique:users,tagname,'.Input::get('id'),
 				'email'           =>	'required|email|unique:users,email,'.Input::get('id'),
@@ -513,8 +530,9 @@ class PublicController extends BaseController {
 									->withErrors($validation);
 			else
 			{
-				$user->full_name           = Input::get('full_name');
-				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+				$user->first_name          = Input::get('first_name');
+				$user->middle_name         = Input::get('middle_name');
+				$user->last_name           = Input::get('last_name');
 				$user->designation         = (Input::get('designation') == '') ? null : Input::get('designation');
 				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -561,7 +579,7 @@ class PublicController extends BaseController {
 						        		->save($destinationPath."/thumbnail_".$fileName);
 
 						$picture = new Download();
-						$picture->caption = $user->full_name;
+						$picture->caption = "{$user->last_name}, {$user->first_name} {$user->middle_name}";
 						$picture->type = 'Profile Picture';
 						$picture->url = $fileName;
 							
@@ -583,7 +601,8 @@ class PublicController extends BaseController {
 			$rules = array
 			(
 				'reg'                  => 	'required|numeric|unique:users,reg,'.Input::get('id'),
-				'full_name'            =>	'required',
+				'first_name'           =>	'required',
+				'last_name'            =>	'required',
 				'email'                =>	'email|unique:users,email,'.Input::get('id'),
 				'alternate_email'      =>	'email|unique:users,alt_email,'.Input::get('id'),
 				'batch'                =>	'required',
@@ -602,10 +621,12 @@ class PublicController extends BaseController {
 									->withErrors($validation);
 			else
 			{
-				$user->full_name           = Input::get('full_name');
-				$user->nick_name           = (Input::get('nick_name') == '') ? null : Input::get('nick_name');
+				$user->first_name          = Input::get('first_name');
+				$user->middle_name         = Input::get('middle_name');
+				$user->last_name           = Input::get('last_name');
 				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				$user->reg                 = Input::get('reg');
+				$user->degree              = (Input::get('degree') == '') ? null : Input::get('degree');
 				$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 				$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');
 				$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -654,7 +675,7 @@ class PublicController extends BaseController {
 						        		->save($destinationPath."/thumbnail_".$fileName);
 
 						$picture = new Download();
-						$picture->caption = $user->full_name;
+						$picture->caption = "{$user->last_name}, {$user->first_name} {$user->middle_name}";
 						$picture->type = 'Profile Picture';
 						$picture->url = $fileName;
 							
@@ -748,7 +769,7 @@ class PublicController extends BaseController {
 		    $staff = User::staff()->where('tagname', '=', $tagname)->firstOrFail();
 
 		    return View::make('public.staff.show')
-						->with('title', $staff->full_name)
+						->with('title', "{$staff->last_name}, {$staff->first_name} {$staff->middle_name}")
 						->with('staff', $staff);
 		}
 		catch(ModelNotFoundException $e)
@@ -847,5 +868,179 @@ class PublicController extends BaseController {
 		{
 		   return "Page not found.";
 		}
-	}	
+	}
+
+	public function noticeShow($url, $noticeUrl)
+	{
+		try
+		{
+			$notice = CourseNotice::with('user')->where('url', '=', $noticeUrl)->firstOrFail();
+
+			//			return $notice;
+
+			return View::make('public.notices.show')
+				->with('title', "$notice->title")
+				->with('notice', $notice)
+				->with('url', $url);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			return "Page not found.";
+		}
+	}
+
+	/**
+	 * Generates slug/url for page
+	 * @return string
+	 */
+	public function noticeGenerateUrl()
+	{
+		$url = Str::slug(Input::get('title'));
+		$urlCount = count(CourseNotice::where('url', '=', $url)->get());
+		return ($urlCount > 0) ? "{$url}-{$urlCount}" : $url;
+	}
+
+	public function noticeAdd($url)
+	{
+		try
+		{
+			$course = Course::where('url', '=', $url)->firstOrFail();
+
+			return View::make('public.notices.add')
+						->with('title', 'Add New Notice - '.$course->course_code)
+						->with('course', $course);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			return "Page not found.";
+		}
+	}
+
+	public function noticeDoAdd($url)
+	{
+		$rules = array
+		(
+			'title' 	=> 'required',
+			'url' 		=> 'required|unique:course_notice',
+			'notice'	=> 'required'
+		);
+
+		$validation = Validator::make(Input::all(), $rules);
+
+		if($validation->fails())
+			return Redirect::back()
+				->withInput()
+				->withErrors($validation);
+		else
+		{
+			$course = Course::where('url', '=', $url)->first();
+
+
+			$notice           = new CourseNotice();
+			$notice->title    = Input::get('title');
+			$notice->url      = Input::get('url');
+			$notice->notice   = Input::get('notice');
+			$notice->course_id = $course->id;
+			$notice->user_id   = Auth::id();
+
+			if($notice->save())
+				return Redirect::route('notices.show', array('url' => $url, 'noticeUrl' => $notice->url))
+					->with('success', "Notice '$notice->title' has added successfully.");
+			else
+				return Redirect::back()
+					->withInput()
+					->with('error', 'Some error occurred. Try again.');
+		}
+	}
+
+	public function noticeEdit($url, $noticeUrl)
+	{
+		try
+		{
+			$notice = CourseNotice::where('url', '=', $noticeUrl)->firstOrFail();
+
+			return View::make('public.notices.edit')
+				->with('title', 'Editing Notice')
+				->with('notice', $notice)
+				->with('url', $url);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			return "Page not found.";
+		}
+	}
+
+	public function noticeDoEdit($url, $noticeUrl)
+	{
+		$rules = array
+		(
+			'title' 	=> 'required',
+			'url' 		=> 'required|unique:course_notice,url,'.Input::get('noticeId'),
+			'notice'	=> 'required'
+		);
+
+		$validation = Validator::make(Input::all(), $rules);
+
+		if($validation->fails())
+			return Redirect::back()
+				->withInput()
+				->withErrors($validation);
+		else
+		{
+			$course = Course::where('url', '=', $url)->first();
+
+
+			$notice           = CourseNotice::find(Input::get('noticeId'));
+			$notice->title    = Input::get('title');
+			$notice->url      = Input::get('url');
+			$notice->notice   = Input::get('notice');
+			$notice->course_id = $course->id;
+
+			if($notice->save())
+				return Redirect::route('notices.show', array('url' => $url, 'noticeUrl' => $notice->url))
+					->with('success', "Notice '$notice->title' has updated successfully.");
+			else
+				return Redirect::back()
+					->withInput()
+					->with('error', 'Some error occurred. Try again.');
+		}
+
+	}
+
+	public function noticeDelete($url, $noticeId)
+	{
+		$notice = CourseNotice::find($noticeId);
+		if($notice->delete())
+			return Redirect::route('courses.show', [$url])
+				->with('success', 'The notice has been deleted.');
+		else
+			return Redirect::back()
+				->with('errors', 'Some error occurred. Try again.');
+	}
+
+	public function students()
+	{
+		return View::make('public.students.index')
+			->with('title', "Students");
+	}
+
+	public function graduate()
+	{
+		$students = User::student()->graduate()->with('batch')->orderBy('batch_id', 'desc')->paginate(10);
+
+		return View::make('public.students.graduate')
+							->with('title', "Graduate Students")
+							->with('students', $students);
+	}
+
+	public function undergraduate()
+	{
+		$students = User::student()->undergraduate()->with('batch')->orderBy('batch_id', 'desc')->paginate(10);
+
+		return View::make('public.students.undergraduate')
+			->with('title', "Undergraduate Students")
+			->with('students', $students);
+	}
+
+
 }
