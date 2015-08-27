@@ -26,12 +26,12 @@
 
                 @if($i == 0)
                     <div class="row">
-                        @elseif($i%4 == 0)
+                        @elseif($i%3 == 0)
                     </div>
                     <div class="row">
                         @endif
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="thumbnail text-center">
                                 {{ Helper::currentPicture($students[$i]) }}
                                 <div class="caption">
