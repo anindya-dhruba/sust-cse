@@ -12,8 +12,8 @@
 		</div>
 
 		@include('includes.alert')
-		<h4>Batch Name:</h4>
-		{{ $batch->name }}
+		<h4>Batch Type:</h4>
+		{{ $batch->type }}
 		<hr/>
 		<h4>Batch Year:</h4>
 		{{ $batch->year }}
@@ -21,7 +21,7 @@
 		<h4>Number of Students:</h4>
 		{{ $batch->users->count() }} students
 		<hr/>
-		<a href="{{ URL::route('admin.batches.edit', array('year' => $batch->year)) }}" class='btn btn-success btn-sm pull-right' style="vertical-align: middle;">
+		<a href="{{ URL::route('admin.batches.edit', array('type' => $batch->type, 'year' => $batch->year)) }}" class='btn btn-success btn-sm pull-right' style="vertical-align: middle;">
 				<span class="glyphicon glyphicon-edit"></span> Edit this Batch
 			</a>
 	</div>

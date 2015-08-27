@@ -47,7 +47,7 @@
 								<a href="{{ URL::route('admin.pictures.edit', array('url' => $picture->url)) }}" class='btn btn-default btn-sm'>
 	        						<span class="glyphicon glyphicon-edit"></span> Edit
 	        					</a>
-	        					<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteAlbumId="{{ $picture->id }}">
+	        					<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deletePictureId="{{ $picture->id }}">
 		        					<span class="glyphicon glyphicon-trash"></span> Delete
 		        				</a>
 	        				</div>
@@ -84,11 +84,11 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		
-		// delete a batch
+		// delete a picture
 		$('.deleteBtn').click(function() {
-			var deleteAlbumId = $(this).attr('deleteAlbumId');
+			var deletePictureId = $(this).attr('deletePictureId');
 			var url = "<?php echo URL::route('admin.pictures'); ?>";
-			$(".deleteForm").attr("action", url+'/'+deleteAlbumId);
+			$(".deleteForm").attr("action", url+'/'+deletePictureId);
 		});
 
 	});

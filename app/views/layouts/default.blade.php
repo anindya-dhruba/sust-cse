@@ -31,7 +31,7 @@
 		<div class="container">
 			<div style="padding: 10px;">
 			</div>
-			
+
 			<div class="row">
 				<div class="col-md-2 sideNav">
 					<div class="list-group">
@@ -52,8 +52,8 @@
 	            </div>
 	         </div>
 	    </div>
-        
+
         @include('includes.footer')
-        
+
     </body>
 </html>

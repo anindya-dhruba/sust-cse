@@ -70,7 +70,7 @@ class UserController extends BaseController {
 	{
 		return View::make('users.register')
 						->with('title', 'Register')
-						->with('batches', ['' => '-- select --'] + Batch::orderBy('year', 'desc')->lists('year', 'id'));
+						->with('batches', ['' => '-- select --'] + Batch::lists());
 	}
 
 	/**

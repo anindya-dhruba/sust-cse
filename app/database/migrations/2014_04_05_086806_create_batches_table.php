@@ -15,8 +15,8 @@ class CreateBatchesTable extends Migration {
 		Schema::create('batches', function($table)
 		{
 			$table->increments('id');
-			$table->string('name', 20);
 			$table->string('year', 20);
+			$table->enum('type', ['Undergraduate-Major', 'Undergraduate-Second Major', 'Graduate-Masters', 'Graduate-Ph.D.']);
 			$table->timestamps();
 		});
 	}

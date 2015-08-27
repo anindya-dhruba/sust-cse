@@ -126,7 +126,7 @@
 					<h4 class="modal-title" id="myModalLabel">Confirmation</h4>
 				</div>
 				<div class="modal-body">
-					Are you sure to delete this batch?
+					Are you sure to delete this notice?
 				</div>
 				<div class="modal-footer">
 					{{ Form::open(array('route' => array('admin.batches.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
@@ -145,7 +145,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			// delete a notice
+			// delete a batch
 			$('.deleteBtn').click(function() {
 				var deleteNoticeId = $(this).attr('deleteNoticeId');
 				var url = "<?php echo URL::route('notices.show', $course->url); ?>";

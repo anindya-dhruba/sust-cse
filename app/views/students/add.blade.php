@@ -96,11 +96,6 @@
 			          	{{ Form::text('reg', '', array('class' => 'form-control')) }}
 			          	{{ Form::error($errors, 'reg') }}
 			        </div>
-			        <div class="form-group">
-						{{ Form::label('degree', 'Degree') }}
-						{{ Form::select('degree', ['Undergraduate'=>'Undergraduate', 'Graduate'=>'Graduate'], null, array('class' => 'form-control')) }}
-						{{ Form::error($errors, 'degree') }}
-					</div>
 
 			        <div class="form-group">
 			          	{{ Form::label('batch', 'Batch *') }}

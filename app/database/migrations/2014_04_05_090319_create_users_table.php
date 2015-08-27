@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration {
 			$table->string('email', 40)->nullable();
 			$table->string('password');
 			$table->string('reg', 15)->nullable();
-			$table->enum('degree', ['Undergraduate', 'Graduate'])->nullable();
 			$table->string('fathers_name', 40)->nullable();
 			$table->string('mothers_name', 40)->nullable();
 			$table->integer('batch_id')->unsigned()->nullable();

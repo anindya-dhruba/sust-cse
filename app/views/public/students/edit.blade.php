@@ -103,12 +103,6 @@
 			        </div>
 
 			        <div class="form-group">
-						{{ Form::label('degree', 'Degree') }}
-						{{ Form::select('degree', ['Undergraduate'=>'Undergraduate', 'Graduate'=>'Graduate'], $student->degree, array('class' => 'form-control')) }}
-						{{ Form::error($errors, 'degree') }}
-					</div>
-
-			        <div class="form-group">
 			          	{{ Form::label('batch', 'Batch *') }}
 			          	{{ Form::select('batch', $batches, $student->batch_id, array('class' => 'form-control')) }}
 			          	{{ Form::error($errors, 'batch') }}

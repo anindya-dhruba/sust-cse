@@ -93,7 +93,7 @@ a:hover
 
 .fa-avatar
 {
-	font-size: 135px;
+	font-size: 277px;
 	color: #999;
 }
 legend
@@ -293,7 +293,7 @@ body
 }
 
 .welcome-content h2, .carousel-caption h2 {
-	font-size: 50px;
+	font-size: 38px;
 	color: white;
 	background: rgba(32, 155, 96, 0.9);
 	display: inline-block;
@@ -420,7 +420,7 @@ footer a:hover {
 	outline: none !important;
 }
 
-.btn-primary:hover,ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-primary:active,ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-primary:focus, .btn-success:hover,ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-success:active,ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-success:focus {
+.btn-primary:hover,ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-primary:active,ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-primary:focus, .btn-success:hover,ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-success:active,ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â .btn-success:focus {
 	background-color: #197E4E !important;
 	border-color: #238355 !important;
 	outline: none;

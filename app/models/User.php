@@ -69,16 +69,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $query->where('role_id', '=', 5);
 	}
 
-	public function scopeGraduate($query)
-	{
-		return $query->where('degree', '=', 'Graduate');
-	}
-
-	public function scopeUndergraduate($query)
-	{
-		return $query->where('degree', '=', 'Undergraduate');
-	}
-
 	public function events()
 	{
 		return $this->hasMany('Event')

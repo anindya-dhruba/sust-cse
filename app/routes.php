@@ -79,16 +79,16 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('admin/batches', array('as' => 'admin.batches', 'uses' => 'BatchController@index'));
 	Route::get('admin/batches/add', array('as' => 'admin.batches.add', 'uses' => 'BatchController@add'));
 	Route::post('admin/batches/add', array('uses' => 'BatchController@doAdd'));
-	Route::get('admin/batches/{year}', array('as' => 'admin.batches.show', 'uses' => 'BatchController@show'));
-	Route::get('admin/batches/{year}/edit', array('as' => 'admin.batches.edit', 'uses' => 'BatchController@edit'));
-	Route::put('admin/batches/{year}/edit', array('uses' => 'BatchController@doEdit'));
-	Route::delete('admin/batches/{year}', array('as' => 'admin.batches.delete', 'uses' => 'BatchController@delete'));
+	Route::get('admin/batches/{type}/{year}', array('as' => 'admin.batches.show', 'uses' => 'BatchController@show'));
+	Route::get('admin/batches/{type}/{year}/edit', array('as' => 'admin.batches.edit', 'uses' => 'BatchController@edit'));
+	Route::put('admin/batches/{type}/{year}/edit', array('uses' => 'BatchController@doEdit'));
+	Route::delete('admin/batches/{type}/{year}', array('as' => 'admin.batches.delete', 'uses' => 'BatchController@delete'));
 
 	// students
 	Route::get('admin/students', array('as' => 'admin.students', 'uses' => 'StudentController@index'));
 	Route::get('admin/students/add', array('as' => 'admin.students.add', 'uses' => 'StudentController@add'));
 	Route::post('admin/students/add', array('uses' => 'StudentController@doAdd'));
-	Route::get('admin/students/{reg}', array('as' => 'admin.students.show', 'uses' => 'StudentController@show'));
+	Route::get('admin/students//{reg}', array('as' => 'admin.students.show', 'uses' => 'StudentController@show'));
 	Route::get('admin/students/{reg}/edit', array('as' => 'admin.students.edit', 'uses' => 'StudentController@edit'));
 	Route::put('admin/students/{reg}/edit', array('uses' => 'StudentController@doEdit'));
 	Route::delete('admin/students/{user_id}', array('as' => 'admin.students.delete', 'uses' => 'StudentController@delete'));
@@ -213,9 +213,10 @@ Route::get('faculty/{tagname}', array('as' => 'faculty.show', 'uses' => 'PublicC
 Route::get('staff', array('as' => 'staff', 'uses' => 'PublicController@staff'));
 Route::get('staff/{tagname}', array('as' => 'staff.show', 'uses' => 'PublicController@staffShow'));
 
-Route::get('batches', array('as' => 'batches', 'uses' => 'PublicController@batches'));
-Route::get('batches/{year}', array('as' => 'batches.show', 'uses' => 'PublicController@batchesShow'));
-Route::get('batches/{year}/reg/{reg}', array('as' => 'students.show', 'uses' => 'PublicController@studentsShow'));
+Route::get('students', array('as' => 'students', 'uses' => 'PublicController@students'));
+Route::get('batches/{type}', array('as' => 'batches.type', 'uses' => 'PublicController@batchesTypeShow'));
+Route::get('batches/{type}/{year}', array('as' => 'batches.show', 'uses' => 'PublicController@batchesShow'));
+Route::get('batches/{type}/{year}/{reg}', array('as' => 'students.show', 'uses' => 'PublicController@studentsShow'));
 
 Route::get('researches', array('as' => 'researches', 'uses' => 'PublicController@researches'));
 Route::get('researches/{url}', array('as' => 'researches.show', 'uses' => 'PublicController@researchShow'));
@@ -224,9 +225,6 @@ Route::get('albums', array('as' => 'albums', 'uses' => 'PublicController@albums'
 Route::get('albums/{url}', array('as' => 'albums.show', 'uses' => 'PublicController@albumShow'));
 Route::get('albums/{url}/pictures/{picUrl}', array('as' => 'pictures.show', 'uses' => 'PublicController@pictureShow'));
 
-Route::get('students', array('as' => 'students', 'uses' => 'PublicController@students'));
-Route::get('students/undergraduate', array('as' => 'students.undergraduate', 'uses' => 'PublicController@undergraduate'));
-Route::get('students/graduate', array('as' => 'students.graduate', 'uses' => 'PublicController@graduate'));
 
 Route::get('{pageUrl}', array('uses' => 'PublicController@pages'));
 

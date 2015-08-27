@@ -13,7 +13,7 @@
 		        	<p class="text-center">
 		        		{{ $student->reg }}<br/>
 		        		{{ $student->email }}<br/>
-		        		{{ HTML::linkRoute('batches.show', $student->batch->year." - ".$student->batch->name." batch", $student->batch->year) }}
+		        		{{ HTML::linkRoute('batches.show', $student->batch->year." - ".$student->batch->type, [$student->batch->type, $student->batch->year]) }}
 		        	</p>
 
 		        	<a href="{{ URL::route('admin.students.show', array('reg' => $student->reg)) }}" class='btn btn-success btn-block' style="vertical-align: middle;">
@@ -119,15 +119,10 @@
 					          	{{ Form::text('reg', $student->reg, array('class' => 'form-control')) }}
 					          	{{ Form::error($errors, 'reg') }}
 					        </div>
-					        <div class="form-group">
-								{{ Form::label('degree', 'Degree') }}
-								{{ Form::select('degree', ['Undergraduate'=>'Undergraduate', 'Graduate'=>'Graduate'], $student->degree, array('class' => 'form-control')) }}
-								{{ Form::error($errors, 'degree') }}
-							</div>
 
 					        <div class="form-group">
 					          	{{ Form::label('batch', 'Batch *') }}
-					          	{{ Form::select('batch', $batches, $student->batches, array('class' => 'form-control')) }}
+					          	{{ Form::select('batch', $batches, $student->batch->id, array('class' => 'form-control')) }}
 					          	{{ Form::error($errors, 'batch') }}
 					        </div>
 					        <div class="form-group">

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+	use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class BatchController extends BaseController {
+	class BatchController extends BaseController {
 
 	/**
 	 * View all batches
@@ -38,11 +38,10 @@ class BatchController extends BaseController {
 	{
 		if(!$this->permission['batches']) return Redirect::to('/');
 
-		$rules = array
-		(
-	    	'name' 	=> 'required|unique:batches',
-	    	'year' 	=> 'required|digits:4|unique:batches'
-		);
+		$rules = [
+	    	'type' 	=> 'required',
+	    	'year' 	=> 'required|digits:4'
+		];
 
 		$validation = Validator::make(Input::all(), $rules);
 		
@@ -53,16 +52,16 @@ class BatchController extends BaseController {
 		else
 		{
 			$batch = new Batch();
-			$batch->name = Input::get('name');
+			$batch->type = Input::get('type');
 			$batch->year = Input::get('year');
 
 			if($batch->save())
-			    return Redirect::route('admin.batches.show', array('year' => $batch->year))
+			    return Redirect::route('admin.batches.show', ['type' => $batch->type, 'year' => $batch->year])
 			    					->with('success', "batch '$batch->year' has added successfully.");
 			else
 				return Redirect::back()
 									->withInput()
-									->with('error', 'Some error occured. Try again.');
+									->with('error', 'Some error occurred. Try again.');
 		}
 	}
 
@@ -71,16 +70,16 @@ class BatchController extends BaseController {
 	 * @param  string $year
 	 * @return void
 	 */
-	public function show($year)
+	public function show($type, $year)
 	{
 		if(!$this->permission['batches']) return Redirect::to('/');
 
 		try
 		{
-		    $batch = Batch::where('year', '=', $year)->firstOrFail();
+		    $batch = Batch::where('year', '=', $year)->where('type', '=', $type)->firstOrFail();
 
 		    return View::make('batches.show')
-						->with('title', "View $batch->year batch")
+						->with('title', "$batch->type - $batch->year")
 						->with('batch', $batch);
 		}
 		catch(ModelNotFoundException $e)
@@ -94,16 +93,16 @@ class BatchController extends BaseController {
 	 * @param  string $year
 	 * @return void
 	 */
-	public function edit($year)
+	public function edit($type, $year)
 	{
 		if(!$this->permission['batches']) return Redirect::to('/');
 
 		try
 		{
-		    $batch = Batch::where('year', '=', $year)->firstOrFail();
+		    $batch = Batch::where('year', '=', $year)->where('type', $type)->firstOrFail();
 
 		    return View::make('batches.edit')
-						->with('title', "Edit $batch->year batch")
+						->with('title', "Editing $batch->type - $batch->year")
 						->with('batch', $batch);
 		}
 		catch(ModelNotFoundException $e)
@@ -114,18 +113,17 @@ class BatchController extends BaseController {
 
 	/**
 	 * Do edit a batch
+	 * @param  sting  $type
 	 * @param  string $year
-	 * @return void
 	 */
-	public function doEdit($year)
+	public function doEdit($type, $year)
 	{
 		if(!$this->permission['batches']) return Redirect::to('/');
 
-		$rules = array
-		(
-	    	'name' 	=> 'required|unique:batches,name,'.Input::get('batchId'),
-	    	'year' 	=> 'required|digits:4|unique:batches,year,'.Input::get('batchId')
-		);
+		$rules = [
+	    	'type' 	=> 'required',
+	    	'year' 	=> 'required|digits:4'
+		];
 
 		$validation = Validator::make(Input::all(), $rules);
 		
@@ -135,17 +133,17 @@ class BatchController extends BaseController {
 								->withErrors($validation);
 		else
 		{
-			$batch = Batch::where('year', '=', $year)->first();
-			$batch->name = Input::get('name');
+			$batch = Batch::where('year', '=', $year)->where('type', '=', $type)->first();
+			$batch->type = Input::get('type');
 			$batch->year = Input::get('year');
 
 			if($batch->save())
-			    return Redirect::route('admin.batches.show', array('year' => $batch->year))
+			    return Redirect::route('admin.batches.show', ['type' => $batch->type, 'year' => $batch->year])
 			    					->with('success', "batch '$batch->year' has updated successfully.");
 			else
 				return Redirect::back()
 									->withInput()
-									->with('error', 'Some error occured. Try again.');
+									->with('error', 'Some error occurred. Try again.');
 		}
 	}
 
@@ -154,16 +152,17 @@ class BatchController extends BaseController {
 	 * @param  string $year
 	 * @return void
 	 */
-	public function delete($year)
+	public function delete($type, $year)
 	{
 		if(!$this->permission['batches']) return Redirect::to('/');
 
-		$batch = Batch::where('year', '=', $year);
+		$batch = Batch::where('year', '=', $year)->where('type', '=', $type);
+
 		if($batch->delete())
 			return Redirect::route('admin.batches')
 								->with('success', "The batch has been deleted.");
 		else
 			return Redirect::route('admin.batches')
-								->with('errors', 'Some error occured. Try again.');
+								->with('errors', 'Some error occurred. Try again.');
 	}
 }

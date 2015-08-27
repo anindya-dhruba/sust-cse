@@ -119,9 +119,9 @@ class StaffController extends BaseController {
 				'password' =>	$password
 			];
 
-			Mail::send('emails.staff.welcome', $data, function($message) use ($user) {
-			    $message->to($user->email, $user->last_name.', '.$user->first_name.' '.$user->middle_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
-			});
+//			Mail::send('emails.staff.welcome', $data, function($message) use ($user) {
+//			    $message->to($user->email, $user->last_name.', '.$user->first_name.' '.$user->middle_name)->subject('Welcome to '.Config::get('myConfig.siteName'));
+//			});
 
 			if($user->save())
 			{

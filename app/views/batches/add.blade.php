@@ -15,10 +15,9 @@
 
 			@include('includes.alert')
 	        <div class="form-group">
-	          	{{ Form::label('name', 'Batch Name *') }}
-	          	{{ Form::text('name', '', array('class' => 'form-control')) }}
-	          	<p class="help-block">Example: 21st Batch</p>
-	          	{{ Form::error($errors, 'name') }}
+	          	{{ Form::label('type', 'Batch Type *') }}
+	          	{{ Form::select('type', Batch::typeList(), null, array('class' => 'form-control')) }}
+	          	{{ Form::error($errors, 'type') }}
 	        </div>
 
 	        <div class="form-group">

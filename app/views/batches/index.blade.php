@@ -15,7 +15,7 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th>Name</th>
+					<th>Type</th>
 					<th>Year</th>
 					<th>#Students</th>
 					<th>Action</th>
@@ -24,18 +24,18 @@
 			<tbody>
 				@foreach($batches as $batch)
 					<tr>
-						<td>{{ $batch->name }}</td>
+						<td>{{ $batch->type }}</td>
 						<td>{{ $batch->year }}</td>
 						<td>{{ $batch->users->count() }}</td>
 						<td>
 							<div class="btn-group">
-								<a href="{{ URL::route('admin.batches.show', array('year' => $batch->year)); }}" class='btn btn-default btn-sm'>
+								<a href="{{ URL::route('admin.batches.show', array('type' => $batch->type, 'year' => $batch->year)); }}" class='btn btn-default btn-sm'>
 						        	<span class="glyphicon glyphicon-zoom-in"></span> View
 								</a>
-								<a href="{{ URL::route('admin.batches.edit', array('year' => $batch->year)) }}" class='btn btn-default btn-sm'>
+								<a href="{{ URL::route('admin.batches.edit', array('type' => $batch->type, 'year' => $batch->year)) }}" class='btn btn-default btn-sm'>
 	        						<span class="glyphicon glyphicon-edit"></span> Edit
 	        					</a>
-	        					<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteBatchYear="{{ $batch->year }}">
+	        					<a href="#" class="btn btn-default btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteBatchType="{{ $batch->type }}" deleteBatchYear="{{ $batch->year }}">
 		        					<span class="glyphicon glyphicon-trash"></span> Delete
 		        				</a>
 	        				</div>
@@ -74,9 +74,10 @@
 
 			// delete a batch
 			$('.deleteBtn').click(function() {
+				var deleteBatchType = $(this).attr('deleteBatchType');
 				var deleteBatchYear = $(this).attr('deleteBatchYear');
 				var url = "<?php echo URL::route('admin.batches'); ?>";
-				$(".deleteForm").attr("action", url+'/'+deleteBatchYear);
+				$(".deleteForm").attr("action", url+'/'+deleteBatchType+'/'+deleteBatchYear);
 			});
 
 		});

@@ -30,7 +30,7 @@ class StudentController extends BaseController {
 
 		return View::make('students.add')
 						->with('title', 'Add New Student')
-						->with('batches', Batch::orderBy('year', 'desc')->lists('year', 'id'));
+						->with('batches', Batch::lists());
 	}
 
 	/**
@@ -69,7 +69,6 @@ class StudentController extends BaseController {
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->role_id             = 5; // student
 			$user->reg                 = Input::get('reg');
-			$user->degree              = (Input::get('degree') == '') ? null : Input::get('degree');
 			$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 			$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -188,9 +187,9 @@ class StudentController extends BaseController {
 		{
 		    $student = User::where('reg', '=', $reg)->firstOrFail();
 
-		    return View::make('students.edit')
+			return View::make('students.edit')
 						->with('title', "Editing Student Info")
-						->with('batches', Batch::orderBy('year', 'desc')->lists('year', 'id'))
+						->with('batches', Batch::lists())
 						->with('student', $student);
 		}
 		catch(ModelNotFoundException $e)
@@ -236,7 +235,6 @@ class StudentController extends BaseController {
 			$user->last_name           = Input::get('last_name');
 			$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 			$user->reg                 = Input::get('reg');
-			$user->degree              = (Input::get('degree') == '') ? null : Input::get('degree');
 			$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 			$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');
 			$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');

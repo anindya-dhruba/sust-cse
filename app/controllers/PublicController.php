@@ -79,30 +79,22 @@ class PublicController extends BaseController {
 	}
 
 	/**
-	 * show all batches
-	 * @return void
-	 */
-	public function batches()
-	{
-		$batches = Batch::orderBy('year', 'desc')->get();
-
-	    return View::make('public.batches.index')
-					->with('title', "All Batches")
-					->with('batches', $batches);
-	}
-
-	/**
 	 * show a batch details
 	 * @param  digit $year
 	 * @return void
 	 */
-	public function batchesShow($year)
+	public function batchesShow($type, $year)
 	{
-		$batch = Batch::where('year', '=', $year)->first();
+		$batch = Batch::where('year', '=', $year)->where('type', $type)->first();
+		$students = $batch->users()->orderBy('reg')->get();
+		$batches = Batch::where('type', $type)->lists('year', 'year');
 
-	    return View::make('public.batches.show')
-					->with('title', "$batch->name Batch")
-					->with('batch', $batch);
+		return View::make('public.students.lists')
+			->with('title', "{$batch->year} - {$batch->type}")
+			->with('batches', ['' => '-- Select Batch --'] + $batches)
+			->with('batch', $batch)
+			->with('students', $students)
+			->with('type', $type);
 	}
 
 	/**
@@ -111,9 +103,11 @@ class PublicController extends BaseController {
 	 * @param  digit $reg
 	 * @return void
 	 */
-	public function studentsShow($year, $reg)
+	public function studentsShow($type, $year, $reg)
 	{
-		$student = User::where('reg', '=', $reg)->first();
+		$batch = Batch::where('type', $type)->where('year', $year)->first();
+
+		$student = User::where('reg', '=', $reg)->where('batch_id', $batch->id)->first();
 
 	    return View::make('public.students.show')
 					->with('title', "{$student->last_name}, {$student->first_name} {$student->middle_name}")
@@ -327,7 +321,7 @@ class PublicController extends BaseController {
 			return View::make('public.students.edit')
 								->with('title', 'Edit Profile')
 								->with('student', $user)
-								->with('batches', Batch::orderBy('year', 'desc')->lists('year', 'id'));
+								->with('batches', Batch::lists());
 		}
 	}
 
@@ -626,7 +620,6 @@ class PublicController extends BaseController {
 				$user->last_name           = Input::get('last_name');
 				$user->email               = (Input::get('email') == '') ? null : Input::get('email');
 				$user->reg                 = Input::get('reg');
-				$user->degree              = (Input::get('degree') == '') ? null : Input::get('degree');
 				$user->fathers_name        = (Input::get('fathers_name') == '') ? null : Input::get('fathers_name');
 				$user->mothers_name        = (Input::get('mothers_name') == '') ? null : Input::get('mothers_name');
 				$user->alt_email           = (Input::get('alternate_email') == '') ? null : Input::get('alternate_email');
@@ -1020,27 +1013,51 @@ class PublicController extends BaseController {
 
 	public function students()
 	{
+		$mastersBatchIds = Batch::where('type', 'Graduate-Masters')->lists('id');
+		if(count($mastersBatchIds))
+			$mastersStudents = User::whereIn('batch_id', $mastersBatchIds)->count();
+		else
+			$mastersStudents = 0;
+
+		$phdBatchIds = Batch::where('type', 'Graduate-Ph.D.')->lists('id');
+		if(count($phdBatchIds))
+			$phdStudents = User::whereIn('batch_id', $phdBatchIds)->count();
+		else
+			$phdStudents = 0;
+
+		$majorHonoursBatchIds = Batch::where('type', 'Undergraduate-Major')->lists('id');
+		if(count($majorHonoursBatchIds))
+			$majorHonoursStudents = User::whereIn('batch_id', $majorHonoursBatchIds)->count();
+		else
+			$majorHonoursStudents = 0;
+
+		$minorHonoursBatchIds = Batch::where('type', 'Undergraduate-Second Major')->lists('id');
+		if(count($minorHonoursBatchIds))
+			$minorHonoursStudents = User::whereIn('batch_id', $minorHonoursBatchIds)->count();
+		else
+			$minorHonoursStudents = 0;
+
+
 		return View::make('public.students.index')
-			->with('title', "Students");
+			->with('title', "Students")
+			->with('mastersStudents', $mastersStudents)
+			->with('mastersBatches', $mastersBatchIds)
+			->with('phdBatches', $phdBatchIds)
+			->with('phdStudents', $phdStudents)
+			->with('majorHonoursStudents', $majorHonoursStudents)
+			->with('majorHonoursBatches', $majorHonoursBatchIds)
+			->with('minorHonoursStudents', $minorHonoursStudents)
+			->with('minorHonoursBatches', $minorHonoursBatchIds);
 	}
 
-	public function graduate()
+	public function batchesTypeShow($type)
 	{
-		$students = User::student()->graduate()->with('batch')->orderBy('batch_id', 'desc')->paginate(10);
+		$batches = Batch::where('type', $type)->lists('year', 'year');
 
-		return View::make('public.students.graduate')
-							->with('title', "Graduate Students")
-							->with('students', $students);
+		return View::make('public.students.lists')
+							->with('title', "{$type} Students")
+							->with('batches', ['' => '-- Select Batch --'] + $batches)
+							->with('type', $type);
 	}
-
-	public function undergraduate()
-	{
-		$students = User::student()->undergraduate()->with('batch')->orderBy('batch_id', 'desc')->paginate(10);
-
-		return View::make('public.students.undergraduate')
-			->with('title', "Undergraduate Students")
-			->with('students', $students);
-	}
-
 
 }

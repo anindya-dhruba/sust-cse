@@ -75,25 +75,25 @@
 						<a href="#" class="list-group-item">
 							<h4 class="list-group-item-heading">Anindya Dhruba</h4>
 							<p class="list-group-item-text">
-								2010331013, 19th Batch,<br/>
+								2010331013, Batch 2010,<br/>
 								anindya DOT dhruba AT gmail DOT com</p>
 						</a>
 						<a href="#" class="list-group-item">
 							<h4 class="list-group-item-heading">Ashraful Prium</h4>
 							<p class="list-group-item-text">
-								2010331057, 19th Batch,<br/>
+								2010331057, Batch 2010,<br/>
 								prium47 AT gmail DOT com</p>
 						</a>
 						<a href="#" class="list-group-item">
 							<h4 class="list-group-item-heading">Abu Shahriar Ratul</h4>
 							<p class="list-group-item-text">
-								2010331016, 19th Batch,<br/>
+								2010331016, Batch 2010,<br/>
 								... AT gmail DOT com</p>
 						</a>
 						<a href="#" class="list-group-item">
 							<h4 class="list-group-item-heading">Yousuf Khan Ratul</h4>
 							<p class="list-group-item-text">
-								2010331020, 19th Batch,<br/>
+								2010331020, Batch 2010,<br/>
 								... AT gmail DOT com</p>
 						</a>
 					</div>

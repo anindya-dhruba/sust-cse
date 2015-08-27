@@ -84,7 +84,7 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		
-		// delete a batch
+		// delete an album
 		$('.deleteBtn').click(function() {
 			var deleteAlbumId = $(this).attr('deleteAlbumId');
 			var url = "<?php echo URL::route('admin.albums'); ?>";

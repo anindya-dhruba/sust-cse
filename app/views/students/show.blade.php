@@ -11,7 +11,7 @@
 	        	<p class="text-center">
 	        		{{ $student->reg }}<br/>
 	        		{{ $student->email }}<br/>
-	        		{{ HTML::linkRoute('batches.show', $student->batch->year." - ".$student->batch->name." batch", $student->batch->year) }}
+	        		{{ HTML::linkRoute('batches.show', $student->batch->year." - ".$student->batch->type, $student->batch->year) }}
 	        	</p>
 
 	        	<a href="{{ URL::route('admin.students.edit', array('reg' => $student->reg)) }}" class='btn btn-success btn-block' style="vertical-align: middle;">
@@ -47,12 +47,8 @@
 		        			<dd>{{ $student->reg }}</dd>
 		        		</dl>
 		        		<dl>
-							<dt>Degree:</dt>
-							<dd>{{ $student->degree }}</dd>
-						</dl>
-		        		<dl>
 		        			<dt>Batch:</dt>
-		        			<dd>{{ HTML::linkRoute('admin.batches.show', $student->batch->year." - ".$student->batch->name." batch", $student->batch->year) }}</dd>
+		        			<dd>{{ HTML::linkRoute('admin.batches.show', $student->batch->year." - ".$student->batch->type, [$student->batch->type, $student->batch->year]) }}</dd>
 		        		</dl>
 		        		<dl>
 		        			<dt>Email Address:</dt>

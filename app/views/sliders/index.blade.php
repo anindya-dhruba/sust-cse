@@ -81,7 +81,7 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		
-		// delete a batch
+		// delete a slider picture
 		$('.deleteBtn').click(function() {
 			var deleteSliderPicId = $(this).attr('deleteSliderPicId');
 			var url = "<?php echo URL::route('admin.slider'); ?>";

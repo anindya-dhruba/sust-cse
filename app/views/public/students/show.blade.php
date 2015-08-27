@@ -50,6 +50,12 @@
 							<td>{{ $student->fathers_name }}</td>
 						</tr>
 					@endif
+                        @if($student->mothers_name)
+                            <tr>
+                                <th>Mother's Name</th>
+                                <td>{{ $student->mothers_name }}</td>
+                            </tr>
+                        @endif
 					@if($student->phone || $student->mobile)
 						<tr>
 							<th>Phone / Mobile</th>
@@ -135,7 +141,7 @@
 			        	<p>
 			        		{{ $student->reg }}<br/>
 			        		{{ $student->email }}<br/>
-			        		{{ HTML::linkRoute('batches.show', $student->batch->year." - ".$student->batch->name." batch", $student->batch->year) }} / {{ $student->degree  }}
+			        		{{ HTML::linkRoute('batches.show', $student->batch->year." - ".$student->batch->type, [$student->batch->type, $student->batch->year]) }}
 			        	</p>
 			        	@if(Auth::id() == $student->id)
 			        		<a href="{{ URL::route('profile.edit') }}" class="btn btn-success btn-block"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a>

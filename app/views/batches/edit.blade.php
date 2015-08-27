@@ -11,17 +11,16 @@
 			</h3>
 		</div>
 
-		{{ Form::open(array('route' => array('admin.batches.edit',  $batch->year), 'method' => 'put')) }}
+		{{ Form::open(array('route' => array('admin.batches.edit', $batch->type, $batch->year), 'method' => 'put')) }}
 
 			@include('includes.alert')
 
 			{{ Form::hidden('batchId', $batch->id) }}
 	        
 	        <div class="form-group">
-	          	{{ Form::label('name', 'Batch Name *') }}
-	          	{{ Form::text('name', $batch->name, array('class' => 'form-control')) }}
-	          	<p class="help-block">Example: 21st Batch</p>
-	          	{{ Form::error($errors, 'name') }}
+	          	{{ Form::label('type', 'Batch Type *') }}
+	          	{{ Form::select('type', Batch::typeList(), $batch->type, array('class' => 'form-control')) }}
+	          	{{ Form::error($errors, 'type') }}
 	        </div>
 
 	        <div class="form-group">
