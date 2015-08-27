@@ -200,6 +200,7 @@
 				<h3>
 					Offering Courses
 				</h3>
+                <hr>
 
 				@if(count($faculty->courses_taking) == 0)
 					<div class="alert alert-success">

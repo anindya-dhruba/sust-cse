@@ -100,7 +100,7 @@
 								</a>
 
 								<p>{{ $notice->notice }}</p>
-								<a class="btn btn-success btn-sm" href="{{ URL::route('notices.show', $notice->url) }}"> Read More</a>
+								<a class="btn btn-success btn-sm" href="{{ URL::route('notices.show', [$course->url, $notice->url]) }}"> Read More</a>
 								@if(Auth::id() == $course->taking_by->id)
 									<a class="btn btn-success btn-sm deleteBtn" href="{{ URL::route('notices.edit', [$course->url, $notice->url]) }}"> Edit</a>
 									<a class="btn btn-sm deleteBtn" data-toggle="modal" data-target="#deleteConfirm" deleteNoticeId="{{ $notice->id }}"> Delete</a>
