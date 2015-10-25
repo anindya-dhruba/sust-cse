@@ -68,7 +68,7 @@
 
 	        <div class="form-group">
 				{{ Form::label('course_taken_by', 'Course Taken By *') }}
-				{{ Form::select('course_taken_by', ['' => 'None']+User::faculty()->lists('first_name', 'id'), '', array('class' => 'form-control prerequisite')) }}
+				{{ Form::select('course_taken_by', ['' => 'None']+User::select('id', DB::raw('CONCAT(first_name, " ", middle_name, " ", last_name) AS full_name'))->faculty()->lists('full_name', 'id'), '', array('class' => 'form-control prerequisite')) }}
 				{{ Form::error($errors, 'course_taken_by') }}
 			</div>
         	

@@ -1,1 +1,8 @@
 vendor/
+app/storage/logs/laravel.log
+
+app/config/database.php
+
+.idea/blade.xml
+
+.idea/workspace.xml

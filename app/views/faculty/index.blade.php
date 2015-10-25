@@ -68,7 +68,7 @@
 					Are you sure to delete this student?
 		      	</div>
 		      	<div class="modal-footer">
-		        	{{ Form::open(array('route' => array('admin.students.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
+		        	{{ Form::open(array('route' => array('admin.faculty.delete', 0), 'method'=> 'delete', 'class' => 'deleteForm')) }}
 		        		<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 		        		{{ Form::submit('Yes, Delete', array('class' => 'btn btn-success')) }}
 		        	{{ Form::close() }}
@@ -81,7 +81,7 @@
 
 @section('script')
 	<script type="text/javascript">
-	$(document).ready(`nction() {
+	$(document).ready(function() {
 		
 		// delete a student
 		$('.deleteBtn').click(function() {
