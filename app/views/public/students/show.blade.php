@@ -56,10 +56,16 @@
                                 <td>{{ $student->mothers_name }}</td>
                             </tr>
                         @endif
-					@if($student->phone || $student->mobile)
+					@if($student->phone )
 						<tr>
-							<th>Phone / Mobile</th>
-							<td>{{ $student->phone }} / {{ $student->mobile }}</td>
+							<th>Phone</th>
+							<td>{{ $student->phone }}</td>
+						</tr>
+					@endif
+                    @if($student->mobile)
+						<tr>
+							<th>Mobile</th>
+							<td>{{ $student->mobile }}</td>
 						</tr>
 					@endif
 					@if($student->gender)
@@ -122,7 +128,7 @@
 					@if($student->website)
 						<tr>
 							<th>Website</th>
-							<td>{{ $student->website }}</td>
+							<td><a href="{{ $student->website }}" target="_blank">{{ $student->website }}</a></td>
 						</tr>
 					@endif
 					@if($student->current_employment)

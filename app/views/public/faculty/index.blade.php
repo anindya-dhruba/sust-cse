@@ -8,135 +8,117 @@
 
 		@include('includes.alert')
 
-		<div class="row-fluid">
-			<div class="col-md-4">
-				<div class="thumbnail text-center">
-					{{ Helper::currentPicture($hotd) }}
-					<div class="caption">
-						<h4>{{ $hotd->last_name}}, {{ $hotd->first_name}} {{ $hotd->middle_name}}</h4>
-						<p>
-							{{ $hotd->designation }}
+		<div class="row">
+            @if(isset($hotd))
+                <a href="{{ URL::route('faculty.show', $hotd->tagname) }}">
+                    <div class="col-md-3">
+                        <div class="thumbnail thumbnail-list text-center">
+                            {{ Helper::currentPicture($hotd) }}
+                            <div class="caption">
+                                <h4>{{ $hotd->last_name}}, {{ $hotd->first_name}} {{ $hotd->middle_name}}</h4>
+                                <p>
+                                    {{ $hotd->designation }}
+                                    @if($hotd->status != 'Current')
+                                        <span class="label label-danger">{{ $hotd->status }}</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endif
 
-							@if($hotd->status != 'Current')
-								<span class="label label-danger">{{ $hotd->status }}</span>
-								<br/>
-							@endif
+			@foreach($professors as $professor)
+                <a href="{{ URL::route('faculty.show', $professor->tagname) }}">
+                    <div class="col-md-3">
+                        <div class="thumbnail thumbnail-list text-center">
+                            {{ Helper::currentPicture($professor) }}
+                            <div class="caption">
+                                <h4>{{ $professor->last_name}}, {{ $professor->first_name}} {{ $professor->middle_name}}</h4>
+                                <p>
+                                    {{ $professor->designation }}
 
-							<div class="btn-group">
-								@if($hotd->website)
-									<a class="btn btn-sm btn-primary" href="{{ $hotd->website }}" target="_blank">Homepage</a>
-								@endif
-								<a class="btn btn-sm btn-primary" href="{{ URL::route('faculty.show', $hotd->tagname) }}">Profile</a>
-							</div>
-						</p>
-					</div>
-				</div>
-			</div>
+                                    @if($professor->status != 'Current')
+                                        <span class="label label-default">{{ $professor->status }}</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+			@endforeach
 
+			@foreach($aProfessors as $aProfessor)
+                <a href="{{ URL::route('faculty.show', $aProfessor->tagname) }}">
+                    <div class="col-md-3">
+                        <div class="thumbnail thumbnail-list text-center">
+                            {{ Helper::currentPicture($aProfessor) }}
+                            <div class="caption">
+                                <h4>{{ $aProfessor->last_name}}, {{ $aProfessor->first_name}} {{ $aProfessor->middle_name}}</h4>
+                                <p>
+                                    {{ $aProfessor->designation }}
 
-			@for($i=0; $i<count($professors); $i++)
-				<div class="col-md-4">
-					<div class="thumbnail text-center">
-						{{ Helper::currentPicture($professors[$i]) }}
-						<div class="caption">
-							<h4>{{ $professors[$i]->last_name}}, {{ $professors[$i]->first_name}} {{ $professors[$i]->middle_name}}</h4>
-							<p>
-								{{ $professors[$i]->designation }}
+                                    @if($aProfessor->status != 'Current')
+                                        <span class="label label-default">{{ $aProfessor->status }}</span>
+                                    @endif
 
-								@if($professors[$i]->status != 'Current')
-									<span class="label label-default">{{ $professors[$i]->status }}</span>
-								@endif
-								<br/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+			@endforeach
 
-								<div class="btn-group">
-									@if($professors[$i]->website)
-										<a class="btn btn-sm btn-primary" href="{{ $professors[$i]->website }}" target="_blank">Homepage</a>
-									@endif
-									<a class="btn btn-sm btn-primary" href="{{ URL::route('faculty.show', $professors[$i]->tagname) }}">Profile</a>
-								</div>
-							</p>
-						</div>
-					</div>
-				</div>
-			@endfor
+			@foreach($assisProfessors as $assisProfessor)
+                <a href="{{ URL::route('faculty.show', $assisProfessor->tagname) }}">
+                    <div class="col-md-3">
+                        <div class="thumbnail thumbnail-list text-center">
+                            {{ Helper::currentPicture($assisProfessor) }}
+                            <div class="caption">
+                                <h4>{{ $assisProfessor->last_name}}, {{ $assisProfessor->first_name}} {{ $assisProfessor->middle_name}}</h4>
+                                <p>
+                                    {{ $assisProfessor->designation }}
 
-			@for($i=0; $i<count($aProfessors); $i++)
-				<div class="col-md-4">
-					<div class="thumbnail text-center">
-						{{ Helper::currentPicture($aProfessors[$i]) }}
-						<div class="caption">
-							<h4>{{ $aProfessors[$i]->last_name}}, {{ $aProfessors[$i]->first_name}} {{ $aProfessors[$i]->middle_name}}</h4>
-							<p>
-								{{ $aProfessors[$i]->designation }}
+                                    @if($assisProfessor->status != 'Current')
+                                        <span class="label label-default">{{ $assisProfessor->status }}</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+			@endforeach
 
-								@if($aProfessors[$i]->status != 'Current')
-									<span class="label label-default">{{ $aProfessors[$i]->status }}</span>
-								@endif
-								<br/>
+			@foreach($lecturers as $lecturer)
+                <a href="{{ URL::route('faculty.show', $lecturer->tagname) }}">
+                    <div class="col-md-3">
+                        <div class="thumbnail thumbnail-list text-center">
+                            {{ Helper::currentPicture($lecturer) }}
+                            <div class="caption">
+                                <h4>{{ $lecturer->last_name}}, {{ $lecturer->first_name}} {{ $lecturer->middle_name}}</h4>
+                                <p>
+                                    {{ $lecturer->designation }}
 
-								<div class="btn-group">
-									@if($aProfessors[$i]->website)
-										<a class="btn btn-sm btn-primary" href="{{ $aProfessors[$i]->website }}" target="_blank">Homepage</a>
-									@endif
-									<a class="btn btn-sm btn-primary" href="{{ URL::route('faculty.show', $aProfessors[$i]->tagname) }}">Profile</a>
-								</div>
-							</p>
-						</div>
-					</div>
-				</div>
-			@endfor
-
-			@for($i=0; $i<count($assisProfessors); $i++)
-				<div class="col-md-4">
-					<div class="thumbnail text-center">
-						{{ Helper::currentPicture($assisProfessors[$i]) }}
-						<div class="caption">
-							<h4>{{ $assisProfessors[$i]->last_name}}, {{ $assisProfessors[$i]->first_name}} {{ $assisProfessors[$i]->middle_name}}</h4>
-							<p>
-								{{ $assisProfessors[$i]->designation }}
-
-								@if($assisProfessors[$i]->status != 'Current')
-									<span class="label label-default">{{ $assisProfessors[$i]->status }}</span>
-								@endif
-								<br/>
-
-								<div class="btn-group">
-									@if($assisProfessors[$i]->website)
-										<a class="btn btn-sm btn-primary" href="{{ $assisProfessors[$i]->website }}" target="_blank">Homepage</a>
-									@endif
-									<a class="btn btn-sm btn-primary" href="{{ URL::route('faculty.show', $assisProfessors[$i]->tagname) }}">Profile</a>
-								</div>
-							</p>
-						</div>
-					</div>
-				</div>
-			@endfor
-
-			@for($i=0; $i<count($lecturers); $i++)
-				<div class="col-md-4">
-					<div class="thumbnail text-center">
-						{{ Helper::currentPicture($lecturers[$i]) }}
-						<div class="caption">
-							<h4>{{ $lecturers[$i]->last_name}}, {{ $lecturers[$i]->first_name}} {{ $lecturers[$i]->middle_name}}</h4>
-							<p>
-								{{ $lecturers[$i]->designation }}
-
-								@if($lecturers[$i]->status != 'Current')
-									<span class="label label-default">{{ $lecturers[$i]->status }}</span>
-								@endif
-								<br/>
-
-								<div class="btn-group">
-									@if($lecturers[$i]->website)
-										<a class="btn btn-sm btn-primary" href="{{ $lecturers[$i]->website }}" target="_blank">Homepage</a>
-									@endif
-									<a class="btn btn-sm btn-primary" href="{{ URL::route('faculty.show', $lecturers[$i]->tagname) }}">Profile</a>
-								</div>
-							</p>
-						</div>
-					</div>
-				</div>
-			@endfor
+                                    @if($lecturer->status != 'Current')
+                                        <span class="label label-default">{{ $lecturer->status }}</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+			@endforeach
 		</div>
 	</div>
+@stop
+
+
+@section('script')
+    {{ HTML::script('js/matchHeight.js') }}
+    <script type="text/javascript">
+        $(function()
+        {
+            $('.thumbnail-list').matchHeight();
+        });
+    </script>
 @stop

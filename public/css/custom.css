@@ -93,7 +93,7 @@ a:hover
 
 .fa-avatar
 {
-	font-size: 277px;
+	font-size: 200px;
 	color: #999;
 }
 legend
@@ -520,7 +520,7 @@ select.form-control
 }
 .space
 {
-	padding-bottom: 48%;
+	/*padding-bottom: 48%;*/
 }
 
 .shadow {
@@ -562,4 +562,12 @@ select.form-control
 	height: 100px;
 	width: 100px;
 	line-height: 100px;
+}
+.thumbnail-list:hover
+{
+    border: 1px solid rgba(32, 155, 96, 0.86);
+}
+.thumbnail
+{
+    border-radius: 0;
 }

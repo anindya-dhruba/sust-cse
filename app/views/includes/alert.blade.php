@@ -17,4 +17,4 @@
   	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
   	Please fill the form correctly.
 </div>
-@endif
+@endifå

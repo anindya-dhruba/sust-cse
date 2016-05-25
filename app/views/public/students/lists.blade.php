@@ -21,50 +21,43 @@
         </div>
 
         @if(isset($students) && count($students))
-
-            @for($i=0; $i<count($students); $i++)
-
-                @if($i == 0)
-                    <div class="row">
-                        @elseif($i%3 == 0)
-                    </div>
-                    <div class="row">
-                        @endif
-
-                        <div class="col-md-4">
-                            <div class="thumbnail text-center">
-                                {{ Helper::currentPicture($students[$i]) }}
+            <div class="row">
+                @foreach($students as $student)
+                    <a href="{{ URL::route('students.show', [$batch->type, $batch->year, $student->reg]) }}">
+                        <div class="col-md-3">
+                            <div class="thumbnail thumbnail-list text-center">
+                                {{ Helper::currentPicture($student) }}
                                 <div class="caption">
-                                    <h5>{{ $students[$i]->last_name}}, {{ $students[$i]->first_name}} {{ $students[$i]->middle_name}}</h5>
-                                    <p>{{ $students[$i]->reg }}</p>
-                                    <a class="btn btn-primary btn-block" href="{{ URL::route('students.show', [$batch->type, $batch->year, $students[$i]->reg]) }}">More</a>
+                                    <h4>{{ $student->last_name}}, {{ $student->first_name}} {{ $student->middle_name}}</h4>
+                                    <p>{{ $student->reg }}</p>
                                 </div>
                             </div>
                         </div>
-                        @endfor
-                    </div>
-
-                @elseif(isset($students))
-                    <div class="alert alert-success">
-                        No Student Found.
-                    </div>
-                @else
-                    <div class="alert alert-success">
-                        Please select batch.
-                    </div>
-                @endif
+                    </a>
+                @endforeach
             </div>
-		</div>
+        @elseif(isset($students))
+            <div class="alert alert-success">
+                No Student Found.
+            </div>
+        @else
+        <div class="alert alert-success">
+            Please select batch.
+        </div>
+        @endif
     </div>
 @stop
 
 @section('script')
+    {{ HTML::script('js/matchHeight.js') }}
     <script type="text/javascript">
         $(function()
         {
             $('#select_batch').on('change', function(e){
                 window.location.href = "{{URL::to('batches/'.$type)}}"+'/'+$(this).find(":selected").attr("value");
             });
+
+            $('.thumbnail-list').matchHeight();
         });
     </script>
 @stop

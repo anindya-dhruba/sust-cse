@@ -26,11 +26,11 @@
     </head>
 	
 	<body>
-		@include('includes.slider')
 
-		@include('includes.topNavAdmin')
-		@include('includes.topNav')
-		<div class="container">
+        @include('includes.topNavAdmin')
+        @include('includes.topNav')
+        @include('includes.slider')
+        <div class="container">
 			<div class="row">
 				<!-- home page content -->
 	            <div class="col-md-12 space">

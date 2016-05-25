@@ -13,37 +13,37 @@
 
 		@include('includes.alert')
 
-		@for($i=0; $i<count($staff); $i++)
-			@if($i == 0)
-				<div class="row">
-			@elseif($i%3 == 0)
-				</div>
-				<div class="row">
-			@endif	
-			<div class="col-md-4">
-				<div class="thumbnail text-center">
-					{{ Helper::currentPicture($staff[$i]) }}
-					<div class="caption">
-						<h4>{{ $staff[$i]->last_name}}, {{ $staff[$i]->first_name}} {{ $staff[$i]->middle_name}}</h4>
-						<p>
-							{{ $staff[$i]->designation }}
+        <div class="row">
+            @foreach($staff as $singleStaff)
+                <a href="{{ URL::route('staff.show', $singleStaff->tagname) }}">
+                    <div class="col-md-3">
+                        <div class="thumbnail thumbnail-list text-center">
+                            {{ Helper::currentPicture($singleStaff) }}
+                            <div class="caption">
+                                <h4>{{ $singleStaff->last_name}}, {{ $singleStaff->first_name}} {{ $singleStaff->middle_name}}</h4>
+                                <p>
+                                    {{ $singleStaff->designation }}
 
-							@if($staff[$i]->status != 'Current')
-								<span class="label label-default">{{ $staff[$i]->status }}</span>
-							@endif
-							<br/>
+                                    @if($singleStaff->status != 'Current')
+                                        <span class="label label-default">{{ $singleStaff->status }}</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+    </div>
+@stop
 
-							<div class="btn-group">
-								@if($staff[$i]->website)
-									<a class="btn btn-sm btn-primary" href="{{ $staff[$i]->website }}" target="_blank">Homepage</a>
-								@endif
-								<a class="btn btn-sm btn-primary" href="{{ URL::route('staff.show', $staff[$i]->tagname) }}">Profile</a>
-							</div>
-						</p>
-					</div>
-				</div>
-			</div>
-		@endfor
-		</div>
-	</div>
+
+@section('script')
+    {{ HTML::script('js/matchHeight.js') }}
+    <script type="text/javascript">
+        $(function()
+        {
+            $('.thumbnail-list').matchHeight();
+        });
+    </script>
 @stop

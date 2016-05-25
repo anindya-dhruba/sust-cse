@@ -6,3 +6,7 @@ app/config/database.php
 .idea/blade.xml
 
 .idea/workspace.xml
+
+app/storage/logs/laravel.log
+
+.idea/
